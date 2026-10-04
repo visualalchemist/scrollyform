@@ -171,9 +171,357 @@ input[type=range]{width:100%;accent-color:var(--c);cursor:pointer}
   main{margin:0;width:auto;padding:0 24px}
 }
 @media (prefers-reduced-motion:reduce){section{transition:none}html{scroll-behavior:auto}}
+
+/* ==========================================================================
+   CUSTOM EDITORIAL LANDING CAPTCHA
+   ========================================================================== */
+body.captcha-locked #a,
+body.captcha-locked #bar,
+body.captcha-locked #m {
+  filter: blur(14px);
+  pointer-events: none;
+  user-select: none;
+  transition: filter 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+}
+#a, #bar, #m {
+  transition: filter 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+#captcha-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 99999;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: rgba(14, 14, 15, 0.5);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  padding: 18px;
+  opacity: 1;
+  transition: opacity 0.55s cubic-bezier(0.16, 1, 0.3, 1), backdrop-filter 0.55s cubic-bezier(0.16, 1, 0.3, 1);
+}
+#captcha-overlay.c-hidden {
+  opacity: 0;
+  pointer-events: none;
+  backdrop-filter: blur(0px);
+  -webkit-backdrop-filter: blur(0px);
+}
+
+.captcha-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  animation: captchaFloatIn 0.55s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@keyframes captchaFloatIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px) scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* Top Pill */
+.captcha-pill {
+  position: relative;
+  background: #ffffff;
+  color: #222222;
+  border-radius: 4px;
+  padding: 9px 14px 9px 12px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.22), 0 1px 3px rgba(0, 0, 0, 0.1);
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  margin-bottom: 12px;
+  user-select: none;
+}
+.captcha-pill::after {
+  content: '';
+  position: absolute;
+  bottom: -8px;
+  left: 28px;
+  width: 0;
+  height: 0;
+  border-left: 8px solid transparent;
+  border-right: 8px solid transparent;
+  border-top: 8px solid #ffffff;
+}
+.captcha-checkbox {
+  width: 26px;
+  height: 26px;
+  border: 2px solid #c1c1c1;
+  border-radius: 3px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  background: #fff;
+  transition: all 0.25s ease;
+}
+.captcha-checkbox.checked {
+  background: #00a650;
+  border-color: #00a650;
+}
+.captcha-checkbox svg {
+  width: 16px;
+  height: 16px;
+  fill: none;
+  stroke: #ffffff;
+  stroke-width: 3;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  opacity: 0;
+  transform: scale(0.5);
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.captcha-checkbox.checked svg {
+  opacity: 1;
+  transform: scale(1);
+}
+.captcha-pill-label {
+  font-size: 13.5px;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  color: #222;
+}
+.captcha-brand-badge {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-left: 18px;
+  padding-left: 14px;
+  border-left: 1px solid #e5e5e5;
+  font-size: 8.5px;
+  color: #767676;
+  line-height: 1.15;
+}
+.captcha-brand-badge svg {
+  width: 22px;
+  height: 22px;
+  margin-bottom: 2px;
+}
+.captcha-brand-badge b {
+  font-size: 9.5px;
+  font-weight: 700;
+  color: #555;
+  letter-spacing: -0.02em;
+}
+
+/* Main Card */
+.captcha-card {
+  width: 340px;
+  max-width: 90vw;
+  background: #E4062A; /* Coke red ground */
+  border: 4px solid #ffffff;
+  box-shadow: 0 24px 64px rgba(0, 0, 0, 0.45), 0 4px 16px rgba(0, 0, 0, 0.25);
+  display: flex;
+  flex-direction: column;
+  user-select: none;
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.4s, filter 0.4s;
+}
+.captcha-card.c-exit {
+  transform: scale(0.96) translateY(-8px);
+  opacity: 0;
+  filter: blur(4px);
+}
+.captcha-card.c-shake {
+  animation: cShakeAnim 0.36s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
+}
+@keyframes cShakeAnim {
+  10%, 90% { transform: translate3d(-3px, 0, 0); }
+  20%, 80% { transform: translate3d(5px, 0, 0); }
+  30%, 50%, 70% { transform: translate3d(-6px, 0, 0); }
+  40%, 60% { transform: translate3d(6px, 0, 0); }
+}
+
+/* Header */
+.captcha-header {
+  background: #0E0E0F;
+  color: #ffffff;
+  padding: 16px 18px 14px 18px;
+  text-align: left;
+}
+.captcha-tag {
+  font-family: 'Anek Latin', -apple-system, sans-serif;
+  font-size: 15px;
+  color: rgba(255, 255, 255, 0.85);
+  font-weight: 400;
+  letter-spacing: -0.01em;
+}
+.captcha-title {
+  font-family: 'Anek Latin', -apple-system, sans-serif;
+  font-size: 26px;
+  font-weight: 800;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  color: #ffffff;
+  margin-top: 1px;
+}
+
+/* 4x4 Grid */
+.captcha-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: repeat(4, 1fr);
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  gap: 2px;
+  background: #ffffff;
+  border-top: 2px solid #ffffff;
+  border-bottom: 2px solid #ffffff;
+}
+.captcha-tile {
+  position: relative;
+  background-color: #E4062A;
+  background-image: url('captcha-can.png');
+  background-size: 400% 400%;
+  cursor: pointer;
+  overflow: hidden;
+  transition: transform 0.16s ease, filter 0.16s ease;
+}
+.captcha-tile:hover {
+  filter: brightness(1.06);
+}
+.captcha-tile.selected {
+  transform: scale(0.91);
+  border-radius: 4px;
+}
+.captcha-tile .tile-check {
+  position: absolute;
+  top: 4px;
+  left: 4px;
+  width: 18px;
+  height: 18px;
+  background: #1A73E8;
+  color: #ffffff;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  font-weight: 700;
+  opacity: 0;
+  transform: scale(0.4);
+  transition: all 0.18s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
+}
+.captcha-tile.selected .tile-check {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* Footer Toolbar */
+.captcha-footer {
+  background: #ffffff;
+  padding: 10px 14px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.captcha-icons {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: #555555;
+}
+.captcha-icon-btn {
+  background: none;
+  border: 0;
+  padding: 4px;
+  cursor: pointer;
+  color: #555555;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: color 0.2s, transform 0.2s;
+}
+.captcha-icon-btn:hover {
+  color: #111111;
+  transform: scale(1.1);
+}
+.captcha-icon-btn svg {
+  width: 19px;
+  height: 19px;
+  fill: currentColor;
+}
+.captcha-verify-btn {
+  background: #0E0E0F;
+  color: #ffffff;
+  font-family: 'Anek Latin', -apple-system, sans-serif;
+  font-weight: 700;
+  font-size: 13px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 10px 22px;
+  border: 0;
+  border-radius: 2px;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.1s;
+}
+.captcha-verify-btn:hover {
+  background: #252528;
+}
+.captcha-verify-btn:active {
+  transform: translateY(1px);
+}
 </style>
 </head>
-<body>
+<body class="captcha-locked">
+
+<!-- Custom Editorial Landing CAPTCHA Modal -->
+<div id="captcha-overlay">
+  <div class="captcha-container">
+    <div class="captcha-pill">
+      <div class="captcha-checkbox" id="captcha-checkbox">
+        <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg>
+      </div>
+      <div class="captcha-pill-label">Verify you are human:</div>
+      <div class="captcha-brand-badge">
+        <svg viewBox="0 0 48 48">
+          <path fill="#4285F4" d="M24 4C12.95 4 4 12.95 4 24h6c0-7.73 6.27-14 14-14s14 6.27 14 14h6c0-11.05-8.95-20-20-20z"/>
+          <path fill="#34A853" d="M44 24c0 11.05-8.95 20-20 20v-6c7.73 0 14-6.27 14-14h6z"/>
+          <path fill="#EA4335" d="M24 44C12.95 44 4 35.05 4 24h6c0 7.73 6.27 14 14 14v6z"/>
+        </svg>
+        <b>reCAPTCHA</b>
+        <span>Privacy - Terms</span>
+      </div>
+    </div>
+    
+    <div class="captcha-card" id="captcha-card">
+      <div class="captcha-header">
+        <div class="captcha-tag" id="c-prompt-sub">Select</div>
+        <div class="captcha-title" id="c-prompt-main">the real Thing.</div>
+      </div>
+      
+      <div class="captcha-grid" id="captcha-grid"></div>
+      
+      <div class="captcha-footer">
+        <div class="captcha-icons">
+          <button class="captcha-icon-btn" id="c-reload" title="Reset selection">
+            <svg viewBox="0 0 24 24"><path d="M17.65 6.35C16.2 4.9 14.21 4 12 4c-4.42 0-7.99 3.58-7.99 8s3.57 8 7.99 8c3.73 0 6.84-2.55 7.73-6h-2.08c-.82 2.33-3.04 4-5.65 4-3.31 0-6-2.69-6-6s2.69-6 6-6c1.66 0 3.14.69 4.22 1.78L13 11h7V4l-2.35 2.35z"/></svg>
+          </button>
+          <button class="captcha-icon-btn" id="c-audio" title="Audio cue">
+            <svg viewBox="0 0 24 24"><path d="M12 3v9.28c-.47-.17-.97-.28-1.5-.28C8.01 12 6 14.01 6 16.5S8.01 21 10.5 21c2.31 0 4.2-1.75 4.45-4H15V6h4V3h-7z"/></svg>
+          </button>
+          <button class="captcha-icon-btn" id="c-info" title="Information">
+            <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>
+          </button>
+        </div>
+        <button class="captcha-verify-btn" id="c-verify">VERIFY</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 <pre id="a" aria-hidden="true"></pre>
 <div id="bar">
   <span>◦ OFF GRID · <b>ऑफ़ ग्रिड</b> <button class="thm" id="thm">Ground: Silver</button></span>
@@ -512,6 +860,127 @@ function frame(ms) {
   requestAnimationFrame(frame);
 }
 requestAnimationFrame(frame);
+
+// ==========================================================================
+// CAPTCHA INTERACTIVE LOGIC & EDITORIAL UNBLURRING
+// ==========================================================================
+(function initCaptcha() {
+  const cOverlay = $('#captcha-overlay');
+  const cCard = $('#captcha-card');
+  const cGrid = $('#captcha-grid');
+  const cCheckbox = $('#captcha-checkbox');
+  const cVerifyBtn = $('#c-verify');
+  const cReloadBtn = $('#c-reload');
+  const cAudioBtn = $('#c-audio');
+  const cPromptSub = $('#c-prompt-sub');
+  
+  if (!cGrid) return;
+
+  // Sound generator (native Web Audio API)
+  function playBeep(freq, type = 'sine', duration = 0.08) {
+    try {
+      const actx = new (window.AudioContext || window.webkitAudioContext)();
+      const osc = actx.createOscillator();
+      const gain = actx.createGain();
+      osc.type = type;
+      osc.connect(gain);
+      gain.connect(actx.destination);
+      osc.frequency.setValueAtTime(freq, actx.currentTime);
+      gain.gain.setValueAtTime(0.04, actx.currentTime);
+      gain.gain.exponentialRampToValueAtTime(0.001, actx.currentTime + duration);
+      osc.start();
+      osc.stop(actx.currentTime + duration);
+    } catch(e) {}
+  }
+
+  function playSuccessChord() {
+    try {
+      const actx = new (window.AudioContext || window.webkitAudioContext)();
+      [523.25, 659.25, 783.99, 1046.50].forEach((freq, idx) => {
+        const osc = actx.createOscillator();
+        const gain = actx.createGain();
+        osc.connect(gain);
+        gain.connect(actx.destination);
+        osc.frequency.value = freq;
+        gain.gain.setValueAtTime(0.05, actx.currentTime + idx * 0.07);
+        gain.gain.exponentialRampToValueAtTime(0.001, actx.currentTime + idx * 0.07 + 0.28);
+        osc.start(actx.currentTime + idx * 0.07);
+        osc.stop(actx.currentTime + idx * 0.07 + 0.28);
+      });
+    } catch(e) {}
+  }
+
+  // Generate 4x4 Grid tiles
+  for (let r = 0; r < 4; r++) {
+    for (let c = 0; c < 4; c++) {
+      const tile = document.createElement('div');
+      tile.className = 'captcha-tile';
+      // 400% background-size with precise 0%, 33.33%, 66.66%, 100% offsets
+      const posX = (c * 100 / 3).toFixed(2);
+      const posY = (r * 100 / 3).toFixed(2);
+      tile.style.backgroundPosition = `${posX}% ${posY}%`;
+      tile.dataset.col = c;
+      tile.dataset.row = r;
+      tile.dataset.idx = r * 4 + c;
+      
+      const checkBadge = document.createElement('div');
+      checkBadge.className = 'tile-check';
+      checkBadge.textContent = '✓';
+      tile.appendChild(checkBadge);
+
+      tile.addEventListener('click', () => {
+        tile.classList.toggle('selected');
+        playBeep(tile.classList.contains('selected') ? 640 : 420);
+      });
+
+      cGrid.appendChild(tile);
+    }
+  }
+
+  // Reload / Reset Challenge
+  cReloadBtn.addEventListener('click', () => {
+    cReloadBtn.style.transform = 'rotate(360deg)';
+    setTimeout(() => cReloadBtn.style.transform = 'none', 300);
+    cGrid.querySelectorAll('.captcha-tile').forEach(t => t.classList.remove('selected'));
+    playBeep(360, 'triangle', 0.12);
+  });
+
+  // Audio button
+  cAudioBtn.addEventListener('click', () => {
+    [440, 554, 659].forEach((f, i) => setTimeout(() => playBeep(f, 'sine', 0.1), i * 110));
+  });
+
+  // Verification handling
+  cVerifyBtn.addEventListener('click', () => {
+    const selectedTiles = [...cGrid.querySelectorAll('.captcha-tile.selected')];
+    
+    if (selectedTiles.length === 0) {
+      cCard.classList.remove('c-shake');
+      void cCard.offsetWidth;
+      cCard.classList.add('c-shake');
+      playBeep(220, 'sawtooth', 0.18);
+      cPromptSub.textContent = 'Please tap';
+      setTimeout(() => { cPromptSub.textContent = 'Select'; }, 1800);
+      return;
+    }
+
+    // Success state
+    playSuccessChord();
+    cCheckbox.classList.add('checked');
+    cVerifyBtn.textContent = 'VERIFIED ✓';
+    cVerifyBtn.style.background = '#00a650';
+
+    setTimeout(() => {
+      cCard.classList.add('c-exit');
+      cOverlay.classList.add('c-hidden');
+      document.body.classList.remove('captcha-locked');
+
+      setTimeout(() => {
+        cOverlay.style.display = 'none';
+      }, 600);
+    }, 450);
+  });
+})();
 </script>
 </body>
 </html>

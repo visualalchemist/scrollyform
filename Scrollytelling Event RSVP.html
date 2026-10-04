@@ -6,725 +6,436 @@
 <title>OFF GRID · ऑफ़ ग्रिड — The Pause is the Product</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Anek+Devanagari:wght@400;500;700;800&family=Anek+Latin:wght@400;500;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Anek+Devanagari:wght@400;500;700;800&family=Anek+Latin:wght@400;500;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
-/* ==========================================================================
-   OFF GRID BRAND SYSTEM V1 (RAP MEDIA · BENGALURU · OCTOBER 2026)
-   Strict Color Palette & Architectural Monospace / Devanagari Typography
-   ========================================================================== */
 :root {
-  --paper: #F3EEE2;
+  --bg: #F3EEE2;       /* Paper cream */
+  --fg: #0E1116;       /* Ink */
+  --c: #E63323;        /* Scarlet accent */
+  --dim: #605d54;
   --paper-cool: #E7E3D6;
-  --ink: #0E1116;
-  --scarlet: #E63323;
   --cobalt: #1D3BE0;
   --sun: #F6D32B;
-  --white: #FFFFFF;
-
-  --bg: var(--paper);
-  --bg-alt: var(--paper-cool);
-  --fg: var(--ink);
-  --accent: var(--scarlet);
-  --border: rgba(14, 17, 22, 0.2);
-  --border-strong: var(--ink);
-  --dim: #5c5950;
-  --callout: var(--sun);
-
   box-sizing: border-box;
+  padding-top: env(safe-area-inset-top, 0px);
+  padding-bottom: env(safe-area-inset-bottom, 0px);
 }
 
-/* Golden Hour Rule (17:15 — 18:50 Bengaluru Local) */
-[data-theme="golden-hour"], [data-theme="cobalt"] {
-  --bg: var(--cobalt);
-  --bg-alt: #132bb8;
-  --fg: var(--paper);
-  --accent: var(--sun);
-  --border: rgba(243, 238, 226, 0.28);
-  --border-strong: var(--paper);
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="paper"]) {
+    --bg: #0E1116;
+    --fg: #F3EEE2;
+    --dim: #9a9689;
+    --c: #E63323;
+  }
+}
+
+:root[data-theme="golden-hour"], :root[data-theme="cobalt"] {
+  --bg: #1D3BE0;
+  --fg: #F3EEE2;
   --dim: #b8c4e6;
-  --callout: var(--sun);
+  --c: #F6D32B;
 }
 
-[data-theme="ink"] {
-  --bg: var(--ink);
-  --bg-alt: #171c24;
-  --fg: var(--paper);
-  --accent: var(--scarlet);
-  --border: rgba(243, 238, 226, 0.22);
-  --border-strong: var(--paper);
-  --dim: #969389;
-  --callout: var(--sun);
+:root[data-theme="ink"] {
+  --bg: #0E1116;
+  --fg: #F3EEE2;
+  --dim: #9a9689;
+  --c: #E63323;
+}
+
+:root[data-theme="paper"] {
+  --bg: #F3EEE2;
+  --fg: #0E1116;
+  --dim: #605d54;
+  --c: #E63323;
 }
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
 html {
   scroll-behavior: smooth;
-  scroll-padding-top: 60px;
-  background-color: var(--bg);
+  scroll-padding-top: env(safe-area-inset-top, 0px);
+  background: var(--bg);
   color: var(--fg);
 }
 body {
-  font-family: 'Anek Latin', 'Anek Devanagari', -apple-system, BlinkMacSystemFont, sans-serif;
-  background-color: var(--bg);
+  margin: 0;
+  background: var(--bg);
   color: var(--fg);
-  line-height: 1.45;
-  transition: background-color .35s ease, color .35s ease;
+  font: 16px/1.55 'Anek Latin', 'Anek Devanagari', 'JetBrains Mono', ui-monospace, monospace;
+  transition: background .4s, color .4s;
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
 }
 
-.mono {
+/* Large Fixed Left ASCII Canvas */
+#a {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 52vw;
+  height: 100%;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--c);
+  white-space: pre;
+  line-height: 1.14;
+  pointer-events: none;
+  z-index: 0;
+  transition: color .4s;
+  overflow: hidden;
   font-family: 'JetBrains Mono', ui-monospace, monospace;
+  user-select: none;
 }
 
-/* System Top Bar */
-#top-bar {
+/* Minimal Floating Top Bar */
+#bar {
   position: fixed;
-  top: 0;
+  top: env(safe-area-inset-top, 0px);
   left: 0;
   right: 0;
-  height: 52px;
-  background: var(--bg);
-  border-bottom: 1.5px solid var(--border);
-  padding: 0 24px;
+  padding: 14px 24px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  z-index: 1000;
   font-size: 11px;
-  letter-spacing: 0.08em;
+  letter-spacing: .08em;
+  color: var(--dim);
+  z-index: 50;
   text-transform: uppercase;
   font-family: 'JetBrains Mono', monospace;
-  transition: background-color .35s, border-color .35s;
+  background: linear-gradient(180deg, var(--bg) 60%, transparent 100%);
 }
-.brand-title {
+#bar .brand-label {
   display: flex;
   align-items: center;
   gap: 12px;
 }
-.brand-title strong {
-  color: var(--accent);
+#bar .brand-label b {
+  color: var(--c);
   font-weight: 700;
 }
-.bar-controls {
-  display: flex;
-  align-items: center;
-  gap: 14px;
-}
-.time-pill {
-  background: var(--bg-alt);
-  border: 1px solid var(--border);
-  padding: 4px 10px;
-  font-size: 10.5px;
-  display: flex;
-  align-items: center;
-  gap: 6px;
-}
-.time-pill .live-dot {
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: var(--accent);
-  display: inline-block;
-  animation: pulse 2s infinite ease-in-out;
-}
-@keyframes pulse {
-  0%, 100% { opacity: 0.3; transform: scale(0.85); }
-  50% { opacity: 1; transform: scale(1.15); }
-}
-.btn-toggle {
-  background: transparent;
-  border: 1px solid var(--border);
+#bar .theme-btn {
+  background: none;
+  border: 1px solid var(--dim);
   color: var(--fg);
-  font-family: 'JetBrains Mono', monospace;
+  font-family: inherit;
   font-size: 10px;
-  padding: 5px 10px;
+  padding: 3px 8px;
   cursor: pointer;
-  letter-spacing: 0.06em;
   text-transform: uppercase;
-  transition: all .2s ease;
+  letter-spacing: .06em;
+  transition: all .2s;
 }
-.btn-toggle:hover {
-  background: var(--accent);
+#bar .theme-btn:hover {
+  background: var(--c);
   color: var(--bg);
-  border-color: var(--accent);
+  border-color: var(--c);
 }
-
-/* Master Layout: 50vw Sticky ASCII Stage + 50vw Scrollytelling Narrative */
-#layout {
-  display: flex;
-  min-height: 100vh;
-  margin-top: 52px;
-  position: relative;
-}
-
-/* ==========================================================================
-   THE LEAD FORM ASCII ENGINE STAGE
-   One single geometric form that continuously mutates through 10 questions
-   ========================================================================== */
-#stage {
-  position: fixed;
-  top: 52px;
-  left: 0;
-  width: 52vw;
-  height: calc(100vh - 52px);
-  border-right: 1.5px solid var(--border);
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  padding: 22px 28px 16px 28px;
-  pointer-events: none;
-  z-index: 100;
-  user-select: none;
-  background: radial-gradient(circle at 45% 45%, transparent 60%, rgba(14, 17, 22, 0.03) 100%);
-}
-
-.stage-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-}
-.wordmark-group {
-  display: flex;
-  flex-direction: column;
-}
-.wordmark-latin {
-  font-family: 'Anek Latin', sans-serif;
-  font-size: clamp(34px, 4.4vw, 58px);
-  font-weight: 800;
-  line-height: 0.9;
-  letter-spacing: -0.04em;
-  color: var(--accent);
-}
-.wordmark-devanagari {
-  font-family: 'Anek Devanagari', sans-serif;
-  font-size: clamp(30px, 3.8vw, 50px);
-  font-weight: 800;
-  line-height: 0.95;
-  letter-spacing: -0.02em;
-  color: var(--fg);
-  margin-top: 3px;
-}
-.prop-line {
-  margin-top: 8px;
-  font-size: 13px;
+#bar b#pr {
+  color: var(--c);
   font-weight: 500;
-  color: var(--dim);
-}
-.prop-line .hi {
-  display: block;
-  font-family: 'Anek Devanagari', sans-serif;
-  font-weight: 700;
-  color: var(--fg);
-  font-size: 14px;
-  margin-top: 2px;
-}
-
-.stage-badge {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 10px;
-  background: var(--bg-alt);
-  border: 1px solid var(--border);
-  padding: 6px 10px;
-  text-align: right;
-  line-height: 1.4;
-  letter-spacing: 0.06em;
-}
-
-/* ASCII Screen Viewport - Maximized Scale */
-#ascii-viewport {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  position: relative;
-  overflow: hidden;
-  margin: 6px 0;
-  width: 100%;
-}
-#ascii-canvas {
-  font-family: 'JetBrains Mono', ui-monospace, monospace;
-  font-size: 12px;
-  line-height: 1.05;
-  color: var(--accent);
   white-space: pre;
-  text-align: center;
-  transition: color 0.3s;
 }
 
-/* ASCII Telemetry Overlay */
-.telemetry-row {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  width: 100%;
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 10.5px;
-  color: var(--dim);
-  border-top: 1px solid var(--border);
-  padding-top: 14px;
-  letter-spacing: 0.05em;
-}
-.morph-meter {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-.morph-meter b {
-  color: var(--fg);
-}
-.morph-bar-render {
-  font-family: 'JetBrains Mono', monospace;
-  color: var(--accent);
-  font-size: 11px;
-}
-
-/* ==========================================================================
-   SCROLLYTELLING NARRATIVE COLUMN (Right 48vw)
-   ========================================================================== */
+/* Narrative Column */
 main {
-  margin-left: 52vw;
-  width: 48vw;
-  padding: 40px 6vw 140px 5vw;
   position: relative;
-  z-index: 200;
+  z-index: 2;
+  margin-left: 50vw;
+  width: 46vw;
+  padding-bottom: 80px;
 }
-
 section {
-  min-height: 94vh;
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  padding: 60px 0;
-  opacity: 0.18;
-  transform: translateY(28px);
-  transition: opacity 0.55s cubic-bezier(0.16, 1, 0.3, 1), transform 0.55s cubic-bezier(0.16, 1, 0.3, 1);
-  border-bottom: 1px dashed var(--border);
-}
-section:last-of-type {
-  border-bottom: 0;
-  min-height: 85vh;
+  padding: 80px 0;
+  opacity: .18;
+  transform: translateY(24px);
+  transition: opacity .6s, transform .6s;
 }
 section.on {
   opacity: 1;
-  transform: translateY(0);
+  transform: none;
 }
-
-.plate-header {
-  display: flex;
-  align-items: center;
-  gap: 10px;
+.n {
+  color: var(--c);
+  font-size: 13px;
+  letter-spacing: .14em;
+  margin-bottom: 14px;
   font-family: 'JetBrains Mono', monospace;
-  font-size: 11.5px;
-  color: var(--accent);
-  letter-spacing: 0.14em;
-  margin-bottom: 16px;
-  text-transform: uppercase;
 }
-.plate-header .bars {
-  font-weight: 800;
+h1, h2 {
+  font-weight: 700;
+  margin: 0 0 24px;
+  letter-spacing: -.03em;
+  line-height: 1.08;
 }
-
 h1 {
+  font-size: clamp(38px, 5.2vw, 74px);
   font-family: 'Anek Latin', sans-serif;
-  font-size: clamp(36px, 4vw, 62px);
-  font-weight: 800;
-  line-height: 1.05;
-  letter-spacing: -0.03em;
-  margin-bottom: 22px;
+  color: var(--fg);
+}
+h1 .dev {
+  display: block;
+  font-family: 'Anek Devanagari', sans-serif;
+  color: var(--c);
+  font-size: clamp(34px, 4.6vw, 66px);
+  margin-top: 4px;
 }
 h2 {
+  font-size: clamp(26px, 3.2vw, 46px);
   font-family: 'Anek Latin', 'Anek Devanagari', sans-serif;
-  font-size: clamp(26px, 2.8vw, 42px);
-  font-weight: 700;
-  line-height: 1.15;
-  letter-spacing: -0.02em;
-  margin-bottom: 20px;
-}
-p.manifesto {
-  font-size: 17px;
-  line-height: 1.6;
-  margin-bottom: 24px;
-  max-width: 44ch;
-}
-p.manifesto strong {
-  color: var(--accent);
 }
 p.s {
   color: var(--dim);
-  font-size: 14.5px;
+  margin: 0 0 24px;
+  max-width: 40ch;
+  font-size: 15px;
   line-height: 1.55;
-  margin-bottom: 26px;
-  max-width: 42ch;
 }
 
-/* Form Inputs */
+/* Form Elements */
 input[type=text], input[type=email], textarea {
   width: 100%;
-  max-width: 480px;
-  background: transparent;
+  background: none;
   border: 0;
-  border-bottom: 2px solid var(--border-strong);
+  border-bottom: 2px solid var(--dim);
   color: var(--fg);
-  font-family: 'Anek Latin', 'Anek Devanagari', sans-serif;
-  font-size: clamp(20px, 2vw, 28px);
-  font-weight: 500;
-  padding: 12px 0;
-  outline: none;
+  font: inherit;
+  font-size: clamp(18px, 2vw, 26px);
+  padding: 10px 0;
+  outline: 0;
   border-radius: 0;
-  transition: border-color .2s;
+  transition: border-color .3s;
+  resize: none;
 }
 input:focus, textarea:focus {
-  border-color: var(--accent);
+  border-color: var(--c);
 }
 input::placeholder, textarea::placeholder {
   color: var(--dim);
-  opacity: 0.55;
-}
-textarea {
-  resize: none;
-  font-size: 19px;
-  line-height: 1.45;
+  opacity: .6;
 }
 
-/* Archetype & Option Chips */
+/* Chips */
 .chips {
   display: flex;
   flex-direction: column;
   gap: 10px;
-  width: 100%;
-  max-width: 500px;
+  max-width: 480px;
 }
 .chip {
-  background: var(--bg-alt);
-  border: 1.5px solid var(--border);
+  background: none;
+  border: 1.5px solid var(--dim);
   color: var(--fg);
   font-family: 'JetBrains Mono', monospace;
   font-size: 13.5px;
-  padding: 14px 18px;
-  text-align: left;
+  padding: 12px 18px;
   cursor: pointer;
-  border-radius: 0;
+  border-radius: 999px;
+  transition: all .2s;
+  text-align: left;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  transition: all 0.18s ease;
 }
 .chip:hover {
-  border-color: var(--accent);
-  background: var(--bg);
+  border-color: var(--c);
 }
 .chip.sel {
-  background: var(--ink);
-  color: var(--paper);
-  border-color: var(--ink);
+  background: var(--c);
+  border-color: var(--c);
+  color: var(--bg);
+  font-weight: 600;
 }
-[data-theme="golden-hour"] .chip.sel, [data-theme="cobalt"] .chip.sel {
-  background: var(--paper);
-  color: var(--cobalt);
-  border-color: var(--paper);
-}
-.chip .idx {
+.chip .k-idx {
   font-size: 11px;
-  opacity: 0.6;
+  opacity: .7;
 }
 
-/* Workday Saturation Range Slider */
-.slider-unit {
+/* Range Slider */
+.range-box {
   width: 100%;
-  max-width: 480px;
-  margin: 18px 0;
+  max-width: 460px;
 }
 input[type=range] {
   width: 100%;
-  height: 6px;
-  background: var(--border);
-  outline: none;
-  accent-color: var(--accent);
+  accent-color: var(--c);
   cursor: pointer;
 }
-.slider-data {
-  display: flex;
-  justify-content: space-between;
-  align-items: baseline;
-  margin-top: 14px;
-  font-family: 'JetBrains Mono', monospace;
-}
-.slider-val {
+.rl {
+  color: var(--c);
   font-size: 18px;
-  font-weight: 700;
-  color: var(--accent);
-}
-.slider-sub {
-  font-size: 11.5px;
-  color: var(--dim);
+  margin-top: 10px;
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 600;
 }
 
-/* Nav Triggers & Primary Buttons */
-.nx-btn {
+/* Action Trigger */
+.nx {
   align-self: flex-start;
-  margin-top: 36px;
+  margin-top: 30px;
   background: none;
   border: 0;
   color: var(--fg);
   font-family: 'JetBrains Mono', monospace;
-  font-size: 12.5px;
-  letter-spacing: 0.1em;
+  font-size: 13px;
+  letter-spacing: .06em;
   text-transform: uppercase;
   cursor: pointer;
   padding: 6px 0;
-  border-bottom: 2px solid var(--accent);
-  transition: color .2s, border-color .2s;
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
+  border-bottom: 1.5px solid var(--c);
+  transition: color .2s;
 }
-.nx-btn:hover {
-  color: var(--accent);
+.nx:hover {
+  color: var(--c);
 }
-.primary-btn {
-  align-self: flex-start;
-  background: var(--accent);
-  color: var(--paper);
-  border: 0;
+.h {
+  color: var(--c);
+  font-size: 13px;
+  min-height: 20px;
+  margin-top: 10px;
   font-family: 'JetBrains Mono', monospace;
-  font-size: 13.5px;
-  font-weight: 700;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  padding: 16px 34px;
-  cursor: pointer;
-  transition: opacity .2s, transform .1s;
-}
-.primary-btn:hover {
-  opacity: 0.92;
-}
-.primary-btn:active {
-  transform: translateY(1px);
 }
 
-.hint {
-  color: var(--accent);
+/* Cardstock Badge Pass Preview */
+#badge-preview {
+  margin-top: 20px;
+  background: var(--bg);
+  border: 2px solid var(--fg);
+  padding: 20px 22px;
   font-family: 'JetBrains Mono', monospace;
-  font-size: 12px;
-  min-height: 22px;
-  margin-top: 12px;
+  max-width: 460px;
+  color: var(--fg);
 }
-
-/* Physical Badge Pass Output */
-#badge-container {
-  margin-top: 24px;
-  background: var(--paper);
-  color: var(--ink);
-  border: 2px solid var(--ink);
-  padding: 24px;
-  font-family: 'JetBrains Mono', monospace;
-  max-width: 480px;
-}
-.b-top {
+.bp-head {
   display: flex;
   justify-content: space-between;
-  align-items: flex-start;
-  border-bottom: 2px solid var(--ink);
-  padding-bottom: 12px;
-  margin-bottom: 14px;
+  border-bottom: 2px solid var(--fg);
+  padding-bottom: 10px;
+  margin-bottom: 12px;
 }
-.b-mark {
+.bp-head b {
   font-family: 'Anek Latin', sans-serif;
-  font-size: 22px;
-  font-weight: 800;
-  color: var(--scarlet);
+  font-size: 18px;
+  color: var(--c);
 }
-.b-meta {
-  font-size: 10px;
-  color: #5c5950;
-  margin-top: 2px;
-}
-.b-row {
+.bp-row {
   display: flex;
   justify-content: space-between;
   font-size: 12px;
-  padding: 6px 0;
-  border-bottom: 1px dashed rgba(14, 17, 22, 0.22);
+  padding: 5px 0;
+  border-bottom: 1px dashed rgba(96, 93, 84, 0.3);
 }
-.b-row strong {
+.bp-row strong {
   font-weight: 700;
 }
-.b-foot {
-  margin-top: 16px;
-  padding-top: 10px;
+.bp-foot {
   display: flex;
   justify-content: space-between;
   font-size: 10px;
-  color: #5c5950;
+  color: var(--dim);
+  margin-top: 14px;
+  padding-top: 8px;
 }
 
-#payload-view {
+#out {
   white-space: pre-wrap;
   word-break: break-word;
-  font-family: 'JetBrains Mono', monospace;
   font-size: 11px;
   color: var(--dim);
-  border: 1px dashed var(--border);
-  padding: 16px;
+  border: 1px dashed var(--dim);
+  padding: 14px;
   margin-top: 20px;
-  max-height: 32vh;
+  max-height: 35vh;
   overflow: auto;
-  background: var(--bg-alt);
+  font-family: 'JetBrains Mono', monospace;
+}
+.sh {
+  animation: sh .3s;
+}
+@keyframes sh {
+  25% { transform: translateX(-6px); }
+  75% { transform: translateX(6px); }
 }
 
-/* Responsive Overrides */
-@media (max-width: 960px) {
-  #stage {
-    position: fixed;
-    top: 52px;
-    left: 0;
-    width: 100vw;
-    height: 40vh;
-    padding: 16px 20px;
-    background: var(--bg);
-    border-right: 0;
-    border-bottom: 1.5px solid var(--border);
-  }
-  .wordmark-latin { font-size: 28px; }
-  .wordmark-devanagari { font-size: 24px; }
-  .prop-line { display: none; }
-  #ascii-viewport { margin: 2px 0; }
-  #ascii-canvas { font-size: 8px; line-height: 1.0; }
-  .telemetry-row { display: none; }
-
-  main {
-    margin-left: 0;
-    width: 100vw;
-    padding: calc(40vh + 30px) 24px 80px 24px;
-  }
-  section {
-    min-height: 80vh;
-    padding: 30px 0;
-  }
+@media (max-width: 800px) {
+  #a { width: 100%; opacity: .22; }
+  main { margin: 0; width: auto; padding: 0 24px; }
+  #bar { padding: 12px 16px; }
 }
-
-.shake { animation: sk 0.3s; }
-@keyframes sk {
-  25% { transform: translateX(-5px); }
-  75% { transform: translateX(5px); }
+@media (prefers-reduced-motion: reduce) {
+  section { transition: none; }
+  html { scroll-behavior: auto; }
 }
 </style>
 </head>
 <body>
+<!-- The Large ASCII Screen Form -->
+<pre id="a" aria-hidden="true"></pre>
 
-<header id="top-bar">
-  <div class="brand-title">
-    <strong>OFF GRID</strong>
-    <span>/</span>
-    <span>ऑफ़ ग्रिड</span>
-    <span>·</span>
-    <span style="opacity:0.75">BRAND SYSTEM v1</span>
+<!-- Minimal Navigation Bar -->
+<div id="bar">
+  <div class="brand-label">
+    <span>◦ OFF GRID · <b>ऑफ़ ग्रिड</b></span>
+    <button class="theme-btn" id="thm">Ground: Paper</button>
   </div>
-  <div class="bar-controls">
-    <div class="time-pill">
-      <span class="live-dot"></span>
-      <span id="clock-display">16:00 — 19:00 IST</span>
-    </div>
-    <button class="btn-toggle" id="theme-btn" title="Toggle Golden-Hour Ground (Chapter V)">Ground: Paper</button>
-  </div>
-</header>
-
-<div id="layout">
-  <!-- ====================================================================
-       LEFT STAGE: Continuous Mutating Lead Shape ASCII Visualizer
-       ==================================================================== -->
-  <aside id="stage">
-    <div class="stage-header">
-      <div class="wordmark-group">
-        <div class="wordmark-latin">OFF GRID</div>
-        <div class="wordmark-devanagari">ऑफ़ ग्रिड</div>
-        <div class="prop-line">
-          The pause is the product.
-          <span class="hi">अंतराल ही उत्पाद है।</span>
-        </div>
-      </div>
-      <div class="stage-badge">
-        <div style="font-weight:700; color:var(--accent);">ANALOG CELL</div>
-        <div>16:00 — 19:00</div>
-      </div>
-    </div>
-
-    <!-- The 3D Raymarched / SDF ASCII Stage -->
-    <div id="ascii-viewport">
-      <pre id="ascii-canvas" aria-hidden="true"></pre>
-    </div>
-
-    <!-- Scrollytelling Telemetry -->
-    <div class="telemetry-row">
-      <div class="morph-meter">
-        <span>PLATE:</span>
-        <b id="telemetry-plate">00 // MANIFESTO</b>
-      </div>
-      <div class="morph-meter">
-        <span>MUTATION:</span>
-        <span class="morph-bar-render" id="telemetry-bar">[░░░░░░░░░░] 0%</span>
-      </div>
-    </div>
-  </aside>
-
-  <!-- ====================================================================
-       RIGHT MAIN: 10 Purposeful Scrollytelling Narrative Plates
-       ==================================================================== -->
-  <main id="main-narrative"></main>
+  <b id="pr"></b>
 </div>
+
+<main id="m"></main>
 
 <script>
 // ==========================================================================
-// OFF GRID DATA MODEL & 10 QUESTIONS
+// OFF GRID EVENT DATA & QUESTIONS (October 2026, Bengaluru)
 // ==========================================================================
-const BRAND_DATA = {
+const EVENT = {
   name: "OFF GRID",
   devanagari: "ऑफ़ ग्रिड",
-  window: "16:00 — 19:00 IST",
-  location: "Bengaluru Coworking Terrace",
-  endpoint: ""
+  meta: "16:00 — 19:00 IST · Bengaluru Coworking Terrace",
+  sub: "The pause is the product. / अंतराल ही उत्पाद है।"
 };
+const ENDPOINT = ""; // optional: POST URL for submissions
 
-const QUESTIONS = [
+const Q = [
   {
-    key: 'name',
-    plate: '01 / 10',
-    shapeName: 'BADGE PASS',
-    title: 'What name goes on the physical badge card?',
-    subtitle: 'Printed on 300gsm cardstock at check-in. No digital lanyard required.',
-    type: 'text',
-    placeholder: 'Your name or handle',
-    required: true
+    k: 'name',
+    q: 'What name goes on the physical badge card?',
+    s: 'Issued on 300gsm paper cardstock at the door.',
+    t: 'text',
+    ph: 'Your name or handle',
+    shapeTitle: 'BADGE PASS',
+    req: 1
   },
   {
-    key: 'email',
-    plate: '02 / 10',
-    shapeName: 'SIGNAL WAVE',
-    title: 'Where should entry confirmation be routed?',
-    subtitle: 'A single timestamped pass delivery. No post-event pings or newsletters.',
-    type: 'email',
-    placeholder: 'you@workplace.com',
-    required: true
+    k: 'email',
+    q: 'Where should entry confirmation be routed?',
+    s: 'A single timestamped delivery. No follow-ups, no spam.',
+    t: 'email',
+    ph: 'you@workplace.com',
+    shapeTitle: 'SIGNAL ANTENNA',
+    req: 1
   },
   {
-    key: 'desk',
-    plate: '03 / 10',
-    shapeName: 'TOWER GRID',
-    title: 'What workspace or screen are you stepping away from?',
-    subtitle: 'The corporate context left untouched during the 16:00 — 19:00 cell.',
-    type: 'text',
-    placeholder: 'Design systems, engineering, legal, product, studio…'
+    k: 'desk',
+    q: 'What desk or screen are you stepping away from?',
+    s: 'The corporate context left untouched during the 3-hour cell.',
+    t: 'text',
+    ph: 'Design systems, engineering, legal, product, studio…',
+    shapeTitle: 'CORPORATE TOWER'
   },
   {
-    key: 'archetype',
-    plate: '04 / 10',
-    shapeName: 'ANALOG ARCHETYPE',
-    title: 'Choose your Analog Archetype badge (v1).',
-    subtitle: 'Six designated postures on the physical register. Wear it or pocket it.',
-    type: 'choice',
-    options: [
+    k: 'archetype',
+    q: 'Choose your Analog Archetype badge (v1).',
+    s: 'Six designated postures on the physical register.',
+    t: 'choice',
+    shapeTitle: 'ARCHETYPE SEAL',
+    o: [
       '[01] The Observer — Logged off, visible',
       '[02] Screen-Fatigued — Strictly no display glare',
       '[03] Zero-Ping Enforcer — Slack & Teams dark',
@@ -734,13 +445,12 @@ const QUESTIONS = [
     ]
   },
   {
-    key: 'can',
-    plate: '05 / 10',
-    shapeName: 'COLD CAN',
-    title: 'Cold-can allocation for your arrival.',
-    subtitle: 'The only cold-can activation honest about a three-hour disconnect.',
-    type: 'choice',
-    options: [
+    k: 'can',
+    q: 'Cold-can allocation for your arrival.',
+    s: 'Only cold-can activation honest about a three-hour disconnect.',
+    t: 'choice',
+    shapeTitle: 'COLD CAN',
+    o: [
       'Diet Coke (iced can)',
       'Classic Cola (iced can)',
       'Sparkling Mineral Water (chilled)',
@@ -749,13 +459,12 @@ const QUESTIONS = [
     ]
   },
   {
-    key: 'posture',
-    plate: '06 / 10',
-    shapeName: 'PAUSE BARS (||)',
-    title: 'Conversational posture during the three-hour window.',
-    subtitle: 'The right to attend without networking, conversing, or performing.',
-    type: 'choice',
-    options: [
+    k: 'posture',
+    q: 'Conversational posture during the window.',
+    s: 'The right to attend without networking, conversing, or performing.',
+    t: 'choice',
+    shapeTitle: 'PAUSE BARS (||)',
+    o: [
       'Absolute silence (do not engage)',
       'Low-frequency observation only',
       'Terrace ambient listening',
@@ -763,251 +472,215 @@ const QUESTIONS = [
     ]
   },
   {
-    key: 'device_lock',
-    plate: '07 / 10',
-    shapeName: 'SHIELDED ENCLOSURE',
-    title: 'Device lockdown commitment between 16:00 and 19:00.',
-    subtitle: 'A sanctioned refusal to be reachable.',
-    type: 'choice',
-    options: [
+    k: 'device',
+    q: 'Device lockdown commitment between 16:00 and 19:00.',
+    s: 'A sanctioned refusal to be reachable.',
+    t: 'choice',
+    shapeTitle: 'SHIELDED ENCLOSURE',
+    o: [
       'Phone in bag on Airplane mode',
-      'Do Not Disturb (all pings and haptics blocked)',
+      'Do Not Disturb (all pings blocked)',
       'Face-down on table (emergency ringtone only)'
     ]
   },
   {
-    key: 'arrival',
-    plate: '08 / 10',
-    shapeName: 'TIME-BLOCK DIAL',
-    title: 'Check-in time at the entry register.',
-    subtitle: 'Doors open at 16:00. Golden-hour begins at 17:15.',
-    type: 'choice',
-    options: [
+    k: 'arrive',
+    q: 'Check-in time at the entry register.',
+    s: 'Doors open at 16:00. Golden-hour begins at 17:15.',
+    t: 'choice',
+    shapeTitle: 'TIME-BLOCK DIAL',
+    o: [
       '16:00 Sharp (Full three-hour disconnect)',
       '16:20 — 16:35 (Decompressing post-standup)',
       '17:00 — 17:15 (Before golden-hour onset)'
     ]
   },
   {
-    key: 'saturation',
-    plate: '09 / 10',
-    shapeName: 'SATURATION GAUGE',
-    title: 'Workday saturation index at this moment.',
-    subtitle: 'From easing out of sprints to total screen exhaustion.',
-    type: 'range'
+    k: 'energy',
+    q: 'Workday saturation index at this moment.',
+    s: 'From easing out of sprints to total screen exhaustion.',
+    t: 'range',
+    shapeTitle: 'SATURATION GAUGE'
   },
   {
-    key: 'refusal',
-    plate: '10 / 10',
-    shapeName: 'SEVERED TERMINAL',
-    title: 'Which workplace ritual are you consciously refusing today?',
-    subtitle: 'A decision in the open, not a slogan.',
-    type: 'area',
-    placeholder: 'E.g., The 5 PM sync, urgent DM pings, performative networking, camera-on calls…'
+    k: 'refusal',
+    q: 'Which workplace ritual are you consciously refusing today?',
+    s: 'A decision in the open, not a slogan.',
+    t: 'area',
+    shapeTitle: 'SEVERED TERMINAL',
+    ph: 'E.g., The 5 PM sync, urgent DM pings, performative networking, camera-on calls…'
   }
 ];
 
-const SATURATION_LABELS = [
-  '01 // Moderate sprint fatigue',
-  '02 // Back-to-back sync saturation',
+const ans = { energy: 3 };
+const EN = [
+  '01 // Moderate fatigue',
+  '02 // Back-to-back syncs',
   '03 // High notification noise',
   '04 // Screen glare overload',
   '05 // Full workday exhaustion'
 ];
 
-const state = { saturation: 3 };
-const $ = sel => document.querySelector(sel);
-const narrative = $('#main-narrative');
+const $ = s => document.querySelector(s), m = $('#m');
 
-// ==========================================================================
-// BUILD SCROLLYTELLING SECTIONS
-// ==========================================================================
-let htmlContent = `
+// Build Sections
+let h = `
 <section id="s0" class="on">
-  <div class="plate-header">
-    <span class="bars">||</span>
-    <span>CHAPTER II // MANIFESTO</span>
-  </div>
-  <h1>The pause is the product.</h1>
-  <p class="manifesto">
-    <strong>OFF GRID</strong> is a three-hour window inside a Bengaluru corporate & coworking terrace. 
-    Between 16:00 and 19:00, you log off. In public. With a cold can.
-  </p>
+  <div class="n">00 — MANIFESTO // INTERVAL MARK</div>
+  <h1>${EVENT.name}<span class="dev">${EVENT.devanagari}</span></h1>
   <p class="s">
-    No stage. No line-up. No main-character moment. No DJ, no ambient trance, no founder fireside, no networking theater.
-    Watch the <strong>Interval Mark</strong> mutate as you progress through ten registration plates.
+    ${EVENT.meta}<br><br>
+    <strong>${EVENT.sub}</strong><br><br>
+    A three-hour window to log off in public. Ten plates. One monumental lead shape that mutates as you scroll.
   </p>
-  <button class="nx-btn" data-target="0">Open Register ↓</button>
+  <button class="nx" data-go="0">Open Register ↓</button>
 </section>`;
 
-QUESTIONS.forEach((q, i) => {
-  let field = '';
-  if (q.type === 'text' || q.type === 'email') {
-    field = `<input type="${q.type}" data-key="${q.key}" placeholder="${q.placeholder}" autocomplete="off">`;
-  } else if (q.type === 'area') {
-    field = `<textarea rows="3" data-key="${q.key}" placeholder="${q.placeholder}"></textarea>`;
-  } else if (q.type === 'choice') {
-    field = `<div class="chips" data-key="${q.key}">
-      ${q.options.map((opt, idx) => `
-        <button class="chip" data-val="${opt}">
+Q.forEach((x, i) => {
+  let f = '';
+  if (x.t === 'text' || x.t === 'email') {
+    f = `<input type="${x.t}" data-k="${x.k}" placeholder="${x.ph}" autocomplete="off">`;
+  }
+  if (x.t === 'area') {
+    f = `<textarea rows="3" data-k="${x.k}" placeholder="${x.ph}"></textarea>`;
+  }
+  if (x.t === 'choice') {
+    f = `<div class="chips" data-k="${x.k}">
+      ${x.o.map((opt, idx) => `
+        <button class="chip" data-v="${opt}">
           <span>${opt}</span>
-          <span class="idx">0${idx+1}</span>
+          <span class="k-idx">0${idx + 1}</span>
         </button>
       `).join('')}
     </div>`;
-  } else if (q.type === 'range') {
-    field = `
-      <div class="slider-unit">
-        <input type="range" min="1" max="5" value="3" data-key="${q.key}">
-        <div class="slider-data">
-          <div class="slider-val" id="sat-label">${SATURATION_LABELS[2]}</div>
-          <div class="slider-sub">16:00 Disconnect Level</div>
-        </div>
+  }
+  if (x.t === 'range') {
+    f = `
+      <div class="range-box">
+        <input type="range" min="1" max="5" value="3" data-k="${x.k}">
+        <div class="rl" id="rl">${EN[2]}</div>
       </div>
     `;
   }
 
-  htmlContent += `
-  <section id="s${i+1}">
-    <div class="plate-header">
-      <span class="bars">||</span>
-      <span>PLATE ${q.plate} · ${q.shapeName}</span>
-    </div>
-    <h2>${q.title}</h2>
-    ${q.subtitle ? `<p class="s">${q.subtitle}</p>` : ''}
-    ${field}
-    <div class="hint" id="hint-${i}"></div>
-    <button class="nx-btn" data-target="${i+1}">${i === 9 ? 'Review Entry Badge' : 'Next Plate'} ↓</button>
+  h += `
+  <section id="s${i + 1}">
+    <div class="n">${String(i + 1).padStart(2, '0')} / 10 · ${x.shapeTitle}</div>
+    <h2>${x.q}</h2>
+    ${x.s ? `<p class="s">${x.s}</p>` : ''}
+    ${f}
+    <div class="h" id="h${i}"></div>
+    <button class="nx" data-go="${i + 1}">${i === 9 ? 'Review Entry Badge' : 'Next Plate'} ↓</button>
   </section>`;
 });
 
-htmlContent += `
+h += `
 <section id="s11">
-  <div class="plate-header">
-    <span class="bars">||</span>
-    <span>CONCLUSION // PHYSICAL PASS</span>
-  </div>
-  <h2>Issue Entry Badge.</h2>
-  <p class="s">Your answers sit verified in memory. Review your physical register pass below.</p>
+  <div class="n">CONCLUSION // VALID PASS</div>
+  <h2>Issue Entry Badge Pass.</h2>
+  <p class="s">Your answers stay on this page until confirmed. Review your physical register card below.</p>
   
-  <div id="badge-container">
-    <div class="b-top">
+  <div id="badge-preview">
+    <div class="bp-head">
       <div>
-        <div class="b-mark">OFF GRID · ऑफ़ ग्रिड</div>
-        <div class="b-meta">BENGALURU TERRACE · 16:00 — 19:00</div>
+        <b>OFF GRID · ऑफ़ ग्रिड</b>
+        <div style="font-size:10px; color:var(--dim); margin-top:2px;">BENGALURU TERRACE · 16:00 — 19:00</div>
       </div>
       <div>
-        <span style="background:var(--ink); color:var(--paper); padding:3px 8px; font-size:10px; font-weight:700;">PASS ISSUED</span>
+        <span style="background:var(--c); color:var(--bg); font-size:10px; padding:3px 7px; font-weight:700;">PASS ISSUED</span>
       </div>
     </div>
-    <div class="b-row"><span>NAME</span><strong id="badge-name">—</strong></div>
-    <div class="b-row"><span>EMAIL</span><strong id="badge-email">—</strong></div>
-    <div class="b-row"><span>DESK</span><strong id="badge-desk">—</strong></div>
-    <div class="b-row"><span>ARCHETYPE</span><strong id="badge-archetype">—</strong></div>
-    <div class="b-row"><span>COLD CAN</span><strong id="badge-can">—</strong></div>
-    <div class="b-row"><span>POSTURE</span><strong id="badge-posture">—</strong></div>
-    <div class="b-foot">
+    <div class="bp-row"><span>NAME</span><strong id="bp-name">—</strong></div>
+    <div class="bp-row"><span>EMAIL</span><strong id="bp-email">—</strong></div>
+    <div class="bp-row"><span>DESK</span><strong id="bp-desk">—</strong></div>
+    <div class="bp-row"><span>ARCHETYPE</span><strong id="bp-arch">—</strong></div>
+    <div class="bp-row"><span>COLD CAN</span><strong id="bp-can">—</strong></div>
+    <div class="bp-row"><span>POSTURE</span><strong id="bp-posture">—</strong></div>
+    <div class="bp-foot">
       <span>NO PINGS. COLD CAN.</span>
       <span>OCTOBER 2026</span>
     </div>
   </div>
 
-  <div style="margin-top:28px;">
-    <button class="primary-btn" id="submit-btn">Confirm & Print Badge</button>
-    <div class="hint" id="final-hint"></div>
-    <pre id="payload-view" hidden></pre>
+  <div style="margin-top:24px;">
+    <button class="chip sel" id="sub" style="align-self:flex-start">Confirm & Issue Pass</button>
+    <div class="h" id="fh"></div>
+    <pre id="out" hidden></pre>
   </div>
 </section>`;
 
-narrative.innerHTML = htmlContent;
-const sectionElements = [...narrative.children];
-const totalPlates = sectionElements.length;
+m.innerHTML = h;
+const secs = [...m.children], N = secs.length;
 
 // Navigation & Validation
-const navigateTo = idx => sectionElements[Math.min(idx + 1, totalPlates - 1)].scrollIntoView({ behavior: 'smooth' });
+const go = i => secs[Math.min(i + 1, N - 1)].scrollIntoView({ behavior: 'smooth' });
 
-function validatePlate(idx) {
-  const q = QUESTIONS[idx];
-  const val = state[q.key];
-  const hint = $('#hint-' + idx);
+function ok(i) {
+  const x = Q[i], v = ans[x.k], hint = $('#h' + i);
   if (hint) hint.textContent = '';
-
-  if (q.required && (!val || !val.trim())) {
-    if (hint) hint.textContent = '→ This plate is required for the door register.';
-    const input = sectionElements[idx + 1].querySelector('input');
-    if (input) {
-      input.classList.remove('shake');
-      void input.offsetWidth;
-      input.classList.add('shake');
-      input.focus();
-    }
-    return false;
-  }
-  if (q.type === 'email' && val && !/^\S+@\S+\.\S+$/.test(val)) {
-    if (hint) hint.textContent = '→ Enter a valid email format for door pass delivery.';
-    const input = sectionElements[idx + 1].querySelector('input');
-    if (input) {
-      input.classList.remove('shake');
-      void input.offsetWidth;
-      input.classList.add('shake');
-      input.focus();
+  if (x.req && !(v && v.trim()) || x.t === 'email' && v && !/^\S+@\S+\.\S+$/.test(v)) {
+    if (hint) hint.textContent = x.t === 'email' ? '→ Enter a valid email for pass delivery' : '→ Required for the register';
+    const el = secs[i + 1].querySelector('input');
+    if (el) {
+      el.classList.remove('sh');
+      void el.offsetWidth;
+      el.classList.add('sh');
+      el.focus();
     }
     return false;
   }
   return true;
 }
 
-function refreshBadgeDisplay() {
-  $('#badge-name').textContent = state.name || '—';
-  $('#badge-email').textContent = state.email || '—';
-  $('#badge-desk').textContent = state.desk || '—';
-  $('#badge-archetype').textContent = state.archetype ? state.archetype.split('—')[0].trim() : '—';
-  $('#badge-can').textContent = state.can || '—';
-  $('#badge-posture').textContent = state.posture ? state.posture.slice(0, 24) + '…' : '—';
+function updateBadge() {
+  $('#bp-name').textContent = ans.name || '—';
+  $('#bp-email').textContent = ans.email || '—';
+  $('#bp-desk').textContent = ans.desk || '—';
+  $('#bp-arch').textContent = ans.archetype ? ans.archetype.split('—')[0].trim() : '—';
+  $('#bp-can').textContent = ans.can || '—';
+  $('#bp-posture').textContent = ans.posture ? ans.posture.slice(0, 22) + '…' : '—';
 }
 
-narrative.addEventListener('click', e => {
-  const btn = e.target.closest('button');
-  if (!btn) return;
+m.addEventListener('click', e => {
+  const b = e.target.closest('button');
+  if (!b) return;
 
-  if (btn.dataset.target !== undefined) {
-    const idx = +btn.dataset.target;
-    if (idx > 0 && !validatePlate(idx - 1)) return;
-    refreshBadgeDisplay();
-    navigateTo(idx);
+  if (b.dataset.go !== undefined) {
+    const i = +b.dataset.go;
+    if (i > 0 && !ok(i - 1)) return;
+    updateBadge();
+    go(i);
     return;
   }
 
-  if (btn.classList.contains('chip')) {
-    const container = btn.parentNode;
-    const key = container.dataset.key;
-    container.querySelectorAll('.chip').forEach(c => c.classList.remove('sel'));
-    btn.classList.add('sel');
-    state[key] = btn.dataset.val;
-    refreshBadgeDisplay();
-    const plateId = +btn.closest('section').id.slice(1);
-    setTimeout(() => navigateTo(plateId), 360);
+  if (b.classList.contains('chip') && b.parentNode.dataset.k) {
+    const p = b.parentNode, k = p.dataset.k;
+    p.querySelectorAll('.chip').forEach(c => c.classList.remove('sel'));
+    b.classList.add('sel');
+    ans[k] = b.dataset.v;
+    updateBadge();
+    setTimeout(() => go(+p.closest('section').id.slice(1)), 350);
   }
 });
 
-narrative.addEventListener('input', e => {
-  const key = e.target.dataset.key;
-  if (!key) return;
-  state[key] = e.target.value;
+m.addEventListener('input', e => {
+  const k = e.target.dataset.k;
+  if (!k) return;
+  ans[k] = e.target.value;
   if (e.target.type === 'range') {
-    const val = +e.target.value;
-    $('#sat-label').textContent = SATURATION_LABELS[val - 1] || '';
+    const idx = Math.max(0, Math.min(4, +e.target.value - 1));
+    $('#rl').textContent = EN[idx];
   }
-  refreshBadgeDisplay();
+  updateBadge();
 });
 
-narrative.addEventListener('keydown', e => {
+m.addEventListener('keydown', e => {
   if (e.key === 'Enter' && e.target.matches('input[type=text], input[type=email]')) {
     e.preventDefault();
-    const plateId = +e.target.closest('section').id.slice(1);
-    if (validatePlate(plateId - 1)) {
-      refreshBadgeDisplay();
-      navigateTo(plateId);
+    const i = +e.target.closest('section').id.slice(1);
+    if (ok(i - 1)) {
+      updateBadge();
+      go(i);
     }
   }
 });
@@ -1015,379 +688,211 @@ narrative.addEventListener('keydown', e => {
 // Arrow Navigation (Up / Down / J / K)
 window.addEventListener('keydown', e => {
   if (['INPUT', 'TEXTAREA'].includes(document.activeElement.tagName)) return;
-  const currentPlate = Math.round(currentScroll);
+  const currentStep = Math.round(cur);
   if (e.key === 'ArrowDown' || e.key === 'j') {
     e.preventDefault();
-    navigateTo(currentPlate);
+    go(currentStep);
   } else if (e.key === 'ArrowUp' || e.key === 'k') {
     e.preventDefault();
-    navigateTo(Math.max(-1, currentPlate - 2));
+    go(Math.max(-1, currentStep - 2));
   }
 });
 
-$('#submit-btn').onclick = async () => {
-  for (let i = 0; i < QUESTIONS.length; i++) {
-    if (QUESTIONS[i].required && !validatePlate(i)) {
-      sectionElements[i + 1].scrollIntoView({ behavior: 'smooth' });
+$('#sub').onclick = async () => {
+  for (let i = 0; i < Q.length; i++) {
+    if (Q[i].req && !ok(i)) {
+      secs[i + 1].scrollIntoView({ behavior: 'smooth' });
       return;
     }
   }
-  const payloadBox = $('#payload-view');
-  const finalHint = $('#final-hint');
-  payloadBox.hidden = false;
-  payloadBox.textContent = JSON.stringify({
+  const out = $('#out'), fh = $('#fh');
+  out.hidden = false;
+  out.textContent = JSON.stringify({
     event: "OFF GRID / ऑफ़ ग्रिड",
     window: "16:00 — 19:00 IST",
     ground: document.documentElement.dataset.theme || "paper",
-    pass: state
+    registration: ans
   }, null, 2);
 
   try {
-    if (BRAND_DATA.endpoint) {
-      await fetch(BRAND_DATA.endpoint, {
+    if (ENDPOINT) {
+      await fetch(ENDPOINT, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(state)
+        body: JSON.stringify(ans)
       });
     }
-    finalHint.textContent = '✓ Badge pass registered on paper cardstock. Copy registration payload below.';
-    $('#submit-btn').textContent = 'Pass Issued ✓';
+    fh.textContent = '✓ Physical badge pass confirmed. Copy registration below.';
+    $('#sub').textContent = 'Pass Issued ✓';
   } catch (_) {
-    finalHint.textContent = '→ Disconnected from network. Offline registration payload generated below.';
+    fh.textContent = '→ Disconnected. Offline badge payload generated below.';
   }
 };
 
-// Section Reveal Observer
-const revealObserver = new IntersectionObserver(entries => {
-  entries.forEach(entry => entry.target.classList.toggle('on', entry.isIntersecting));
-}, { threshold: 0.45 });
-sectionElements.forEach(s => revealObserver.observe(s));
+// Section Reveal
+const io = new IntersectionObserver(es => es.forEach(x => x.target.classList.toggle('on', x.isIntersecting)), { threshold: .45 });
+secs.forEach(s => io.observe(s));
 
-// Ground Theme Management
-const themeBtn = $('#theme-btn');
-const themeModes = ['paper', 'golden-hour', 'ink'];
-let activeThemeIdx = 0;
-
-function applyTheme(name) {
-  if (name === 'paper') {
+// Ground Theme Switcher
+const thmBtn = $('#thm');
+const groundModes = ['paper', 'golden-hour', 'ink'];
+let gIdx = 0;
+thmBtn.onclick = () => {
+  gIdx = (gIdx + 1) % groundModes.length;
+  const mode = groundModes[gIdx];
+  if (mode === 'paper') {
     delete document.documentElement.dataset.theme;
-    themeBtn.textContent = 'Ground: Paper';
-  } else if (name === 'golden-hour') {
+    thmBtn.textContent = 'Ground: Paper';
+  } else if (mode === 'golden-hour') {
     document.documentElement.dataset.theme = 'golden-hour';
-    themeBtn.textContent = 'Ground: Cobalt (17:15)';
+    thmBtn.textContent = 'Ground: Cobalt (17:15)';
   } else {
     document.documentElement.dataset.theme = 'ink';
-    themeBtn.textContent = 'Ground: Ink';
+    thmBtn.textContent = 'Ground: Ink';
   }
-}
-
-themeBtn.onclick = () => {
-  activeThemeIdx = (activeThemeIdx + 1) % themeModes.length;
-  applyTheme(themeModes[activeThemeIdx]);
 };
 
 // ==========================================================================
-// ADVANCED MATHEMATICAL 3D / SDF ASCII RAYMARCHING ENGINE
-// One lead shape (The Interval Mark) that continuously deforms & mutates
+// LARGE-SCALE CONTINUOUS ASCII MORPHING ENGINE
+// One lead shape (The Interval Mark) that continuously mutates through 10 plates
 // ==========================================================================
-const asciiCanvas = $('#ascii-canvas');
-const telemetryPlate = $('#telemetry-plate');
-const telemetryBar = $('#telemetry-bar');
+const COLS = 72, ROWS = 36, TAU = Math.PI * 2;
+const RAMP = ' .·:-=+*#%@█';
 
-const COLS = 68;
-const ROWS = 30;
-let currentScroll = 0, targetScroll = 0;
-let mouseX = 0, mouseY = 0;
-
-// Mouse reaction
-window.addEventListener('mousemove', e => {
-  mouseX = (e.clientX / window.innerWidth - 0.5) * 2;
-  mouseY = (e.clientY / window.innerHeight - 0.5) * 2;
-});
-
-function updateScrollTarget() {
-  targetScroll = Math.max(0, Math.min(totalPlates - 1, window.scrollY / window.innerHeight));
-}
-window.addEventListener('scroll', updateScrollTarget, { passive: true });
-window.addEventListener('resize', () => {
-  updateScrollTarget();
-  fitAscii();
-});
-
-function fitAscii() {
-  const isMobile = window.innerWidth <= 960;
-  const stageWidth = isMobile ? window.innerWidth - 32 : window.innerWidth * 0.52 - 56;
-  const stageHeight = isMobile ? window.innerHeight * 0.42 : window.innerHeight * 0.65;
-  const fs = Math.max(9, Math.min(stageWidth / (COLS * 0.58), stageHeight / (ROWS * 1.08)));
-  asciiCanvas.style.fontSize = fs + 'px';
-}
-fitAscii();
-updateScrollTarget();
-
-// Signed Distance Field (SDF) Primitives
-const sdBox = (p, b) => {
-  const qx = Math.abs(p.x) - b.x;
-  const qy = Math.abs(p.y) - b.y;
-  const qz = Math.abs(p.z) - b.z;
-  const ox = Math.max(qx, 0), oy = Math.max(qy, 0), oz = Math.max(qz, 0);
-  return Math.hypot(ox, oy, oz) + Math.min(Math.max(qx, Math.max(qy, qz)), 0);
+// Polar n-gon generator
+const ng = (n, off, R) => t => {
+  const w = TAU / n;
+  const a = (((t - off) % w) + w) % w - w / 2;
+  return R * Math.cos(Math.PI / n) / Math.cos(a);
 };
 
-const sdCylinder = (p, h, r) => {
-  const d = Math.hypot(p.x, p.z) - r;
-  const y = Math.abs(p.y) - h;
-  return Math.min(Math.max(d, y), 0) + Math.hypot(Math.max(d, 0), Math.max(y, 0));
+// Box in polar coordinates with aspect ratio
+const polarBox = (w, h) => t => {
+  const ct = Math.cos(t), st = Math.sin(t);
+  return 1.0 / Math.max(Math.abs(ct) / w, Math.abs(st) / h);
 };
 
-const sdTorus = (p, R, r) => {
-  const q = Math.hypot(p.x, p.z) - R;
-  return Math.hypot(q, p.y) - r;
-};
-
-// 12 Continuous Morphing Shapes:
-// 00: Lead Form - The Interval Mark (Grid cell with cut corner notch)
-// 01: Identification Badge Card
-// 02: Transceiver Radio Loop / Signal Antenna
-// 03: Corporate Tower Block
-// 04: 6-Sided Analog Archetype Hexagonal Seal
-// 05: Chilled Cold Can with beveled rim
+// 12 Continuous Mutating Shapes (Scaled MUCH LARGER to dominate the viewport)
+// 00: The Interval Mark (Notched Square)
+// 01: Identification Card Badge
+// 02: Signal Wave Antenna
+// 03: Corporate Tower Monolith
+// 04: Analog Archetype Hexagon
+// 05: Chilled Cold Can
 // 06: Pause Bars (||)
 // 07: Shielded Device Enclosure
-// 08: Time-Block Sector Dial (16:00 - 19:00)
+// 08: Time-Block Chronometer Dial
 // 09: Saturation Barometer Gauge
-// 10: Severed Terminal / Broken Circuit
-// 11: Final OG Architectural Monogram Block
+// 10: Severed Terminal Ring
+// 11: Conclusion Stamp Block
 
-const SHAPE_NAMES = [
-  "00 // INTERVAL MARK",
-  "01 // BADGE PASS",
-  "02 // SIGNAL WAVE",
-  "03 // TOWER MONOLITH",
-  "04 // ARCHETYPE SEAL",
-  "05 // COLD CAN",
-  "06 // PAUSE BARS (||)",
-  "07 // SHIELDED ENCLOSURE",
-  "08 // TIME-BLOCK DIAL",
-  "09 // SATURATION GAUGE",
-  "10 // SEVERED TERMINAL",
-  "11 // CONCLUSION (OG)"
-];
-
-const SDF_SHAPES = [
-  // 00: The Interval Mark (Thick block with corner notch cut out)
-  p => {
-    const box = sdBox(p, { x: 0.85, y: 0.85, z: 0.25 }) - 0.04;
-    // Notch cut out in upper right corner
-    const notch = sdBox({ x: p.x - 0.55, y: p.y - 0.55, z: p.z }, { x: 0.45, y: 0.45, z: 0.35 });
-    return Math.max(box, -notch);
+const SH = [
+  // 00: Lead Shape — The Interval Mark (Square with notched corner)
+  t => {
+    const sq = ng(4, Math.PI / 4, 1.05)(t);
+    return (t > 0.25 && t < 1.35) ? sq * 0.72 : sq;
   },
-
-  // 01: Identification Card Badge (Portrait card with punch slot)
-  p => {
-    const card = sdBox(p, { x: 0.65, y: 0.95, z: 0.12 }) - 0.04;
-    const hole = sdBox({ x: p.x, y: p.y - 0.78, z: p.z }, { x: 0.22, y: 0.05, z: 0.2 });
-    return Math.max(card, -hole);
-  },
-
-  // 02: Signal Wave / Helical Transceiver
-  p => {
-    const ring = sdTorus(p, 0.75, 0.14);
-    const wave = Math.sin(p.x * 6 + p.y * 3) * 0.06;
-    return ring + wave;
-  },
-
-  // 03: Corporate Tower Grid Monolith
-  p => {
-    const tower = sdBox(p, { x: 0.45, y: 1.05, z: 0.45 }) - 0.02;
-    const gridRibs = Math.abs(Math.sin(p.y * 14)) * 0.05;
-    return tower + gridRibs;
-  },
-
-  // 04: Analog Archetype Hexagonal Seal
-  p => {
-    const qx = Math.abs(p.x), qy = Math.abs(p.y), qz = Math.abs(p.z);
-    const hex = Math.max(qx * 0.866 + qy * 0.5, qy) - 0.85;
-    const slab = Math.max(hex, qz - 0.2);
-    return slab - 0.04;
-  },
-
-  // 05: Chilled Cold Can (Cylinder with beveled rim)
-  p => {
-    const can = sdCylinder(p, 0.85, 0.46) - 0.03;
-    const rim = Math.abs(p.y) > 0.82 ? 0.04 : 0;
-    return can + rim;
-  },
-
+  // 01: Identification Pass (Portrait card with slot)
+  t => polarBox(0.82, 1.15)(t),
+  // 02: Signal Wave / Transceiver (Harmonic 3-lobe wave)
+  t => 0.85 + 0.35 * Math.cos(3 * t),
+  // 03: Corporate Tower (Slender monolith)
+  t => polarBox(0.58, 1.25)(t),
+  // 04: Analog Archetype Seal (6-sided Hexagon)
+  ng(6, Math.PI / 6, 1.15),
+  // 05: Cold Can (Cylindrical silhouette with beveled rim)
+  t => polarBox(0.68, 1.12)(t),
   // 06: Pause Bars (|| Roman Numeral II)
-  p => {
-    const barL = sdBox({ x: p.x + 0.38, y: p.y, z: p.z }, { x: 0.14, y: 0.95, z: 0.25 }) - 0.03;
-    const barR = sdBox({ x: p.x - 0.38, y: p.y, z: p.z }, { x: 0.14, y: 0.95, z: 0.25 }) - 0.03;
-    return Math.min(barL, barR);
-  },
-
-  // 07: Shielded Device Enclosure
-  p => {
-    const body = sdBox(p, { x: 0.52, y: 0.98, z: 0.14 }) - 0.06;
-    const screenCut = sdBox({ x: p.x, y: p.y, z: p.z - 0.1 }, { x: 0.42, y: 0.82, z: 0.06 });
-    return Math.max(body, -screenCut);
-  },
-
+  t => 0.75 + 0.4 * Math.cos(2 * t) * Math.cos(2 * t),
+  // 07: Shielded Device Enclosure (Smartphone rectangle)
+  t => polarBox(0.72, 1.18)(t),
   // 08: Time-Block Dial (Chronometer arc)
-  p => {
-    const d = Math.hypot(p.x, p.y);
-    const ring = Math.max(Math.abs(d - 0.78) - 0.14, Math.abs(p.z) - 0.16);
-    const angle = Math.atan2(p.y, p.x);
-    const cut = (angle > -0.8 && angle < 1.6) ? -0.2 : 0.4;
-    return Math.max(ring, cut) - 0.03;
-  },
-
-  // 09: Saturation Gauge Dial
-  p => {
-    const arc = Math.max(Math.abs(Math.hypot(p.x, p.y + 0.3) - 0.82) - 0.12, Math.abs(p.z) - 0.15);
-    const needle = sdBox({ x: p.x + p.y * 0.4, y: p.y + 0.1, z: p.z }, { x: 0.06, y: 0.65, z: 0.2 });
-    return Math.min(arc, needle);
-  },
-
-  // 10: Severed Terminal / Broken Circuit
-  p => {
-    const ring = sdTorus(p, 0.8, 0.18);
-    const sever = sdBox({ x: p.x - 0.5, y: p.y, z: p.z }, { x: 0.3, y: 0.4, z: 0.5 });
-    return Math.max(ring, -sever);
-  },
-
-  // 11: Conclusion Monogram Stamp Block
-  p => {
-    const outer = sdBox(p, { x: 0.88, y: 0.88, z: 0.22 }) - 0.05;
-    const inner = sdBox(p, { x: 0.55, y: 0.55, z: 0.3 });
-    return Math.max(outer, -inner);
+  t => (t > -1.1 && t < 1.7) ? 1.15 : 0.52,
+  // 09: Saturation Gauge (Barometer crescent)
+  t => 0.82 + 0.32 * Math.sin(t),
+  // 10: Severed Terminal (Broken circuit ring)
+  t => (t > 0.75 && t < 1.45) ? 0.45 : 1.1,
+  // 11: Final Conclusion Monogram Stamp Block
+  t => {
+    const sq = ng(4, Math.PI / 4, 1.05)(t);
+    return (t > 0.25 && t < 1.35) ? sq * 0.72 : sq;
   }
 ];
 
-// ASCII Shading Ramp (Strictly authentic high-definition riso character ramp)
-const ASCII_RAMP = "  ·:-=+*#%@█";
-const prefersReduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+const pre = $('#a'), pr = $('#pr');
+let cur = 0, tgt = 0, T = 0, last = '';
+const sm = x => x * x * (3 - 2 * x);
 
-let time = 0;
+// Dynamic responsive font sizing so ASCII fills the left 52vw completely
+function fit() {
+  const mob = innerWidth <= 800;
+  const w = mob ? innerWidth : innerWidth * 0.52;
+  const fs = Math.min(w * 0.96 / (COLS * 0.58), innerHeight * 0.94 / (ROWS * 1.16));
+  pre.style.fontSize = Math.max(9, fs) + 'px';
+}
 
-const SHAPE_SCALE = 1.58;
+function scroll() {
+  tgt = Math.max(0, Math.min(N - 1, scrollY / innerHeight));
+}
 
-function raymarchFrame(timestamp) {
-  time = timestamp / 1000;
-  currentScroll += (targetScroll - currentScroll) * (prefersReduced ? 1 : 0.08);
+addEventListener('resize', () => { fit(); scroll(); });
+addEventListener('scroll', scroll, { passive: true });
+fit();
+scroll();
 
-  const baseIdx = Math.min(totalPlates - 2, Math.floor(currentScroll));
-  const frac = currentScroll - baseIdx;
-  // Smooth hermite interpolation for fluid liquid-metallic morphing
-  const morphFrac = frac * frac * (3 - 2 * frac);
+const rm = matchMedia('(prefers-reduced-motion:reduce)').matches;
 
-  const shapeA = SDF_SHAPES[baseIdx] || SDF_SHAPES[0];
-  const shapeB = SDF_SHAPES[baseIdx + 1] || SDF_SHAPES[0];
+// Much larger scale factor: 1.38x to make shapes monumental
+const SHAPE_SCALE = 1.38;
 
-  // 3D Rotation angles: gentle continuous spin + mouse reaction + scroll rotation
-  const rotY = (prefersReduced ? 0 : time * 0.38) + currentScroll * 0.65 + mouseX * 0.45;
-  const rotX = 0.24 + (prefersReduced ? 0 : Math.sin(time * 0.45) * 0.12) + mouseY * 0.35;
+function frame(ms) {
+  T = ms / 1000;
+  cur += (tgt - cur) * (rm ? 1 : 0.09);
 
-  const cosY = Math.cos(rotY), sinY = Math.sin(rotY);
-  const cosX = Math.cos(rotX), sinX = Math.sin(rotX);
+  const i = Math.min(N - 2, Math.floor(cur));
+  const f = sm(Math.max(0, Math.min(1, (cur - i - .18) / .68)));
+  const A = SH[i], B = SH[i + 1];
+  const sway = rm ? 0 : Math.sin(T * .45) * .12;
 
-  // Light vector (upper left key light)
-  const lx = 0.577, ly = 0.577, lz = -0.577;
-
-  let buffer = '';
-
+  let s = '';
   for (let r = 0; r < ROWS; r++) {
     for (let c = 0; c < COLS; c++) {
-      // Screen space coords (-1 to 1) with tighter aspect framing for much larger scale
-      const u = (c - COLS / 2 + 0.5) / (COLS / 1.95);
-      const v = (r - ROWS / 2 + 0.5) / (ROWS / 1.35);
+      // Screen space coords centered in left stage
+      const dx = (c - COLS / 2 + .5) * .52 / (ROWS / 2);
+      const dy = (r - ROWS / 2 + .5) / (ROWS / 2);
+      const p = Math.hypot(dx, dy);
+      const th = Math.atan2(-dy, dx) + sway;
 
-      // Camera positioned closer for monumental presence
-      let roX = 0, roY = 0, roZ = -2.15;
-      let rdX = u, rdY = v, rdZ = 2.05;
-      const invLen = 1 / Math.hypot(rdX, rdY, rdZ);
-      rdX *= invLen; rdY *= invLen; rdZ *= invLen;
+      // Scaled much larger
+      const R = (A(th) * (1 - f) + B(th) * f) * SHAPE_SCALE;
+      const d = p / R;
 
-      // Raymarching loop (18 steps)
-      let t = 0;
-      let hit = false;
-      let d = 0;
-
-      for (let s = 0; s < 18; s++) {
-        const px = roX + rdX * t;
-        const py = roY + rdY * t;
-        const pz = roZ + rdZ * t;
-
-        // Apply inverse 3D rotation to point
-        // Rotate around Y
-        const yx = px * cosY + pz * sinY;
-        const yz = -px * sinY + pz * cosY;
-        // Rotate around X
-        const xy = py * cosX - yz * sinX;
-        const xz = py * sinX + yz * cosX;
-
-        // Scaled point for much larger shape rendering
-        const rotatedPoint = { x: yx / SHAPE_SCALE, y: xy / SHAPE_SCALE, z: xz / SHAPE_SCALE };
-
-        // Morph between shape A and shape B
-        const distA = shapeA(rotatedPoint);
-        const distB = shapeB(rotatedPoint);
-        d = (distA * (1 - morphFrac) + distB * morphFrac) * SHAPE_SCALE;
-
-        if (d < 0.012) {
-          hit = true;
-          break;
-        }
-        t += Math.max(d, 0.04);
-        if (t > 4.2) break;
-      }
-
-      if (hit) {
-        // Calculate surface normal via gradient approximation
-        const eps = 0.02;
-        const sampleDist = pt => {
-          const yx = pt.x * cosY + pt.z * sinY;
-          const yz = -pt.x * sinY + pt.z * cosY;
-          const xy = pt.y * cosX - yz * sinX;
-          const xz = pt.y * sinX + yz * cosX;
-          const p = { x: yx / SHAPE_SCALE, y: xy / SHAPE_SCALE, z: xz / SHAPE_SCALE };
-          return (shapeA(p) * (1 - morphFrac) + shapeB(p) * morphFrac) * SHAPE_SCALE;
-        };
-
-        const pt = { x: roX + rdX * t, y: roY + rdY * t, z: roZ + rdZ * t };
-        const nx = sampleDist({ x: pt.x + eps, y: pt.y, z: pt.z }) - sampleDist({ x: pt.x - eps, y: pt.y, z: pt.z });
-        const ny = sampleDist({ x: pt.x, y: pt.y + eps, z: pt.z }) - sampleDist({ x: pt.x, y: pt.y - eps, z: pt.z });
-        const nz = sampleDist({ x: pt.x, y: pt.y, z: pt.z + eps }) - sampleDist({ x: pt.x, y: pt.y, z: pt.z - eps });
-        const nLen = 1 / (Math.hypot(nx, ny, nz) || 1);
-
-        // Diffuse Lambertian reflection + specular bounce
-        const diff = Math.max(0, (nx * nLen * lx + ny * nLen * ly + nz * nLen * lz));
-        const spec = Math.pow(Math.max(0, -(rdX * lx + rdY * ly + rdZ * lz)), 8) * 0.4;
-        const light = diff * 0.82 + spec + 0.16;
-
-        const charIdx = Math.max(1, Math.min(ASCII_RAMP.length - 1, Math.floor(light * (ASCII_RAMP.length - 1))));
-        buffer += ASCII_RAMP[charIdx];
+      if (d < 1) {
+        // High-definition riso wave & normal simulation
+        let v = Math.pow(1 - d, .48) + .14 * Math.sin(p * 10 - T * 2.2) + .06 * Math.sin(th * 3 + T);
+        s += d > .93 ? '#' : RAMP[Math.max(1, Math.min(RAMP.length - 1, (v * (RAMP.length - 1)) | 0))];
       } else {
-        // Subtle ambient riso coordinate grid in background
-        const isTick = (c % 15 === 0 && r % 7 === 0);
-        buffer += isTick ? '+' : ' ';
+        // Subtle ambient matrix dust
+        const q = Math.sin(c * 12.9898 + r * 78.233 + Math.floor(T * 1.5) * 3.17) * 43758.5453;
+        s += (q - Math.floor(q)) < .022 ? '·' : ' ';
       }
     }
-    buffer += '\n';
+    s += '\n';
   }
 
-  asciiCanvas.textContent = buffer;
+  if (s !== last) {
+    pre.textContent = s;
+    last = s;
+  }
 
-  // Telemetry updates
-  const activeIndex = Math.min(totalPlates - 1, Math.round(currentScroll));
-  telemetryPlate.textContent = SHAPE_NAMES[activeIndex] || SHAPE_NAMES[0];
+  const step = Math.round(cur);
+  const n = Math.max(0, Math.min(10, step));
+  const bar = '▓'.repeat(n) + '░'.repeat(10 - n);
+  pr.textContent = `${bar} ${String(n).padStart(2, '0')}/10`;
 
-  const pct = Math.round((currentScroll / (totalPlates - 1)) * 100);
-  const filledBars = Math.floor(pct / 10);
-  telemetryBar.textContent = `[${'█'.repeat(filledBars)}${'░'.repeat(10 - filledBars)}] ${pct}%`;
-
-  requestAnimationFrame(raymarchFrame);
+  requestAnimationFrame(frame);
 }
-requestAnimationFrame(raymarchFrame);
+requestAnimationFrame(frame);
 </script>
 </body>
 </html>

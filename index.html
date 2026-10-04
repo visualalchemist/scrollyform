@@ -6,516 +6,240 @@
 <title>OFF GRID · ऑफ़ ग्रिड — The Pause is the Product</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Anek+Devanagari:wght@400;500;700;800&family=Anek+Latin:wght@400;500;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Anek+Devanagari:wght@400;600;700;800&family=Anek+Latin:wght@400;600;700;800&display=swap" rel="stylesheet">
 <style>
-:root {
-  --bg: #F3EEE2;       /* Paper cream */
-  --fg: #0E1116;       /* Ink */
-  --c: #E63323;        /* Scarlet accent */
-  --dim: #605d54;
-  --paper-cool: #E7E3D6;
-  --cobalt: #1D3BE0;
-  --sun: #F6D32B;
-  box-sizing: border-box;
-  padding-top: env(safe-area-inset-top, 0px);
-  padding-bottom: env(safe-area-inset-bottom, 0px);
+:root{
+  --c:#E63323;         /* OFF GRID Scarlet */
+  --bg:#F3EEE2;        /* OFF GRID Paper cream */
+  --fg:#0E1116;        /* OFF GRID Ink */
+  --dim:#686458;
+  --paper-cool:#E7E3D6;
+  --cobalt:#1D3BE0;
+  --sun:#F6D32B;
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px)
 }
-
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme="paper"]) {
-    --bg: #0E1116;
-    --fg: #F3EEE2;
-    --dim: #9a9689;
-    --c: #E63323;
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --bg:#0E1116;
+    --fg:#F3EEE2;
+    --dim:#8d8a7e;
+    --c:#E63323
   }
 }
+:root[data-theme="dark"]{--bg:#0E1116;--fg:#F3EEE2;--dim:#8d8a7e;--c:#E63323}
+:root[data-theme="golden-hour"]{--bg:#1D3BE0;--fg:#F3EEE2;--dim:#b6bfe0;--c:#F6D32B}
+:root[data-theme="paper"]{--bg:#F3EEE2;--fg:#0E1116;--dim:#686458;--c:#E63323}
 
-:root[data-theme="golden-hour"], :root[data-theme="cobalt"] {
-  --bg: #1D3BE0;
-  --fg: #F3EEE2;
-  --dim: #b8c4e6;
-  --c: #F6D32B;
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:env(safe-area-inset-top,0px)}
+body{
+  margin:0;
+  background:var(--bg);
+  color:var(--fg);
+  font:16px/1.55 'Anek Latin','Anek Devanagari',ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  transition:background .4s, color .4s;
+  -webkit-font-smoothing:antialiased
 }
-
-:root[data-theme="ink"] {
-  --bg: #0E1116;
-  --fg: #F3EEE2;
-  --dim: #9a9689;
-  --c: #E63323;
+#a{
+  position:fixed;
+  left:0;
+  top:0;
+  width:52vw;
+  height:100%;
+  margin:0;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  color:var(--c);
+  white-space:pre;
+  line-height:1.2;
+  pointer-events:none;
+  z-index:0;
+  transition:color .6s;
+  overflow:hidden;
+  font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace
 }
-
-:root[data-theme="paper"] {
-  --bg: #F3EEE2;
-  --fg: #0E1116;
-  --dim: #605d54;
-  --c: #E63323;
+#bar{
+  position:fixed;
+  top:env(safe-area-inset-top,0px);
+  left:0;
+  right:0;
+  padding:14px 22px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  font-size:12px;
+  letter-spacing:.08em;
+  color:var(--dim);
+  z-index:5;
+  text-transform:uppercase
 }
-
-* { box-sizing: border-box; margin: 0; padding: 0; }
-html {
-  scroll-behavior: smooth;
-  scroll-padding-top: env(safe-area-inset-top, 0px);
-  background: var(--bg);
-  color: var(--fg);
+#bar b{color:var(--c);font-weight:500;white-space:pre}
+#bar .thm{
+  background:none;
+  border:1px solid var(--dim);
+  color:var(--fg);
+  font:inherit;
+  font-size:10px;
+  padding:2px 8px;
+  cursor:pointer;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+  margin-left:12px;
+  border-radius:4px;
+  transition:all .2s
 }
-body {
-  margin: 0;
-  background: var(--bg);
-  color: var(--fg);
-  font: 16px/1.55 'Anek Latin', 'Anek Devanagari', 'JetBrains Mono', ui-monospace, monospace;
-  transition: background .4s, color .4s;
-  overflow-x: hidden;
-  -webkit-font-smoothing: antialiased;
+#bar .thm:hover{background:var(--c);color:var(--bg);border-color:var(--c)}
+main{position:relative;z-index:2;margin-left:50vw;width:46vw}
+section{
+  min-height:100vh;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  padding:90px 0;
+  opacity:.18;
+  transform:translateY(24px);
+  transition:opacity .6s,transform .6s
 }
-
-/* Large Fixed Left ASCII Canvas */
-#a {
-  position: fixed;
-  left: 0;
-  top: 0;
-  width: 52vw;
-  height: 100%;
-  margin: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: var(--c);
-  white-space: pre;
-  line-height: 1.14;
-  pointer-events: none;
-  z-index: 0;
-  transition: color .4s;
-  overflow: hidden;
-  font-family: 'JetBrains Mono', ui-monospace, monospace;
-  user-select: none;
+section.on{opacity:1;transform:none}
+.n{color:var(--c);font-size:13px;letter-spacing:.14em;margin-bottom:14px}
+h1,h2{font-weight:700;margin:0 0 28px;letter-spacing:-.03em;line-height:1.05}
+h1{font-size:clamp(40px,6vw,84px)}
+h1 .hi{display:block;font-family:'Anek Devanagari';font-size:clamp(34px,5.2vw,72px);color:var(--c);margin-top:2px}
+h2{font-size:clamp(28px,3.6vw,50px)}
+p.s{color:var(--dim);margin:0 0 24px;max-width:38ch;font-size:15px;line-height:1.6}
+input[type=text],input[type=email],textarea{
+  width:100%;
+  background:none;
+  border:0;
+  border-bottom:2px solid var(--dim);
+  color:var(--fg);
+  font:inherit;
+  font-size:clamp(18px,2vw,26px);
+  padding:10px 0;
+  outline:0;
+  border-radius:0;
+  transition:border-color .3s;
+  resize:none
 }
-
-/* Minimal Floating Top Bar */
-#bar {
-  position: fixed;
-  top: env(safe-area-inset-top, 0px);
-  left: 0;
-  right: 0;
-  padding: 14px 24px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  font-size: 11px;
-  letter-spacing: .08em;
-  color: var(--dim);
-  z-index: 50;
-  text-transform: uppercase;
-  font-family: 'JetBrains Mono', monospace;
-  background: linear-gradient(180deg, var(--bg) 60%, transparent 100%);
+input:focus,textarea:focus{border-color:var(--c)}
+.chips{display:flex;flex-wrap:wrap;gap:10px}
+.chip{
+  background:none;
+  border:1.5px solid var(--dim);
+  color:var(--fg);
+  font:inherit;
+  padding:10px 18px;
+  cursor:pointer;
+  border-radius:999px;
+  transition:all .2s;
+  display:flex;
+  align-items:center;
+  gap:10px
 }
-#bar .brand-label {
-  display: flex;
-  align-items: center;
-  gap: 12px;
+.chip:hover{border-color:var(--c)}
+.chip.sel{background:var(--c);border-color:var(--c);color:var(--bg);font-weight:600}
+input[type=range]{width:100%;accent-color:var(--c);cursor:pointer}
+.rl{color:var(--c);font-size:20px;margin-top:8px}
+.nx{
+  align-self:flex-start;
+  margin-top:30px;
+  background:none;
+  border:0;
+  color:var(--fg);
+  font:inherit;
+  cursor:pointer;
+  padding:6px 0;
+  border-bottom:1.5px solid var(--c);
+  letter-spacing:.04em;
+  text-transform:uppercase
 }
-#bar .brand-label b {
-  color: var(--c);
-  font-weight: 700;
+.nx:hover{color:var(--c)}
+.h{color:var(--c);font-size:13px;min-height:20px;margin-top:10px}
+#out{
+  white-space:pre-wrap;
+  word-break:break-word;
+  font-size:12px;
+  color:var(--dim);
+  border:1px dashed var(--dim);
+  padding:14px;
+  margin-top:20px;
+  max-height:40vh;
+  overflow:auto
 }
-#bar .theme-btn {
-  background: none;
-  border: 1px solid var(--dim);
-  color: var(--fg);
-  font-family: inherit;
-  font-size: 10px;
-  padding: 3px 8px;
-  cursor: pointer;
-  text-transform: uppercase;
-  letter-spacing: .06em;
-  transition: all .2s;
+.sh{animation:sh .3s}@keyframes sh{25%{transform:translateX(-6px)}75%{transform:translateX(6px)}}
+@media (max-width:800px){
+  #a{width:100%;opacity:.22}
+  main{margin:0;width:auto;padding:0 24px}
 }
-#bar .theme-btn:hover {
-  background: var(--c);
-  color: var(--bg);
-  border-color: var(--c);
-}
-#bar b#pr {
-  color: var(--c);
-  font-weight: 500;
-  white-space: pre;
-}
-
-/* Narrative Column */
-main {
-  position: relative;
-  z-index: 2;
-  margin-left: 50vw;
-  width: 46vw;
-  padding-bottom: 80px;
-}
-section {
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  padding: 80px 0;
-  opacity: .18;
-  transform: translateY(24px);
-  transition: opacity .6s, transform .6s;
-}
-section.on {
-  opacity: 1;
-  transform: none;
-}
-.n {
-  color: var(--c);
-  font-size: 13px;
-  letter-spacing: .14em;
-  margin-bottom: 14px;
-  font-family: 'JetBrains Mono', monospace;
-}
-h1, h2 {
-  font-weight: 700;
-  margin: 0 0 24px;
-  letter-spacing: -.03em;
-  line-height: 1.08;
-}
-h1 {
-  font-size: clamp(38px, 5.2vw, 74px);
-  font-family: 'Anek Latin', sans-serif;
-  color: var(--fg);
-}
-h1 .dev {
-  display: block;
-  font-family: 'Anek Devanagari', sans-serif;
-  color: var(--c);
-  font-size: clamp(34px, 4.6vw, 66px);
-  margin-top: 4px;
-}
-h2 {
-  font-size: clamp(26px, 3.2vw, 46px);
-  font-family: 'Anek Latin', 'Anek Devanagari', sans-serif;
-}
-p.s {
-  color: var(--dim);
-  margin: 0 0 24px;
-  max-width: 40ch;
-  font-size: 15px;
-  line-height: 1.55;
-}
-
-/* Form Elements */
-input[type=text], input[type=email], textarea {
-  width: 100%;
-  background: none;
-  border: 0;
-  border-bottom: 2px solid var(--dim);
-  color: var(--fg);
-  font: inherit;
-  font-size: clamp(18px, 2vw, 26px);
-  padding: 10px 0;
-  outline: 0;
-  border-radius: 0;
-  transition: border-color .3s;
-  resize: none;
-}
-input:focus, textarea:focus {
-  border-color: var(--c);
-}
-input::placeholder, textarea::placeholder {
-  color: var(--dim);
-  opacity: .6;
-}
-
-/* Chips */
-.chips {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  max-width: 480px;
-}
-.chip {
-  background: none;
-  border: 1.5px solid var(--dim);
-  color: var(--fg);
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 13.5px;
-  padding: 12px 18px;
-  cursor: pointer;
-  border-radius: 999px;
-  transition: all .2s;
-  text-align: left;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-.chip:hover {
-  border-color: var(--c);
-}
-.chip.sel {
-  background: var(--c);
-  border-color: var(--c);
-  color: var(--bg);
-  font-weight: 600;
-}
-.chip .k-idx {
-  font-size: 11px;
-  opacity: .7;
-}
-
-/* Range Slider */
-.range-box {
-  width: 100%;
-  max-width: 460px;
-}
-input[type=range] {
-  width: 100%;
-  accent-color: var(--c);
-  cursor: pointer;
-}
-.rl {
-  color: var(--c);
-  font-size: 18px;
-  margin-top: 10px;
-  font-family: 'JetBrains Mono', monospace;
-  font-weight: 600;
-}
-
-/* Action Trigger */
-.nx {
-  align-self: flex-start;
-  margin-top: 30px;
-  background: none;
-  border: 0;
-  color: var(--fg);
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 13px;
-  letter-spacing: .06em;
-  text-transform: uppercase;
-  cursor: pointer;
-  padding: 6px 0;
-  border-bottom: 1.5px solid var(--c);
-  transition: color .2s;
-}
-.nx:hover {
-  color: var(--c);
-}
-.h {
-  color: var(--c);
-  font-size: 13px;
-  min-height: 20px;
-  margin-top: 10px;
-  font-family: 'JetBrains Mono', monospace;
-}
-
-/* Cardstock Badge Pass Preview */
-#badge-preview {
-  margin-top: 20px;
-  background: var(--bg);
-  border: 2px solid var(--fg);
-  padding: 20px 22px;
-  font-family: 'JetBrains Mono', monospace;
-  max-width: 460px;
-  color: var(--fg);
-}
-.bp-head {
-  display: flex;
-  justify-content: space-between;
-  border-bottom: 2px solid var(--fg);
-  padding-bottom: 10px;
-  margin-bottom: 12px;
-}
-.bp-head b {
-  font-family: 'Anek Latin', sans-serif;
-  font-size: 18px;
-  color: var(--c);
-}
-.bp-row {
-  display: flex;
-  justify-content: space-between;
-  font-size: 12px;
-  padding: 5px 0;
-  border-bottom: 1px dashed rgba(96, 93, 84, 0.3);
-}
-.bp-row strong {
-  font-weight: 700;
-}
-.bp-foot {
-  display: flex;
-  justify-content: space-between;
-  font-size: 10px;
-  color: var(--dim);
-  margin-top: 14px;
-  padding-top: 8px;
-}
-
-#out {
-  white-space: pre-wrap;
-  word-break: break-word;
-  font-size: 11px;
-  color: var(--dim);
-  border: 1px dashed var(--dim);
-  padding: 14px;
-  margin-top: 20px;
-  max-height: 35vh;
-  overflow: auto;
-  font-family: 'JetBrains Mono', monospace;
-}
-.sh {
-  animation: sh .3s;
-}
-@keyframes sh {
-  25% { transform: translateX(-6px); }
-  75% { transform: translateX(6px); }
-}
-
-@media (max-width: 800px) {
-  #a { width: 100%; opacity: .22; }
-  main { margin: 0; width: auto; padding: 0 24px; }
-  #bar { padding: 12px 16px; }
-}
-@media (prefers-reduced-motion: reduce) {
-  section { transition: none; }
-  html { scroll-behavior: auto; }
-}
+@media (prefers-reduced-motion:reduce){section{transition:none}html{scroll-behavior:auto}}
 </style>
 </head>
 <body>
-<!-- The Large ASCII Screen Form -->
 <pre id="a" aria-hidden="true"></pre>
-
-<!-- Minimal Navigation Bar -->
 <div id="bar">
-  <div class="brand-label">
-    <span>◦ OFF GRID · <b>ऑफ़ ग्रिड</b></span>
-    <button class="theme-btn" id="thm">Ground: Paper</button>
-  </div>
+  <span>◦ OFF GRID · <b>ऑफ़ ग्रिड</b> <button class="thm" id="thm">Ground: Paper</button></span>
   <b id="pr"></b>
 </div>
-
 <main id="m"></main>
 
 <script>
 // ==========================================================================
-// OFF GRID EVENT DATA & QUESTIONS (October 2026, Bengaluru)
+// OFF GRID CONFIGURATION & 10 QUESTIONS
 // ==========================================================================
 const EVENT = {
   name: "OFF GRID",
   devanagari: "ऑफ़ ग्रिड",
   meta: "16:00 — 19:00 IST · Bengaluru Coworking Terrace",
-  sub: "The pause is the product. / अंतराल ही उत्पाद है।"
+  prop: "The pause is the product. · अंतराल ही उत्पाद है।"
 };
 const ENDPOINT = ""; // optional: POST URL for submissions
 
 const Q = [
-  {
-    k: 'name',
-    q: 'What name goes on the physical badge card?',
-    s: 'Issued on 300gsm paper cardstock at the door.',
-    t: 'text',
-    ph: 'Your name or handle',
-    shapeTitle: 'BADGE PASS',
-    req: 1
-  },
-  {
-    k: 'email',
-    q: 'Where should entry confirmation be routed?',
-    s: 'A single timestamped delivery. No follow-ups, no spam.',
-    t: 'email',
-    ph: 'you@workplace.com',
-    shapeTitle: 'SIGNAL ANTENNA',
-    req: 1
-  },
-  {
-    k: 'desk',
-    q: 'What desk or screen are you stepping away from?',
-    s: 'The corporate context left untouched during the 3-hour cell.',
-    t: 'text',
-    ph: 'Design systems, engineering, legal, product, studio…',
-    shapeTitle: 'CORPORATE TOWER'
-  },
-  {
-    k: 'archetype',
-    q: 'Choose your Analog Archetype badge (v1).',
-    s: 'Six designated postures on the physical register.',
-    t: 'choice',
-    shapeTitle: 'ARCHETYPE SEAL',
-    o: [
-      '[01] The Observer — Logged off, visible',
-      '[02] Screen-Fatigued — Strictly no display glare',
-      '[03] Zero-Ping Enforcer — Slack & Teams dark',
-      '[04] Silent Attendee — Presence without performance',
-      '[05] Terrace Squatter — Cold can & ambient air',
-      '[06] Off-Duty Operator — Sanctioned unavailability'
-    ]
-  },
-  {
-    k: 'can',
-    q: 'Cold-can allocation for your arrival.',
-    s: 'Only cold-can activation honest about a three-hour disconnect.',
-    t: 'choice',
-    shapeTitle: 'COLD CAN',
-    o: [
-      'Diet Coke (iced can)',
-      'Classic Cola (iced can)',
-      'Sparkling Mineral Water (chilled)',
-      'Ginger Tonic Brew (cold)',
-      'Bitter Lemon & Citrus'
-    ]
-  },
-  {
-    k: 'posture',
-    q: 'Conversational posture during the window.',
-    s: 'The right to attend without networking, conversing, or performing.',
-    t: 'choice',
-    shapeTitle: 'PAUSE BARS (||)',
-    o: [
-      'Absolute silence (do not engage)',
-      'Low-frequency observation only',
-      'Terrace ambient listening',
-      'Open to unhurried one-on-one talk'
-    ]
-  },
-  {
-    k: 'device',
-    q: 'Device lockdown commitment between 16:00 and 19:00.',
-    s: 'A sanctioned refusal to be reachable.',
-    t: 'choice',
-    shapeTitle: 'SHIELDED ENCLOSURE',
-    o: [
-      'Phone in bag on Airplane mode',
-      'Do Not Disturb (all pings blocked)',
-      'Face-down on table (emergency ringtone only)'
-    ]
-  },
-  {
-    k: 'arrive',
-    q: 'Check-in time at the entry register.',
-    s: 'Doors open at 16:00. Golden-hour begins at 17:15.',
-    t: 'choice',
-    shapeTitle: 'TIME-BLOCK DIAL',
-    o: [
-      '16:00 Sharp (Full three-hour disconnect)',
-      '16:20 — 16:35 (Decompressing post-standup)',
-      '17:00 — 17:15 (Before golden-hour onset)'
-    ]
-  },
-  {
-    k: 'energy',
-    q: 'Workday saturation index at this moment.',
-    s: 'From easing out of sprints to total screen exhaustion.',
-    t: 'range',
-    shapeTitle: 'SATURATION GAUGE'
-  },
-  {
-    k: 'refusal',
-    q: 'Which workplace ritual are you consciously refusing today?',
-    s: 'A decision in the open, not a slogan.',
-    t: 'area',
-    shapeTitle: 'SEVERED TERMINAL',
-    ph: 'E.g., The 5 PM sync, urgent DM pings, performative networking, camera-on calls…'
-  }
+  { k: 'name', q: 'What name goes on the physical badge card?', t: 'text', ph: 'Your name or handle', req: 1 },
+  { k: 'email', q: 'Where should entry confirmation be routed?', t: 'email', ph: 'you@workplace.com', req: 1 },
+  { k: 'desk', q: 'What desk or screen are you stepping away from?', t: 'text', ph: 'Designer, founder, developer, legal, studio…' },
+  { k: 'archetype', q: 'Choose your Analog Archetype badge (v1).', t: 'choice', o: [
+    'The Observer',
+    'Screen-Fatigued',
+    'Zero-Ping Enforcer',
+    'Silent Attendee',
+    'Terrace Squatter',
+    'Off-Duty Operator'
+  ]},
+  { k: 'can', q: 'Pick your cold can allocation for arrival.', t: 'choice', o: [
+    'Diet Coke (iced)',
+    'Classic Cola (iced)',
+    'Sparkling Water (chilled)',
+    'Ginger Tonic (cold)',
+    'Bitter Lemon'
+  ]},
+  { k: 'posture', q: 'What is your conversational posture?', t: 'choice', o: [
+    'Total silence (do not engage)',
+    'Low-frequency observing',
+    'Terrace ambient listening only',
+    'Open to unhurried one-on-one talk'
+  ]},
+  { k: 'device', q: 'Device availability protocol (16:00 — 19:00).', t: 'choice', o: [
+    'Airplane mode in bag',
+    'Do Not Disturb (no haptics/pings)',
+    'Screen face-down on table'
+  ]},
+  { k: 'arrive', q: 'When will you arrive at the register?', t: 'choice', o: [
+    '16:00 Sharp (Full 3-hour disconnect)',
+    '16:15 — 16:30 (Easing post-standup)',
+    '16:45 — 17:15 (Before golden-hour)'
+  ]},
+  { k: 'energy', q: 'Workday saturation index at this moment.', t: 'range' },
+  { k: 'refusal', q: 'Which workplace ritual are you consciously refusing today?', t: 'area', ph: 'The 5 PM sync, urgent DM pings, camera-on calls, performative networking…' }
 ];
 
 const ans = { energy: 3 };
 const EN = [
-  '01 // Moderate fatigue',
-  '02 // Back-to-back syncs',
+  '01 // Moderate sprint fatigue',
+  '02 // Back-to-back sync saturation',
   '03 // High notification noise',
   '04 // Screen glare overload',
   '05 // Full workday exhaustion'
@@ -523,103 +247,49 @@ const EN = [
 
 const $ = s => document.querySelector(s), m = $('#m');
 
-// Build Sections
+// build sections
 let h = `
-<section id="s0" class="on">
+<section id="s0">
   <div class="n">00 — MANIFESTO // INTERVAL MARK</div>
-  <h1>${EVENT.name}<span class="dev">${EVENT.devanagari}</span></h1>
+  <h1>${EVENT.name}<span class="hi">${EVENT.devanagari}</span></h1>
   <p class="s">
     ${EVENT.meta}<br><br>
-    <strong>${EVENT.sub}</strong><br><br>
-    A three-hour window to log off in public. Ten plates. One monumental lead shape that mutates as you scroll.
+    <strong>${EVENT.prop}</strong><br><br>
+    A three-hour window to log off in public. With a cold can. Ten questions. One monumental lead shape that keeps mutating. Scroll to start.
   </p>
-  <button class="nx" data-go="0">Open Register ↓</button>
+  <button class="nx" data-go="0">begin ↓</button>
 </section>`;
 
 Q.forEach((x, i) => {
   let f = '';
-  if (x.t === 'text' || x.t === 'email') {
-    f = `<input type="${x.t}" data-k="${x.k}" placeholder="${x.ph}" autocomplete="off">`;
-  }
-  if (x.t === 'area') {
-    f = `<textarea rows="3" data-k="${x.k}" placeholder="${x.ph}"></textarea>`;
-  }
-  if (x.t === 'choice') {
-    f = `<div class="chips" data-k="${x.k}">
-      ${x.o.map((opt, idx) => `
-        <button class="chip" data-v="${opt}">
-          <span>${opt}</span>
-          <span class="k-idx">0${idx + 1}</span>
-        </button>
-      `).join('')}
-    </div>`;
-  }
-  if (x.t === 'range') {
-    f = `
-      <div class="range-box">
-        <input type="range" min="1" max="5" value="3" data-k="${x.k}">
-        <div class="rl" id="rl">${EN[2]}</div>
-      </div>
-    `;
-  }
-
-  h += `
-  <section id="s${i + 1}">
-    <div class="n">${String(i + 1).padStart(2, '0')} / 10 · ${x.shapeTitle}</div>
-    <h2>${x.q}</h2>
-    ${x.s ? `<p class="s">${x.s}</p>` : ''}
-    ${f}
-    <div class="h" id="h${i}"></div>
-    <button class="nx" data-go="${i + 1}">${i === 9 ? 'Review Entry Badge' : 'Next Plate'} ↓</button>
-  </section>`;
+  if (x.t === 'text' || x.t === 'email') f = `<input type="${x.t === 'text' ? 'text' : 'email'}" data-k="${x.k}" placeholder="${x.ph}" autocomplete="off">`;
+  if (x.t === 'area') f = `<textarea rows="3" data-k="${x.k}" placeholder="${x.ph}"></textarea>`;
+  if (x.t === 'choice' || x.t === 'multi') f = `<div class="chips" data-k="${x.k}" data-t="${x.t}">${x.o.map(o => `<button class="chip" data-v="${o}">${o}</button>`).join('')}</div>`;
+  if (x.t === 'range') f = `<input type="range" min="1" max="5" value="3" data-k="${x.k}"><div class="rl" id="rl">${EN[2]}</div>`;
+  h += `<section id="s${i + 1}"><div class="n">${String(i + 1).padStart(2, '0')} / 10</div><h2>${x.q}</h2>${f}<div class="h" id="h${i}"></div><button class="nx" data-go="${i + 1}">${i === 9 ? 'review' : 'continue'} ↓</button></section>`;
 });
 
 h += `
 <section id="s11">
-  <div class="n">CONCLUSION // VALID PASS</div>
-  <h2>Issue Entry Badge Pass.</h2>
-  <p class="s">Your answers stay on this page until confirmed. Review your physical register card below.</p>
-  
-  <div id="badge-preview">
-    <div class="bp-head">
-      <div>
-        <b>OFF GRID · ऑफ़ ग्रिड</b>
-        <div style="font-size:10px; color:var(--dim); margin-top:2px;">BENGALURU TERRACE · 16:00 — 19:00</div>
-      </div>
-      <div>
-        <span style="background:var(--c); color:var(--bg); font-size:10px; padding:3px 7px; font-weight:700;">PASS ISSUED</span>
-      </div>
-    </div>
-    <div class="bp-row"><span>NAME</span><strong id="bp-name">—</strong></div>
-    <div class="bp-row"><span>EMAIL</span><strong id="bp-email">—</strong></div>
-    <div class="bp-row"><span>DESK</span><strong id="bp-desk">—</strong></div>
-    <div class="bp-row"><span>ARCHETYPE</span><strong id="bp-arch">—</strong></div>
-    <div class="bp-row"><span>COLD CAN</span><strong id="bp-can">—</strong></div>
-    <div class="bp-row"><span>POSTURE</span><strong id="bp-posture">—</strong></div>
-    <div class="bp-foot">
-      <span>NO PINGS. COLD CAN.</span>
-      <span>OCTOBER 2026</span>
-    </div>
-  </div>
-
-  <div style="margin-top:24px;">
-    <button class="chip sel" id="sub" style="align-self:flex-start">Confirm & Issue Pass</button>
-    <div class="h" id="fh"></div>
-    <pre id="out" hidden></pre>
-  </div>
+  <div class="n">DONE — ALMOST</div>
+  <h2>Ready to lock it in?</h2>
+  <p class="s">Your answers stay on this page until you confirm them.</p>
+  <button class="chip sel" id="sub" style="align-self:flex-start">Issue Entry Pass</button>
+  <div class="h" id="fh"></div>
+  <pre id="out" hidden></pre>
 </section>`;
 
 m.innerHTML = h;
 const secs = [...m.children], N = secs.length;
 
-// Navigation & Validation
+// interactions
 const go = i => secs[Math.min(i + 1, N - 1)].scrollIntoView({ behavior: 'smooth' });
 
 function ok(i) {
   const x = Q[i], v = ans[x.k], hint = $('#h' + i);
   if (hint) hint.textContent = '';
   if (x.req && !(v && v.trim()) || x.t === 'email' && v && !/^\S+@\S+\.\S+$/.test(v)) {
-    if (hint) hint.textContent = x.t === 'email' ? '→ Enter a valid email for pass delivery' : '→ Required for the register';
+    if (hint) hint.textContent = x.t === 'email' ? '→ that email looks off' : '→ we need this one';
     const el = secs[i + 1].querySelector('input');
     if (el) {
       el.classList.remove('sh');
@@ -632,34 +302,26 @@ function ok(i) {
   return true;
 }
 
-function updateBadge() {
-  $('#bp-name').textContent = ans.name || '—';
-  $('#bp-email').textContent = ans.email || '—';
-  $('#bp-desk').textContent = ans.desk || '—';
-  $('#bp-arch').textContent = ans.archetype ? ans.archetype.split('—')[0].trim() : '—';
-  $('#bp-can').textContent = ans.can || '—';
-  $('#bp-posture').textContent = ans.posture ? ans.posture.slice(0, 22) + '…' : '—';
-}
-
 m.addEventListener('click', e => {
   const b = e.target.closest('button');
   if (!b) return;
-
   if (b.dataset.go !== undefined) {
     const i = +b.dataset.go;
     if (i > 0 && !ok(i - 1)) return;
-    updateBadge();
     go(i);
     return;
   }
-
   if (b.classList.contains('chip') && b.parentNode.dataset.k) {
     const p = b.parentNode, k = p.dataset.k;
-    p.querySelectorAll('.chip').forEach(c => c.classList.remove('sel'));
-    b.classList.add('sel');
-    ans[k] = b.dataset.v;
-    updateBadge();
-    setTimeout(() => go(+p.closest('section').id.slice(1)), 350);
+    if (p.dataset.t === 'choice' || !p.dataset.t) {
+      p.querySelectorAll('.chip').forEach(c => c.classList.remove('sel'));
+      b.classList.add('sel');
+      ans[k] = b.dataset.v;
+      setTimeout(() => go(+p.closest('section').id.slice(1)), 380);
+    } else {
+      b.classList.toggle('sel');
+      ans[k] = [...p.querySelectorAll('.sel')].map(c => c.dataset.v);
+    }
   }
 });
 
@@ -671,30 +333,13 @@ m.addEventListener('input', e => {
     const idx = Math.max(0, Math.min(4, +e.target.value - 1));
     $('#rl').textContent = EN[idx];
   }
-  updateBadge();
 });
 
 m.addEventListener('keydown', e => {
   if (e.key === 'Enter' && e.target.matches('input[type=text], input[type=email]')) {
     e.preventDefault();
     const i = +e.target.closest('section').id.slice(1);
-    if (ok(i - 1)) {
-      updateBadge();
-      go(i);
-    }
-  }
-});
-
-// Arrow Navigation (Up / Down / J / K)
-window.addEventListener('keydown', e => {
-  if (['INPUT', 'TEXTAREA'].includes(document.activeElement.tagName)) return;
-  const currentStep = Math.round(cur);
-  if (e.key === 'ArrowDown' || e.key === 'j') {
-    e.preventDefault();
-    go(currentStep);
-  } else if (e.key === 'ArrowUp' || e.key === 'k') {
-    e.preventDefault();
-    go(Math.max(-1, currentStep - 2));
+    if (ok(i - 1)) go(i);
   }
 });
 
@@ -708,10 +353,10 @@ $('#sub').onclick = async () => {
   const out = $('#out'), fh = $('#fh');
   out.hidden = false;
   out.textContent = JSON.stringify({
-    event: "OFF GRID / ऑफ़ ग्रिड",
+    brand: "OFF GRID · ऑफ़ ग्रिड",
     window: "16:00 — 19:00 IST",
     ground: document.documentElement.dataset.theme || "paper",
-    registration: ans
+    answers: ans
   }, null, 2);
 
   try {
@@ -722,20 +367,20 @@ $('#sub').onclick = async () => {
         body: JSON.stringify(ans)
       });
     }
-    fh.textContent = '✓ Physical badge pass confirmed. Copy registration below.';
+    fh.textContent = '✓ You’re on the register' + (ENDPOINT ? '' : ' (offline payload generated below)');
     $('#sub').textContent = 'Pass Issued ✓';
   } catch (_) {
-    fh.textContent = '→ Disconnected. Offline badge payload generated below.';
+    fh.textContent = '→ couldn’t send, copy your pass below';
   }
 };
 
-// Section Reveal
+// reveal
 const io = new IntersectionObserver(es => es.forEach(x => x.target.classList.toggle('on', x.isIntersecting)), { threshold: .45 });
 secs.forEach(s => io.observe(s));
 
 // Ground Theme Switcher
 const thmBtn = $('#thm');
-const groundModes = ['paper', 'golden-hour', 'ink'];
+const groundModes = ['paper', 'golden-hour', 'dark'];
 let gIdx = 0;
 thmBtn.onclick = () => {
   gIdx = (gIdx + 1) % groundModes.length;
@@ -747,75 +392,86 @@ thmBtn.onclick = () => {
     document.documentElement.dataset.theme = 'golden-hour';
     thmBtn.textContent = 'Ground: Cobalt (17:15)';
   } else {
-    document.documentElement.dataset.theme = 'ink';
+    document.documentElement.dataset.theme = 'dark';
     thmBtn.textContent = 'Ground: Ink';
   }
 };
 
-// ==========================================================================
-// LARGE-SCALE CONTINUOUS ASCII MORPHING ENGINE
-// One lead shape (The Interval Mark) that continuously mutates through 10 plates
-// ==========================================================================
-const COLS = 72, ROWS = 36, TAU = Math.PI * 2;
-const RAMP = ' .·:-=+*#%@█';
+// Auto Golden-Hour Check (17:15 — 18:50 Bengaluru Local)
+function checkGoldenHour() {
+  try {
+    const now = new Date();
+    const parts = new Intl.DateTimeFormat([], { timeZone: 'Asia/Kolkata', hour12: false, hour: 'numeric', minute: 'numeric' }).formatToParts(now);
+    const h = +parts.find(p => p.type === 'hour').value;
+    const m = +parts.find(p => p.type === 'minute').value;
+    const mins = h * 60 + m;
+    if (mins >= 1035 && mins <= 1130) {
+      document.documentElement.dataset.theme = 'golden-hour';
+      thmBtn.textContent = 'Ground: Cobalt (17:15)';
+      gIdx = 1;
+    }
+  } catch (e) {}
+}
+checkGoldenHour();
 
-// Polar n-gon generator
+// ==========================================================================
+// ASCII MORPH ANIMATION ENGINE (Referencing attached file visual storytelling)
+// One lead shape (The Interval Mark) that smoothly mutates through 10 questions
+// Scaled significantly larger to fill the left stage
+// ==========================================================================
+const COLS = 70, ROWS = 34, TAU = Math.PI * 2, RAMP = ' .·:-=+*#%@';
+
 const ng = (n, off, R) => t => {
-  const w = TAU / n;
-  const a = (((t - off) % w) + w) % w - w / 2;
+  const w = TAU / n, a = (((t - off) % w) + w) % w - w / 2;
   return R * Math.cos(Math.PI / n) / Math.cos(a);
 };
 
-// Box in polar coordinates with aspect ratio
-const polarBox = (w, h) => t => {
-  const ct = Math.cos(t), st = Math.sin(t);
-  return 1.0 / Math.max(Math.abs(ct) / w, Math.abs(st) / h);
-};
-
-// 12 Continuous Mutating Shapes (Scaled MUCH LARGER to dominate the viewport)
-// 00: The Interval Mark (Notched Square)
-// 01: Identification Card Badge
-// 02: Signal Wave Antenna
+// 12 Continuous Mutating Shapes for OFF GRID:
+// 00: Lead Form — The Interval Mark (Square with notched corner)
+// 01: Identification Card Badge Pass
+// 02: Signal Wave Antenna / Pulse
 // 03: Corporate Tower Monolith
 // 04: Analog Archetype Hexagon
-// 05: Chilled Cold Can
+// 05: Cold Can
 // 06: Pause Bars (||)
 // 07: Shielded Device Enclosure
-// 08: Time-Block Chronometer Dial
-// 09: Saturation Barometer Gauge
+// 08: Time-Block Dial (16:00 — 19:00 Arc)
+// 09: Workday Saturation Gauge
 // 10: Severed Terminal Ring
-// 11: Conclusion Stamp Block
-
+// 11: Final Interval Mark Block
 const SH = [
-  // 00: Lead Shape — The Interval Mark (Square with notched corner)
+  // 00: The Interval Mark (Notched square)
   t => {
-    const sq = ng(4, Math.PI / 4, 1.05)(t);
-    return (t > 0.25 && t < 1.35) ? sq * 0.72 : sq;
+    const sq = ng(4, Math.PI / 4, 1.0)(t);
+    return (t > 0.3 && t < 1.3) ? sq * 0.72 : sq;
   },
-  // 01: Identification Pass (Portrait card with slot)
-  t => polarBox(0.82, 1.15)(t),
-  // 02: Signal Wave / Transceiver (Harmonic 3-lobe wave)
-  t => 0.85 + 0.35 * Math.cos(3 * t),
-  // 03: Corporate Tower (Slender monolith)
-  t => polarBox(0.58, 1.25)(t),
-  // 04: Analog Archetype Seal (6-sided Hexagon)
-  ng(6, Math.PI / 6, 1.15),
-  // 05: Cold Can (Cylindrical silhouette with beveled rim)
-  t => polarBox(0.68, 1.12)(t),
-  // 06: Pause Bars (|| Roman Numeral II)
-  t => 0.75 + 0.4 * Math.cos(2 * t) * Math.cos(2 * t),
-  // 07: Shielded Device Enclosure (Smartphone rectangle)
-  t => polarBox(0.72, 1.18)(t),
-  // 08: Time-Block Dial (Chronometer arc)
-  t => (t > -1.1 && t < 1.7) ? 1.15 : 0.52,
-  // 09: Saturation Gauge (Barometer crescent)
-  t => 0.82 + 0.32 * Math.sin(t),
-  // 10: Severed Terminal (Broken circuit ring)
-  t => (t > 0.75 && t < 1.45) ? 0.45 : 1.1,
-  // 11: Final Conclusion Monogram Stamp Block
+  // 01: ID Badge Card Pass
+  ng(4, Math.PI / 2, 0.98),
+  // 02: Signal Wave Antenna
+  t => 0.75 + 0.32 * Math.cos(3 * t),
+  // 03: Corporate Tower Monolith
+  ng(4, Math.PI / 4, 0.85),
+  // 04: 6 Archetypes Hexagon
+  ng(6, 0, 0.96),
+  // 05: Cold Can
+  t => 0.68 + 0.28 * Math.cos(4 * t),
+  // 06: Pause Bars (||)
+  t => 0.62 + 0.34 * Math.cos(2 * t) * Math.cos(2 * t),
+  // 07: Shielded Device Enclosure
+  ng(5, Math.PI / 2, 0.92),
+  // 08: Time-Block Chronometer Dial
+  t => (t > -1.1 && t < 1.7) ? 0.98 : 0.48,
+  // 09: Saturation Gauge
   t => {
-    const sq = ng(4, Math.PI / 4, 1.05)(t);
-    return (t > 0.25 && t < 1.35) ? sq * 0.72 : sq;
+    const s = Math.sin(t), c = Math.cos(t);
+    return (2 - 2 * s + s * Math.sqrt(Math.abs(c)) / (s + 1.4)) * 0.34;
+  },
+  // 10: Severed Terminal
+  t => (t > 0.8 && t < 1.4) ? 0.42 : 0.96,
+  // 11: The Interval Mark / Conclusion
+  t => {
+    const sq = ng(4, Math.PI / 4, 1.0)(t);
+    return (t > 0.3 && t < 1.3) ? sq * 0.72 : sq;
   }
 ];
 
@@ -823,12 +479,10 @@ const pre = $('#a'), pr = $('#pr');
 let cur = 0, tgt = 0, T = 0, last = '';
 const sm = x => x * x * (3 - 2 * x);
 
-// Dynamic responsive font sizing so ASCII fills the left 52vw completely
 function fit() {
-  const mob = innerWidth <= 800;
-  const w = mob ? innerWidth : innerWidth * 0.52;
-  const fs = Math.min(w * 0.96 / (COLS * 0.58), innerHeight * 0.94 / (ROWS * 1.16));
-  pre.style.fontSize = Math.max(9, fs) + 'px';
+  const mob = innerWidth <= 800, w = mob ? innerWidth : innerWidth * .52;
+  const fs = Math.min(w * .96 / (COLS * .6), innerHeight * .92 / (ROWS * 1.2));
+  pre.style.fontSize = fs + 'px';
 }
 
 function scroll() {
@@ -842,39 +496,35 @@ scroll();
 
 const rm = matchMedia('(prefers-reduced-motion:reduce)').matches;
 
-// Much larger scale factor: 1.38x to make shapes monumental
-const SHAPE_SCALE = 1.38;
+// Shape Scale Multiplier: 1.35x ensures the shape is monumental and commands the left screen
+const SCALE = 1.35;
 
 function frame(ms) {
   T = ms / 1000;
   cur += (tgt - cur) * (rm ? 1 : 0.09);
 
   const i = Math.min(N - 2, Math.floor(cur));
-  const f = sm(Math.max(0, Math.min(1, (cur - i - .18) / .68)));
+  const f = sm(Math.max(0, Math.min(1, (cur - i - .2) / .65)));
   const A = SH[i], B = SH[i + 1];
-  const sway = rm ? 0 : Math.sin(T * .45) * .12;
+  const sway = rm ? 0 : Math.sin(T * .5) * .12;
 
   let s = '';
   for (let r = 0; r < ROWS; r++) {
     for (let c = 0; c < COLS; c++) {
-      // Screen space coords centered in left stage
-      const dx = (c - COLS / 2 + .5) * .52 / (ROWS / 2);
+      const dx = (c - COLS / 2 + .5) * .5 / (ROWS / 2);
       const dy = (r - ROWS / 2 + .5) / (ROWS / 2);
       const p = Math.hypot(dx, dy);
       const th = Math.atan2(-dy, dx) + sway;
 
-      // Scaled much larger
-      const R = (A(th) * (1 - f) + B(th) * f) * SHAPE_SCALE;
+      const R = (A(th) * (1 - f) + B(th) * f) * SCALE;
       const d = p / R;
 
       if (d < 1) {
-        // High-definition riso wave & normal simulation
-        let v = Math.pow(1 - d, .48) + .14 * Math.sin(p * 10 - T * 2.2) + .06 * Math.sin(th * 3 + T);
-        s += d > .93 ? '#' : RAMP[Math.max(1, Math.min(RAMP.length - 1, (v * (RAMP.length - 1)) | 0))];
+        let v = Math.pow(1 - d, .55) + .14 * Math.sin(p * 11 - T * 2.2) + .06 * Math.sin(th * 3 + T);
+        s += d > .9 ? '#' : RAMP[Math.max(1, Math.min(RAMP.length - 1, (v * (RAMP.length - 1)) | 0))];
       } else {
-        // Subtle ambient matrix dust
         const q = Math.sin(c * 12.9898 + r * 78.233 + Math.floor(T * 1.5) * 3.17) * 43758.5453;
-        s += (q - Math.floor(q)) < .022 ? '·' : ' ';
+        s += (q - Math.floor(q)) < .025 ? '·' : ' ';
       }
     }
     s += '\n';

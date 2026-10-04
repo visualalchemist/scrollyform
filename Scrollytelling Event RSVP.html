@@ -172,7 +172,7 @@ body {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  padding: 36px 40px;
+  padding: 22px 28px 16px 28px;
   pointer-events: none;
   z-index: 100;
   user-select: none;
@@ -190,7 +190,7 @@ body {
 }
 .wordmark-latin {
   font-family: 'Anek Latin', sans-serif;
-  font-size: clamp(40px, 5.2vw, 68px);
+  font-size: clamp(34px, 4.4vw, 58px);
   font-weight: 800;
   line-height: 0.9;
   letter-spacing: -0.04em;
@@ -198,16 +198,16 @@ body {
 }
 .wordmark-devanagari {
   font-family: 'Anek Devanagari', sans-serif;
-  font-size: clamp(36px, 4.6vw, 60px);
+  font-size: clamp(30px, 3.8vw, 50px);
   font-weight: 800;
   line-height: 0.95;
   letter-spacing: -0.02em;
   color: var(--fg);
-  margin-top: 4px;
+  margin-top: 3px;
 }
 .prop-line {
-  margin-top: 14px;
-  font-size: 13.5px;
+  margin-top: 8px;
+  font-size: 13px;
   font-weight: 500;
   color: var(--dim);
 }
@@ -216,7 +216,7 @@ body {
   font-family: 'Anek Devanagari', sans-serif;
   font-weight: 700;
   color: var(--fg);
-  font-size: 15px;
+  font-size: 14px;
   margin-top: 2px;
 }
 
@@ -231,7 +231,7 @@ body {
   letter-spacing: 0.06em;
 }
 
-/* ASCII Screen Viewport */
+/* ASCII Screen Viewport - Maximized Scale */
 #ascii-viewport {
   flex: 1;
   display: flex;
@@ -240,12 +240,13 @@ body {
   justify-content: center;
   position: relative;
   overflow: hidden;
-  margin: 12px 0;
+  margin: 6px 0;
+  width: 100%;
 }
 #ascii-canvas {
   font-family: 'JetBrains Mono', ui-monospace, monospace;
-  font-size: 11px;
-  line-height: 1.1;
+  font-size: 12px;
+  line-height: 1.05;
   color: var(--accent);
   white-space: pre;
   text-align: center;
@@ -1115,9 +1116,9 @@ window.addEventListener('resize', () => {
 
 function fitAscii() {
   const isMobile = window.innerWidth <= 960;
-  const stageWidth = isMobile ? window.innerWidth : window.innerWidth * 0.52;
-  const stageHeight = isMobile ? window.innerHeight * 0.4 : window.innerHeight * 0.55;
-  const fs = Math.max(7.5, Math.min(stageWidth / (COLS * 0.62), stageHeight / (ROWS * 1.15)));
+  const stageWidth = isMobile ? window.innerWidth - 32 : window.innerWidth * 0.52 - 56;
+  const stageHeight = isMobile ? window.innerHeight * 0.42 : window.innerHeight * 0.65;
+  const fs = Math.max(9, Math.min(stageWidth / (COLS * 0.58), stageHeight / (ROWS * 1.08)));
   asciiCanvas.style.fontSize = fs + 'px';
 }
 fitAscii();
@@ -1268,6 +1269,8 @@ const prefersReduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
 
 let time = 0;
 
+const SHAPE_SCALE = 1.58;
+
 function raymarchFrame(timestamp) {
   time = timestamp / 1000;
   currentScroll += (targetScroll - currentScroll) * (prefersReduced ? 1 : 0.08);
@@ -1281,8 +1284,8 @@ function raymarchFrame(timestamp) {
   const shapeB = SDF_SHAPES[baseIdx + 1] || SDF_SHAPES[0];
 
   // 3D Rotation angles: gentle continuous spin + mouse reaction + scroll rotation
-  const rotY = (prefersReduced ? 0 : time * 0.4) + currentScroll * 0.65 + mouseX * 0.5;
-  const rotX = 0.28 + (prefersReduced ? 0 : Math.sin(time * 0.5) * 0.15) + mouseY * 0.4;
+  const rotY = (prefersReduced ? 0 : time * 0.38) + currentScroll * 0.65 + mouseX * 0.45;
+  const rotX = 0.24 + (prefersReduced ? 0 : Math.sin(time * 0.45) * 0.12) + mouseY * 0.35;
 
   const cosY = Math.cos(rotY), sinY = Math.sin(rotY);
   const cosX = Math.cos(rotX), sinX = Math.sin(rotX);
@@ -1294,22 +1297,22 @@ function raymarchFrame(timestamp) {
 
   for (let r = 0; r < ROWS; r++) {
     for (let c = 0; c < COLS; c++) {
-      // Screen space coords (-1 to 1) with aspect ratio correction
-      const u = (c - COLS / 2 + 0.5) / (COLS / 2.3);
-      const v = (r - ROWS / 2 + 0.5) / (ROWS / 1.6);
+      // Screen space coords (-1 to 1) with tighter aspect framing for much larger scale
+      const u = (c - COLS / 2 + 0.5) / (COLS / 1.95);
+      const v = (r - ROWS / 2 + 0.5) / (ROWS / 1.35);
 
-      // Ray origin & direction
-      let roX = 0, roY = 0, roZ = -2.6;
-      let rdX = u, rdY = v, rdZ = 1.8;
+      // Camera positioned closer for monumental presence
+      let roX = 0, roY = 0, roZ = -2.15;
+      let rdX = u, rdY = v, rdZ = 2.05;
       const invLen = 1 / Math.hypot(rdX, rdY, rdZ);
       rdX *= invLen; rdY *= invLen; rdZ *= invLen;
 
-      // Raymarching loop (16 steps)
+      // Raymarching loop (18 steps)
       let t = 0;
       let hit = false;
       let d = 0;
 
-      for (let s = 0; s < 16; s++) {
+      for (let s = 0; s < 18; s++) {
         const px = roX + rdX * t;
         const py = roY + rdY * t;
         const pz = roZ + rdZ * t;
@@ -1322,19 +1325,20 @@ function raymarchFrame(timestamp) {
         const xy = py * cosX - yz * sinX;
         const xz = py * sinX + yz * cosX;
 
-        const rotatedPoint = { x: yx, y: xy, z: xz };
+        // Scaled point for much larger shape rendering
+        const rotatedPoint = { x: yx / SHAPE_SCALE, y: xy / SHAPE_SCALE, z: xz / SHAPE_SCALE };
 
         // Morph between shape A and shape B
         const distA = shapeA(rotatedPoint);
         const distB = shapeB(rotatedPoint);
-        d = distA * (1 - morphFrac) + distB * morphFrac;
+        d = (distA * (1 - morphFrac) + distB * morphFrac) * SHAPE_SCALE;
 
-        if (d < 0.015) {
+        if (d < 0.012) {
           hit = true;
           break;
         }
-        t += Math.max(d, 0.05);
-        if (t > 4.5) break;
+        t += Math.max(d, 0.04);
+        if (t > 4.2) break;
       }
 
       if (hit) {
@@ -1345,8 +1349,8 @@ function raymarchFrame(timestamp) {
           const yz = -pt.x * sinY + pt.z * cosY;
           const xy = pt.y * cosX - yz * sinX;
           const xz = pt.y * sinX + yz * cosX;
-          const p = { x: yx, y: xy, z: xz };
-          return shapeA(p) * (1 - morphFrac) + shapeB(p) * morphFrac;
+          const p = { x: yx / SHAPE_SCALE, y: xy / SHAPE_SCALE, z: xz / SHAPE_SCALE };
+          return (shapeA(p) * (1 - morphFrac) + shapeB(p) * morphFrac) * SHAPE_SCALE;
         };
 
         const pt = { x: roX + rdX * t, y: roY + rdY * t, z: roZ + rdZ * t };
@@ -1357,14 +1361,14 @@ function raymarchFrame(timestamp) {
 
         // Diffuse Lambertian reflection + specular bounce
         const diff = Math.max(0, (nx * nLen * lx + ny * nLen * ly + nz * nLen * lz));
-        const spec = Math.pow(Math.max(0, -(rdX * lx + rdY * ly + rdZ * lz)), 8) * 0.35;
-        const light = diff * 0.8 + spec + 0.15;
+        const spec = Math.pow(Math.max(0, -(rdX * lx + rdY * ly + rdZ * lz)), 8) * 0.4;
+        const light = diff * 0.82 + spec + 0.16;
 
         const charIdx = Math.max(1, Math.min(ASCII_RAMP.length - 1, Math.floor(light * (ASCII_RAMP.length - 1))));
         buffer += ASCII_RAMP[charIdx];
       } else {
         // Subtle ambient riso coordinate grid in background
-        const isTick = (c % 16 === 0 && r % 8 === 0);
+        const isTick = (c % 15 === 0 && r % 7 === 0);
         buffer += isTick ? '+' : ' ';
       }
     }

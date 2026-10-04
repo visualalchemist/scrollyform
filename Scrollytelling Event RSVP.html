@@ -3,157 +3,1142 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>RSVP — Scroll to Join</title>
+<title>OFF GRID · ऑफ़ ग्रिड — The Pause is the Product</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anek+Devanagari:wght@400;500;700;800&family=Anek+Latin:wght@400;500;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
-:root{--c:#ff5a36;--bg:#f4f1ea;--fg:#16150f;--dim:#8a8678;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
-@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0a0a0b;--fg:#ece9e2;--dim:#7d7a70}}
-:root[data-theme="dark"]{--bg:#0a0a0b;--fg:#ece9e2;--dim:#7d7a70}
-*{box-sizing:border-box}
-html{scroll-behavior:smooth;scroll-padding-top:env(safe-area-inset-top,0px)}
-body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.55 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;transition:background .4s}
-#a{position:fixed;left:0;top:0;width:52vw;height:100%;margin:0;display:flex;align-items:center;justify-content:center;color:var(--c);white-space:pre;line-height:1.2;pointer-events:none;z-index:0;transition:color .6s;overflow:hidden}
-#bar{position:fixed;top:env(safe-area-inset-top,0px);left:0;right:0;padding:14px 22px;display:flex;justify-content:space-between;font-size:12px;letter-spacing:.08em;color:var(--dim);z-index:5;text-transform:uppercase}
-#bar b{color:var(--c);font-weight:400;white-space:pre}
-main{position:relative;z-index:2;margin-left:50vw;width:46vw}
-section{min-height:100vh;display:flex;flex-direction:column;justify-content:center;padding:90px 0;opacity:.18;transform:translateY(24px);transition:opacity .6s,transform .6s}
-section.on{opacity:1;transform:none}
-.n{color:var(--c);font-size:13px;letter-spacing:.14em;margin-bottom:14px}
-h1,h2{font-weight:400;margin:0 0 28px;letter-spacing:-.03em;line-height:1.05}
-h1{font-size:clamp(40px,6vw,84px)}h2{font-size:clamp(28px,3.6vw,50px)}
-p.s{color:var(--dim);margin:0 0 24px;max-width:36ch}
-input[type=text],input[type=email],textarea{width:100%;background:none;border:0;border-bottom:2px solid var(--dim);color:var(--fg);font:inherit;font-size:clamp(18px,2vw,26px);padding:10px 0;outline:0;border-radius:0;transition:border-color .3s;resize:none}
-input:focus,textarea:focus{border-color:var(--c)}
-.chips{display:flex;flex-wrap:wrap;gap:10px}
-.chip{background:none;border:1.5px solid var(--dim);color:var(--fg);font:inherit;padding:10px 16px;cursor:pointer;border-radius:999px;transition:all .2s}
-.chip:hover{border-color:var(--c)}
-.chip.sel{background:var(--c);border-color:var(--c);color:var(--bg)}
-input[type=range]{width:100%;accent-color:var(--c)}
-.rl{color:var(--c);font-size:20px;margin-top:8px}
-.nx{align-self:flex-start;margin-top:30px;background:none;border:0;color:var(--fg);font:inherit;cursor:pointer;padding:6px 0;border-bottom:1.5px solid var(--c)}
-.nx:hover{color:var(--c)}
-.h{color:var(--c);font-size:13px;min-height:20px;margin-top:10px}
-#out{white-space:pre-wrap;word-break:break-word;font-size:12px;color:var(--dim);border:1px dashed var(--dim);padding:14px;margin-top:20px;max-height:40vh;overflow:auto}
-.sh{animation:sh .3s}@keyframes sh{25%{transform:translateX(-6px)}75%{transform:translateX(6px)}}
-@media (max-width:800px){
-#a{width:100%;opacity:.22}
-main{margin:0;width:auto;padding:0 24px}
+:root {
+  /* Brand System V1 Palette */
+  --paper: #F3EEE2;
+  --paper-cool: #E7E3D6;
+  --ink: #0E1116;
+  --scarlet: #E63323;
+  --cobalt: #1D3BE0;
+  --sun: #F6D32B;
+  --white: #FFFFFF;
+
+  /* Semantic Theme tokens */
+  --bg: var(--paper);
+  --bg-secondary: var(--paper-cool);
+  --fg: var(--ink);
+  --accent: var(--scarlet);
+  --border: rgba(14, 17, 22, 0.22);
+  --dim: #5c5950;
+  --callout: var(--sun);
+
+  box-sizing: border-box;
+  padding-top: env(safe-area-inset-top, 0px);
+  padding-bottom: env(safe-area-inset-bottom, 0px);
 }
-@media (prefers-reduced-motion:reduce){section{transition:none}html{scroll-behavior:auto}}
+
+/* Golden Hour Rule (17:15 — 18:50 Local) & Cobalt Terrace Ground */
+[data-theme="golden-hour"], [data-theme="cobalt"] {
+  --bg: var(--cobalt);
+  --bg-secondary: #132bb8;
+  --fg: var(--paper);
+  --accent: var(--sun);
+  --border: rgba(243, 238, 226, 0.3);
+  --dim: #c5cde8;
+  --callout: var(--sun);
+}
+
+[data-theme="ink"] {
+  --bg: var(--ink);
+  --bg-secondary: #181d24;
+  --fg: var(--paper);
+  --accent: var(--scarlet);
+  --border: rgba(243, 238, 226, 0.24);
+  --dim: #9b988f;
+  --callout: var(--sun);
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 80px;
+  background-color: var(--bg);
+  color: var(--fg);
+}
+body {
+  font-family: 'Anek Latin', 'Anek Devanagari', -apple-system, sans-serif;
+  background-color: var(--bg);
+  color: var(--fg);
+  line-height: 1.45;
+  transition: background-color .35s ease, color .35s ease;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+.mono {
+  font-family: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+}
+
+/* Top System Navigation Bar */
+#top-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 52px;
+  background: var(--bg);
+  border-bottom: 1.5px solid var(--border);
+  padding: 0 28px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  z-index: 100;
+  transition: background-color .35s, border-color .35s;
+}
+.brand-meta {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  font-family: 'JetBrains Mono', monospace;
+}
+.brand-meta b {
+  color: var(--accent);
+  font-weight: 700;
+}
+.brand-controls {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.time-badge {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border);
+  padding: 4px 10px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+}
+.theme-toggle-btn {
+  background: none;
+  border: 1px solid var(--border);
+  color: var(--fg);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.06em;
+  padding: 5px 10px;
+  cursor: pointer;
+  text-transform: uppercase;
+  transition: all .2s ease;
+}
+.theme-toggle-btn:hover {
+  background: var(--accent);
+  color: var(--bg);
+  border-color: var(--accent);
+}
+
+/* Layout Grid */
+#app-wrap {
+  display: flex;
+  min-height: 100vh;
+  position: relative;
+  margin-top: 52px;
+}
+
+/* Left Brand & Visualizer Stage */
+#visual-stage {
+  position: fixed;
+  left: 0;
+  top: 52px;
+  bottom: 0;
+  width: 50vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 48px;
+  border-right: 1.5px solid var(--border);
+  z-index: 10;
+  pointer-events: none;
+}
+
+.brand-lockup {
+  display: flex;
+  flex-direction: column;
+  gap: 0px;
+  user-select: none;
+}
+.wordmark-latin {
+  font-family: 'Anek Latin', sans-serif;
+  font-size: clamp(48px, 6.2vw, 84px);
+  font-weight: 800;
+  line-height: 0.92;
+  letter-spacing: -0.04em;
+  color: var(--accent);
+  text-transform: uppercase;
+}
+.wordmark-devanagari {
+  font-family: 'Anek Devanagari', sans-serif;
+  font-size: clamp(44px, 5.8vw, 78px);
+  font-weight: 800;
+  line-height: 0.95;
+  letter-spacing: -0.02em;
+  color: var(--fg);
+  margin-top: 4px;
+}
+.tagline {
+  margin-top: 20px;
+  font-size: 15px;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+}
+.tagline .hi {
+  color: var(--accent);
+  display: block;
+  font-family: 'Anek Devanagari', sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+  margin-top: 2px;
+}
+
+/* The ASCII & Analog Halftone Frame */
+#ascii-box {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+  margin: 20px 0;
+}
+#a {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  line-height: 1.15;
+  color: var(--accent);
+  white-space: pre;
+  user-select: none;
+  opacity: 0.95;
+  transition: color .4s;
+}
+
+/* Left Footer / Chapter Info */
+.brand-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  border-top: 1px solid var(--border);
+  padding-top: 18px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  color: var(--dim);
+}
+.brand-footer strong {
+  color: var(--fg);
+}
+.analog-badge-pill {
+  display: inline-block;
+  background: var(--fg);
+  color: var(--bg);
+  font-weight: 700;
+  padding: 3px 8px;
+  letter-spacing: 0.08em;
+  font-size: 10px;
+}
+
+/* Right Content Column */
+main {
+  margin-left: 50vw;
+  width: 50vw;
+  padding: 60px 8vw 120px 6vw;
+  position: relative;
+  z-index: 20;
+}
+
+section {
+  min-height: 92vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 60px 0;
+  opacity: 0.16;
+  transform: translateY(22px);
+  transition: opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1), transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  border-bottom: 1px dashed var(--border);
+}
+section:last-of-type {
+  border-bottom: 0;
+}
+section.on {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.step-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  color: var(--accent);
+  letter-spacing: 0.14em;
+  margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.step-label .roman-bars {
+  display: inline-block;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+}
+
+h1 {
+  font-family: 'Anek Latin', sans-serif;
+  font-size: clamp(38px, 4.4vw, 68px);
+  font-weight: 800;
+  line-height: 1.04;
+  letter-spacing: -0.03em;
+  margin-bottom: 24px;
+}
+h2 {
+  font-family: 'Anek Latin', 'Anek Devanagari', sans-serif;
+  font-size: clamp(28px, 3.2vw, 44px);
+  font-weight: 700;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  margin-bottom: 24px;
+}
+p.manifesto-lead {
+  font-size: 18px;
+  line-height: 1.6;
+  color: var(--fg);
+  margin-bottom: 20px;
+  max-width: 44ch;
+}
+p.s {
+  color: var(--dim);
+  font-size: 15px;
+  line-height: 1.55;
+  margin-bottom: 28px;
+  max-width: 42ch;
+}
+
+/* Inputs & Form Elements */
+input[type=text], input[type=email], textarea {
+  width: 100%;
+  background: none;
+  border: 0;
+  border-bottom: 2px solid var(--border);
+  color: var(--fg);
+  font-family: 'Anek Latin', 'Anek Devanagari', sans-serif;
+  font-size: clamp(20px, 2.2vw, 30px);
+  font-weight: 500;
+  padding: 12px 0;
+  outline: 0;
+  border-radius: 0;
+  transition: border-color .25s ease;
+}
+input[type=text]::placeholder, input[type=email]::placeholder, textarea::placeholder {
+  color: var(--dim);
+  opacity: 0.6;
+}
+input:focus, textarea:focus {
+  border-color: var(--accent);
+}
+textarea {
+  resize: none;
+  font-size: 20px;
+  line-height: 1.5;
+}
+
+/* Option Chips - Brutalist & Analog Posture */
+.chips {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 100%;
+  max-width: 520px;
+}
+.chip {
+  background: var(--bg-secondary);
+  border: 1.5px solid var(--border);
+  color: var(--fg);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 14px;
+  padding: 14px 18px;
+  text-align: left;
+  cursor: pointer;
+  border-radius: 0px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  transition: all 0.2s ease;
+}
+.chip:hover {
+  border-color: var(--accent);
+  background: var(--bg);
+}
+.chip.sel {
+  background: var(--ink);
+  color: var(--paper);
+  border-color: var(--ink);
+}
+[data-theme="golden-hour"] .chip.sel, [data-theme="cobalt"] .chip.sel {
+  background: var(--paper);
+  color: var(--cobalt);
+  border-color: var(--paper);
+}
+.chip .chip-key {
+  font-size: 11px;
+  opacity: 0.6;
+}
+
+/* Range Slider */
+.range-wrap {
+  width: 100%;
+  max-width: 480px;
+  margin: 16px 0;
+}
+input[type=range] {
+  width: 100%;
+  height: 6px;
+  background: var(--border);
+  outline: none;
+  accent-color: var(--accent);
+  border-radius: 0;
+  cursor: pointer;
+}
+.range-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 14px;
+  font-family: 'JetBrains Mono', monospace;
+}
+.rl {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--accent);
+}
+.rl-sub {
+  font-size: 12px;
+  color: var(--dim);
+}
+
+/* Navigation & Action Buttons */
+.nx {
+  align-self: flex-start;
+  margin-top: 36px;
+  background: none;
+  border: 0;
+  color: var(--fg);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 13px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  cursor: pointer;
+  padding: 8px 0;
+  border-bottom: 2px solid var(--accent);
+  transition: color .2s, border-color .2s;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+.nx:hover {
+  color: var(--accent);
+}
+.btn-primary {
+  align-self: flex-start;
+  background: var(--accent);
+  color: var(--paper);
+  border: 0;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 16px 32px;
+  cursor: pointer;
+  transition: opacity .2s ease, transform .1s;
+}
+.btn-primary:hover {
+  opacity: 0.92;
+}
+.btn-primary:active {
+  transform: translateY(1px);
+}
+
+.hint-msg {
+  color: var(--accent);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  min-height: 22px;
+  margin-top: 12px;
+}
+
+/* Physical Badge Preview Card */
+#badge-pass-card {
+  margin-top: 24px;
+  background: var(--paper);
+  color: var(--ink);
+  border: 2px solid var(--ink);
+  padding: 24px;
+  font-family: 'JetBrains Mono', monospace;
+  max-width: 500px;
+  box-sizing: border-box;
+}
+.badge-header {
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 2px solid var(--ink);
+  padding-bottom: 12px;
+  margin-bottom: 16px;
+}
+.badge-header .og-logo {
+  font-family: 'Anek Latin', sans-serif;
+  font-size: 20px;
+  font-weight: 800;
+  color: var(--scarlet);
+}
+.badge-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 12px;
+  padding: 6px 0;
+  border-bottom: 1px dashed rgba(14,17,22,0.25);
+}
+.badge-row strong {
+  font-weight: 700;
+}
+.badge-footer {
+  margin-top: 18px;
+  padding-top: 10px;
+  display: flex;
+  justify-content: space-between;
+  font-size: 10px;
+  color: #5c5950;
+}
+
+/* Submission Output Preview */
+#out {
+  white-space: pre-wrap;
+  word-break: break-word;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  color: var(--dim);
+  border: 1px dashed var(--border);
+  padding: 16px;
+  margin-top: 20px;
+  max-height: 35vh;
+  overflow: auto;
+  background: var(--bg-secondary);
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 900px) {
+  #top-bar {
+    padding: 0 16px;
+  }
+  .brand-meta span {
+    display: none;
+  }
+  #visual-stage {
+    position: fixed;
+    top: 52px;
+    left: 0;
+    width: 100vw;
+    height: 38vh;
+    padding: 20px 24px;
+    background: var(--bg);
+    border-right: 0;
+    border-bottom: 1.5px solid var(--border);
+    z-index: 15;
+  }
+  .wordmark-latin { font-size: 34px; }
+  .wordmark-devanagari { font-size: 30px; }
+  .tagline { display: none; }
+  #ascii-box { margin: 4px 0; }
+  #a { font-size: 8px; line-height: 1.05; }
+  .brand-footer { display: none; }
+
+  main {
+    margin-left: 0;
+    width: 100vw;
+    padding: calc(38vh + 30px) 24px 80px 24px;
+  }
+  section {
+    min-height: 80vh;
+    padding: 40px 0;
+  }
+}
+
+.sh { animation: shake .3s; }
+@keyframes shake {
+  25% { transform: translateX(-6px); }
+  75% { transform: translateX(6px); }
+}
+@media (prefers-reduced-motion: reduce) {
+  section { transition: none; }
+  html { scroll-behavior: auto; }
+}
 </style>
 </head>
 <body>
-<pre id="a" aria-hidden="true"></pre>
-<div id="bar"><span>◦ RSVP</span><b id="pr"></b></div>
-<main id="m"></main>
+
+<header id="top-bar">
+  <div class="brand-meta">
+    <b>RAP MEDIA</b>
+    <span>·</span>
+    <strong>OFF GRID / ऑफ़ ग्रिड</strong>
+    <span>·</span>
+    <span>BRAND SYSTEM v1</span>
+  </div>
+  <div class="brand-controls">
+    <div class="time-badge" id="clock">16:00 — 19:00 IST</div>
+    <button class="theme-toggle-btn" id="golden-toggle" title="Toggle Chapter V Golden-Hour Ground">Ground: Paper</button>
+  </div>
+</header>
+
+<div id="app-wrap">
+  <!-- Left Brand Identity and ASCII Halftone Surface -->
+  <aside id="visual-stage">
+    <div class="brand-lockup">
+      <div class="wordmark-latin">OFF GRID</div>
+      <div class="wordmark-devanagari">ऑफ़ ग्रिड</div>
+      <div class="tagline">
+        The pause is the product.
+        <span class="hi">अंतराल ही उत्पाद है।</span>
+      </div>
+    </div>
+
+    <div id="ascii-box">
+      <pre id="a" aria-hidden="true"></pre>
+    </div>
+
+    <div class="brand-footer">
+      <div>
+        <span>REGISTER: </span>
+        <strong id="step-name">00 // MANIFESTO</strong>
+      </div>
+      <div>
+        <span id="pr" class="analog-badge-pill">STEP 00/10</span>
+      </div>
+    </div>
+  </aside>
+
+  <!-- Right Interactive Scrollytelling Sections -->
+  <main id="m"></main>
+</div>
 
 <script>
-// ---- edit me ----
-const EVENT = { name: "THE GATHERING", meta: "Date · Time · Venue" };
-const ENDPOINT = ""; // optional: POST URL for submissions
-// -----------------
-const Q=[
-{k:'name',q:'What should we call you?',t:'text',ph:'Your name',req:1},
-{k:'email',q:'Where can we reach you?',t:'email',ph:'you@domain.com',req:1},
-{k:'work',q:'What do you do, in one line?',t:'text',ph:'Designer, founder, student…'},
-{k:'role',q:'How are you joining us?',t:'choice',o:['Attendee','Speaker','Partner','Press']},
-{k:'topics',q:'What pulls you in? Pick any.',t:'multi',o:['Talks','Workshops','Demos','Networking','Music','Food']},
-{k:'diet',q:'How should we feed you?',t:'choice',o:['No preference','Vegetarian','Vegan','Allergy — I’ll tell you']},
-{k:'arrive',q:'When will you arrive?',t:'choice',o:['On the dot','Within the first hour','Fashionably late']},
-{k:'guest',q:'Bringing someone?',t:'choice',o:['Just me','Plus one']},
-{k:'energy',q:'How social are you feeling?',t:'range'},
-{k:'note',q:'Leave us a note.',t:'area',ph:'What would make this unmissable for you?'}
-];
-const ans={energy:5},EN=['Hermit mode','Easing in','Warm','Chatty','Electric'];
-const $=s=>document.querySelector(s),m=$('#m');
-
-// build sections
-let h=`<section id="s0"><div class="n">00 — BEGIN</div><h1>${EVENT.name}</h1><p class="s">${EVENT.meta}<br>Ten questions. One shape that keeps changing. Scroll to start.</p><button class="nx" data-go="0">begin ↓</button></section>`;
-Q.forEach((x,i)=>{
- let f='';
- if(x.t=='text'||x.t=='email')f=`<input type="${x.t=='text'?'text':'email'}" data-k="${x.k}" placeholder="${x.ph}" autocomplete="off">`;
- if(x.t=='area')f=`<textarea rows="3" data-k="${x.k}" placeholder="${x.ph}"></textarea>`;
- if(x.t=='choice'||x.t=='multi')f=`<div class="chips" data-k="${x.k}" data-t="${x.t}">${x.o.map(o=>`<button class="chip" data-v="${o}">${o}</button>`).join('')}</div>`;
- if(x.t=='range')f=`<input type="range" min="0" max="10" value="5" data-k="${x.k}"><div class="rl" id="rl">${EN[2]}</div>`;
- h+=`<section id="s${i+1}"><div class="n">${String(i+1).padStart(2,'0')} / 10</div><h2>${x.q}</h2>${f}<div class="h" id="h${i}"></div><button class="nx" data-go="${i+1}">${i==9?'review':'continue'} ↓</button></section>`;
-});
-h+=`<section id="s11"><div class="n">DONE — ALMOST</div><h2>Ready to lock it in?</h2><p class="s">Your answers stay on this page until you send them.</p><button class="chip sel" id="sub" style="align-self:flex-start">Submit RSVP</button><div class="h" id="fh"></div><pre id="out" hidden></pre></section>`;
-m.innerHTML=h;
-const secs=[...m.children],N=secs.length;
-
-// interactions
-const go=i=>secs[Math.min(i+1,N-1)].scrollIntoView({behavior:'smooth'});
-function ok(i){ // validate question i (0-based)
- const x=Q[i],v=ans[x.k],hint=$('#h'+i);hint.textContent='';
- if(x.req&&!(v&&v.trim())||x.t=='email'&&v&&!/^\S+@\S+\.\S+$/.test(v)){
-  hint.textContent=x.t=='email'?'→ that email looks off':'→ we need this one';
-  const el=secs[i+1].querySelector('input');el.classList.remove('sh');void el.offsetWidth;el.classList.add('sh');el.focus();return false}
- return true}
-m.addEventListener('click',e=>{
- const b=e.target.closest('button');if(!b)return;
- if(b.dataset.go!==undefined){const i=+b.dataset.go;if(i>0&&!ok(i-1))return;go(i);return}
- if(b.classList.contains('chip')&&b.parentNode.dataset.k){
-  const p=b.parentNode,k=p.dataset.k;
-  if(p.dataset.t=='choice'){p.querySelectorAll('.chip').forEach(c=>c.classList.remove('sel'));b.classList.add('sel');ans[k]=b.dataset.v;setTimeout(()=>go(+p.closest('section').id.slice(1)),380)}
-  else{b.classList.toggle('sel');ans[k]=[...p.querySelectorAll('.sel')].map(c=>c.dataset.v)}}
-});
-m.addEventListener('input',e=>{const k=e.target.dataset.k;if(!k)return;ans[k]=e.target.value;
- if(e.target.type=='range')$('#rl').textContent=EN[Math.min(4,e.target.value>>1)]});
-m.addEventListener('keydown',e=>{if(e.key=='Enter'&&e.target.matches('input[type=text],input[type=email]')){e.preventDefault();const i=+e.target.closest('section').id.slice(1);if(ok(i-1))go(i)}});
-$('#sub').onclick=async()=>{
- for(let i=0;i<Q.length;i++)if(Q[i].req&&!ok(i)){secs[i+1].scrollIntoView();return}
- const out=$('#out'),fh=$('#fh');out.hidden=false;out.textContent=JSON.stringify(ans,null,2);
- try{if(ENDPOINT)await fetch(ENDPOINT,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(ans)});
-  fh.textContent='✓ You’re on the list'+(ENDPOINT?'':' (no endpoint set — copy your answers below)');
-  $('#sub').textContent='Sent'}catch(_){fh.textContent='→ couldn’t send, try again'}
+// ==========================================
+// OFF GRID BRAND CONFIGURATION (October 2026)
+// ==========================================
+const BRAND = {
+  name: "OFF GRID",
+  devanagari: "ऑफ़ ग्रिड",
+  window: "16:00 — 19:00 IST",
+  location: "Bengaluru Coworking Terrace",
+  endpoint: "" // Optional POST URL
 };
 
-// reveal
-const io=new IntersectionObserver(es=>es.forEach(x=>x.target.classList.toggle('on',x.isIntersecting)),{threshold:.45});
-secs.forEach(s=>io.observe(s));
-
-// ---- ASCII morph ----
-const COLS=70,ROWS=34,TAU=Math.PI*2,RAMP=' .·:-=+*#%@';
-const ng=(n,off,R)=>t=>{const w=TAU/n,a=(((t-off)%w)+w)%w-w/2;return R*Math.cos(Math.PI/n)/Math.cos(a)};
-const SH=[
- t=>.78, ng(3,Math.PI/2,.95), ng(4,Math.PI/4,.82), ng(4,Math.PI/2,.95),
- ng(5,Math.PI/2,.88), ng(6,0,.85), t=>.62+.26*Math.cos(5*t), t=>.56+.34*Math.cos(4*t),
- t=>{const s=Math.sin(t),c=Math.cos(t);return(2-2*s+s*Math.sqrt(Math.abs(c))/(s+1.4))*.27},
- t=>.6+.22*Math.cos(8*t), t=>.45+.4*Math.abs(Math.sin(3*t)), t=>.78
-];
-const pre=$('#a'),pr=$('#pr');
-let cur=0,tgt=0,T=0,last='';
-const sm=x=>x*x*(3-2*x);
-function fit(){const mob=innerWidth<=800,w=mob?innerWidth:innerWidth*.52,fs=Math.min(w*.94/(COLS*.6),innerHeight*.86/(ROWS*1.2));pre.style.fontSize=fs+'px'}
-function scroll(){tgt=Math.max(0,Math.min(N-1,scrollY/innerHeight))}
-addEventListener('resize',()=>{fit();scroll()});addEventListener('scroll',scroll,{passive:true});
-fit();scroll();
-const rm=matchMedia('(prefers-reduced-motion:reduce)').matches;
-function frame(ms){
- T=ms/1000;cur+=(tgt-cur)*(rm?1:.09);
- const i=Math.min(N-2,Math.floor(cur)),f=sm(Math.max(0,Math.min(1,(cur-i-.2)/.65))),A=SH[i],B=SH[i+1],sway=rm?0:Math.sin(T*.5)*.12;
- let s='';
- for(let r=0;r<ROWS;r++){
-  for(let c=0;c<COLS;c++){
-   const dx=(c-COLS/2+.5)*.5/(ROWS/2),dy=(r-ROWS/2+.5)/(ROWS/2),p=Math.hypot(dx,dy),th=Math.atan2(-dy,dx)+sway;
-   const R=(A(th)*(1-f)+B(th)*f)*.95,d=p/R;
-   if(d<1){
-    let v=Math.pow(1-d,.55)+.14*Math.sin(p*11-T*2.2)+.06*Math.sin(th*3+T);
-    s+=d>.9?'#':RAMP[Math.max(1,Math.min(RAMP.length-1,(v*(RAMP.length-1))|0))];
-   }else{
-    const q=Math.sin(c*12.9898+r*78.233+Math.floor(T*1.5)*3.17)*43758.5453;
-    s+=(q-Math.floor(q))<.025?'·':' ';
-   }
+// 10 Brand-Aligned Questions (No festival/wellness clichés; authentic unhurried register)
+const QUESTIONS = [
+  {
+    k: 'name',
+    q: 'What name goes on the physical badge card?',
+    s: 'Issued at the door on paper cardstock. No lanyard app required.',
+    t: 'text',
+    ph: 'Your name or handle',
+    req: true
+  },
+  {
+    k: 'email',
+    q: 'Where should the entry confirmation be routed?',
+    s: 'We send a single time-stamped confirmation. No follow-ups, no newsletters.',
+    t: 'email',
+    ph: 'you@workplace.com',
+    req: true
+  },
+  {
+    k: 'desk',
+    q: 'What desk or screen are you stepping away from?',
+    s: 'The context left behind during the three-hour cell.',
+    t: 'text',
+    ph: 'Product design, backend, founder desk, legal, architecture…'
+  },
+  {
+    k: 'archetype',
+    q: 'Select your Analog Archetype badge (v1).',
+    s: 'Six archetypes on the registration sheet. Tradeable or kept quiet.',
+    t: 'choice',
+    o: [
+      '[01] The Observer — Logged off, visible',
+      '[02] Screen-Fatigued — Strictly no display light',
+      '[03] Zero-Ping Enforcer — Slack & Teams dead',
+      '[04] Silent Attendee — Presence without performance',
+      '[05] Terrace Squatter — Cold can & fresh air',
+      '[06] Off-Duty Operator — Sanctioned unavailability'
+    ]
+  },
+  {
+    k: 'can',
+    q: 'Cold-can allocation for your arrival.',
+    s: 'Only cold-can activation honest about a three-hour disconnect.',
+    t: 'choice',
+    o: [
+      'Diet Coke (iced can)',
+      'Classic Cola (iced can)',
+      'Sparkling Water (chilled)',
+      'Ginger Brew (cold)',
+      'Tonic & Citrus Peel'
+    ]
+  },
+  {
+    k: 'posture',
+    q: 'What is your conversational posture during the window?',
+    s: 'The right to attend without performing or networking.',
+    t: 'choice',
+    o: [
+      'Total silence (do not engage)',
+      'Low-frequency observing',
+      'Terrace ambient listening only',
+      'Open to unhurried one-on-one talk'
+    ]
+  },
+  {
+    k: 'device_lock',
+    q: 'Device availability protocol for 16:00 — 19:00.',
+    s: 'A sanctioned refusal to be reachable.',
+    t: 'choice',
+    o: [
+      'Phone in bag on Airplane mode',
+      'Do Not Disturb (no haptics or pings)',
+      'Face-down on table (emergency calls only)'
+    ]
+  },
+  {
+    k: 'arrival',
+    q: 'Estimated arrival time at the check-in register.',
+    s: 'Doors open at 16:00. Golden-hour begins at 17:15.',
+    t: 'choice',
+    o: [
+      '16:00 Sharp (Full three-hour disconnect)',
+      '16:20 — 16:35 (Decompressing post-standup)',
+      '17:00 — 17:15 (Before golden-hour onset)'
+    ]
+  },
+  {
+    k: 'burnout_index',
+    q: 'Workday saturation index at this moment.',
+    s: 'From easing out of sprints to total screen exhaustion.',
+    t: 'range'
+  },
+  {
+    k: 'refusal',
+    q: 'Which workplace ritual are you consciously refusing today?',
+    s: 'A decision in the open, not a slogan.',
+    t: 'area',
+    ph: 'E.g., The 5 PM sync, urgent DM pings, performative availability, calendar blocking…'
   }
-  s+='\n';
- }
- if(s!==last){pre.textContent=s;last=s}
- const step=Math.round(cur),hue=(step*34+12)%360;
- document.documentElement.style.setProperty('--c',`hsl(${hue} 95% ${matchMedia('(prefers-color-scheme:dark)').matches?62:52}%)`);
- const n=Math.max(0,Math.min(10,step)),bar='▓'.repeat(n)+'░'.repeat(10-n);
- pr.textContent=`${bar} ${String(n).padStart(2,'0')}/10`;
- requestAnimationFrame(frame);
+];
+
+const SATURATION_LABELS = [
+  '01 // Moderate sprint fatigue',
+  '02 // Back-to-back sync saturation',
+  '03 // High notification noise',
+  '04 // Screen glare overload',
+  '05 // Full workday exhaustion'
+];
+
+const answers = { burnout_index: 3 };
+const $ = s => document.querySelector(s);
+const main = $('#m');
+
+// Render Sections
+let html = `
+<section id="s0" class="on">
+  <div class="step-label"><span class="roman-bars">||</span> CHAPTER II // MANIFESTO</div>
+  <h1>The pause is the product.</h1>
+  <p class="manifesto-lead">
+    <strong>OFF GRID</strong> is a three-hour window inside a Bengaluru corporate & coworking terrace. 
+    Between 16:00 and 19:00, you log off. In public. With a cold can.
+  </p>
+  <p class="s">
+    No stage. No line-up. No main-character moment. No DJ, no ambient trance, no founder fireside, no networking theater.
+    Ten questions to print your entry badge. Scroll to begin.
+  </p>
+  <button class="nx" data-go="0">Open Register ↓</button>
+</section>`;
+
+QUESTIONS.forEach((q, i) => {
+  let field = '';
+  if (q.t === 'text' || q.t === 'email') {
+    field = `<input type="${q.t}" data-k="${q.k}" placeholder="${q.ph}" autocomplete="off">`;
+  } else if (q.t === 'area') {
+    field = `<textarea rows="3" data-k="${q.k}" placeholder="${q.ph}"></textarea>`;
+  } else if (q.t === 'choice') {
+    field = `<div class="chips" data-k="${q.k}">
+      ${q.o.map((opt, idx) => `
+        <button class="chip" data-v="${opt}">
+          <span>${opt}</span>
+          <span class="chip-key">0${idx+1}</span>
+        </button>
+      `).join('')}
+    </div>`;
+  } else if (q.t === 'range') {
+    field = `
+      <div class="range-wrap">
+        <input type="range" min="1" max="5" value="3" data-k="${q.k}">
+        <div class="range-meta">
+          <div class="rl" id="rl">${SATURATION_LABELS[2]}</div>
+          <div class="rl-sub">16:00 Disconnect Level</div>
+        </div>
+      </div>
+    `;
+  }
+
+  html += `
+  <section id="s${i+1}">
+    <div class="step-label">
+      <span class="roman-bars">||</span>
+      <span>PLATE ${String(i+1).padStart(2,'0')} / 10</span>
+    </div>
+    <h2>${q.q}</h2>
+    ${q.s ? `<p class="s">${q.s}</p>` : ''}
+    ${field}
+    <div class="hint-msg" id="h${i}"></div>
+    <button class="nx" data-go="${i+1}">${i === 9 ? 'Review Entry Badge' : 'Next Plate'} ↓</button>
+  </section>`;
+});
+
+html += `
+<section id="s11">
+  <div class="step-label"><span class="roman-bars">||</span> CONCLUSION // ENTRY BADGE</div>
+  <h2>Confirm Registration.</h2>
+  <p class="s">Your answers sit in memory until confirmed. Review your physical badge below.</p>
+  
+  <div id="badge-pass-card">
+    <div class="badge-header">
+      <div>
+        <div class="og-logo">OFF GRID · ऑफ़ ग्रिड</div>
+        <div style="font-size:10px; color:#5c5950; margin-top:2px;">BENGALURU TERRACE · 16:00 — 19:00</div>
+      </div>
+      <div style="text-align:right;">
+        <span class="analog-badge-pill">VALID PASS</span>
+      </div>
+    </div>
+    <div class="badge-row"><span>NAME</span><strong id="b-name">—</strong></div>
+    <div class="badge-row"><span>EMAIL</span><strong id="b-email">—</strong></div>
+    <div class="badge-row"><span>CONTEXT</span><strong id="b-desk">—</strong></div>
+    <div class="badge-row"><span>ARCHETYPE</span><strong id="b-arch">—</strong></div>
+    <div class="badge-row"><span>COLD CAN</span><strong id="b-can">—</strong></div>
+    <div class="badge-row"><span>POSTURE</span><strong id="b-posture">—</strong></div>
+    <div class="badge-footer">
+      <span>NO PINGS. COLD CAN.</span>
+      <span>OCTOBER 2026</span>
+    </div>
+  </div>
+
+  <div style="margin-top:24px;">
+    <button class="btn-primary" id="sub">Issue Badge Pass</button>
+    <div class="hint-msg" id="fh"></div>
+    <pre id="out" hidden></pre>
+  </div>
+</section>`;
+
+main.innerHTML = html;
+const sections = [...main.children];
+const totalSecs = sections.length;
+
+// Navigation & Validation
+const scrollToSec = idx => sections[Math.min(idx + 1, totalSecs - 1)].scrollIntoView({ behavior: 'smooth' });
+
+function validateQuestion(idx) {
+  const q = QUESTIONS[idx];
+  const val = answers[q.k];
+  const hint = $('#h' + idx);
+  if (hint) hint.textContent = '';
+
+  if (q.req && (!val || !val.trim())) {
+    if (hint) hint.textContent = '→ This plate is required for the door register.';
+    const input = sections[idx + 1].querySelector('input');
+    if (input) {
+      input.classList.remove('sh');
+      void input.offsetWidth;
+      input.classList.add('sh');
+      input.focus();
+    }
+    return false;
+  }
+  if (q.t === 'email' && val && !/^\S+@\S+\.\S+$/.test(val)) {
+    if (hint) hint.textContent = '→ Enter a valid email format for door pass delivery.';
+    const input = sections[idx + 1].querySelector('input');
+    if (input) {
+      input.classList.remove('sh');
+      void input.offsetWidth;
+      input.classList.add('sh');
+      input.focus();
+    }
+    return false;
+  }
+  return true;
 }
-requestAnimationFrame(frame);
+
+function updateBadgePreview() {
+  $('#b-name').textContent = answers.name || '—';
+  $('#b-email').textContent = answers.email || '—';
+  $('#b-desk').textContent = answers.desk || '—';
+  $('#b-arch').textContent = answers.archetype ? answers.archetype.split('—')[0].trim() : '—';
+  $('#b-can').textContent = answers.can || '—';
+  $('#b-posture').textContent = answers.posture ? answers.posture.slice(0, 24) + '…' : '—';
+}
+
+main.addEventListener('click', e => {
+  const btn = e.target.closest('button');
+  if (!btn) return;
+
+  if (btn.dataset.go !== undefined) {
+    const idx = +btn.dataset.go;
+    if (idx > 0 && !validateQuestion(idx - 1)) return;
+    updateBadgePreview();
+    scrollToSec(idx);
+    return;
+  }
+
+  if (btn.classList.contains('chip')) {
+    const container = btn.parentNode;
+    const key = container.dataset.k;
+    container.querySelectorAll('.chip').forEach(c => c.classList.remove('sel'));
+    btn.classList.add('sel');
+    answers[key] = btn.dataset.v;
+    updateBadgePreview();
+    const secId = +btn.closest('section').id.slice(1);
+    setTimeout(() => scrollToSec(secId), 350);
+  }
+});
+
+main.addEventListener('input', e => {
+  const key = e.target.dataset.k;
+  if (!key) return;
+  answers[key] = e.target.value;
+  if (e.target.type === 'range') {
+    const val = +e.target.value;
+    $('#rl').textContent = SATURATION_LABELS[val - 1] || '';
+  }
+  updateBadgePreview();
+});
+
+main.addEventListener('keydown', e => {
+  if (e.key === 'Enter' && e.target.matches('input[type=text], input[type=email]')) {
+    e.preventDefault();
+    const secId = +e.target.closest('section').id.slice(1);
+    if (validateQuestion(secId - 1)) {
+      updateBadgePreview();
+      scrollToSec(secId);
+    }
+  }
+});
+
+$('#sub').onclick = async () => {
+  for (let i = 0; i < QUESTIONS.length; i++) {
+    if (QUESTIONS[i].req && !validateQuestion(i)) {
+      sections[i + 1].scrollIntoView({ behavior: 'smooth' });
+      return;
+    }
+  }
+  const out = $('#out');
+  const fh = $('#fh');
+  out.hidden = false;
+  out.textContent = JSON.stringify({
+    event: "OFF GRID / ऑफ़ ग्रिड",
+    window: "16:00 — 19:00 IST",
+    ground: document.documentElement.dataset.theme || "paper",
+    registration: answers
+  }, null, 2);
+
+  try {
+    if (BRAND.endpoint) {
+      await fetch(BRAND.endpoint, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(answers)
+      });
+    }
+    fh.textContent = '✓ Physical pass queued for registration. Take a screenshot or copy payload below.';
+    $('#sub').textContent = 'Badge Confirmed ✓';
+  } catch (_) {
+    fh.textContent = '→ Network unavailable. Your badge payload is printed below.';
+  }
+};
+
+// Intersection Observer for Active Section Reveal
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    entry.target.classList.toggle('on', entry.isIntersecting);
+  });
+}, { threshold: 0.45 });
+sections.forEach(s => observer.observe(s));
+
+// Golden-Hour Rule & Theme Toggle
+const themeBtn = $('#golden-toggle');
+const themes = ['paper', 'golden-hour', 'ink'];
+let currentThemeIdx = 0;
+
+function setTheme(theme) {
+  if (theme === 'paper') {
+    delete document.documentElement.dataset.theme;
+    themeBtn.textContent = 'Ground: Paper';
+  } else if (theme === 'golden-hour') {
+    document.documentElement.dataset.theme = 'golden-hour';
+    themeBtn.textContent = 'Ground: Cobalt (17:15)';
+  } else {
+    document.documentElement.dataset.theme = 'ink';
+    themeBtn.textContent = 'Ground: Ink';
+  }
+}
+
+themeBtn.onclick = () => {
+  currentThemeIdx = (currentThemeIdx + 1) % themes.length;
+  setTheme(themes[currentThemeIdx]);
+};
+
+// Check if currently within Bengaluru Golden-Hour (17:15 — 18:50)
+function checkBengaluruGoldenHour() {
+  const now = new Date();
+  // Get time in Asia/Kolkata
+  const options = { timeZone: 'Asia/Kolkata', hour12: false, hour: 'numeric', minute: 'numeric' };
+  try {
+    const parts = new Intl.DateTimeFormat([], options).formatToParts(now);
+    const h = +parts.find(p => p.type === 'hour').value;
+    const m = +parts.find(p => p.type === 'minute').value;
+    const minutes = h * 60 + m;
+    // 17:15 is 1035 min, 18:50 is 1130 min
+    if (minutes >= 1035 && minutes <= 1130) {
+      setTheme('golden-hour');
+      currentThemeIdx = 1;
+    }
+  } catch (e) {}
+}
+checkBengaluruGoldenHour();
+
+// ==========================================
+// OFF GRID ASCII MORPHING & INTERVAL MARK
+// Riso Halftone (85-LPI Fixed Angle), Grid Cells & Monograms
+// ==========================================
+const COLS = 64, ROWS = 28;
+const pre = $('#a');
+const pr = $('#pr');
+const stepName = $('#step-name');
+
+const SHAPES = [
+  // 00: Manifesto Interval Mark (Grid cell with cut corner)
+  (u, v) => (Math.abs(u) < 0.65 && Math.abs(v) < 0.65 && !(u > 0.15 && v < -0.15)) ? 0.35 : 1.2,
+  // 01: Identification Card badge
+  (u, v) => (Math.abs(u) < 0.72 && Math.abs(v) < 0.48) ? 0.4 : 1.2,
+  // 02: Electronic Signal / Wave block
+  (u, v) => Math.abs(v - 0.28 * Math.sin(u * 5)) < 0.22 && Math.abs(u) < 0.85 ? 0.3 : 1.2,
+  // 03: Corporate Tower / Desk matrix
+  (u, v) => (Math.abs(u) < 0.5 && Math.abs(v) < 0.8) && (Math.floor((v+0.8)*5) % 2 === 0) ? 0.35 : 1.2,
+  // 04: Analog Archetype Hexagon
+  (u, v) => (Math.abs(u)*0.866 + Math.abs(v)*0.5 < 0.65 && Math.abs(v) < 0.65) ? 0.4 : 1.2,
+  // 05: Can Silhouette
+  (u, v) => (Math.abs(u) < 0.4 && Math.abs(v) < 0.75) ? 0.35 : 1.2,
+  // 06: Interval Pause Bars (||)
+  (u, v) => (Math.abs(v) < 0.68 && ((Math.abs(u - 0.3) < 0.14) || (Math.abs(u + 0.3) < 0.14))) ? 0.3 : 1.2,
+  // 07: Device Box with locked screen
+  (u, v) => (Math.abs(u) < 0.42 && Math.abs(v) < 0.78 && !(Math.abs(u) < 0.34 && Math.abs(v) < 0.65)) ? 0.35 : 1.2,
+  // 08: Clock / Time-Block Ring (16:00 - 19:00 segment)
+  (u, v) => {
+    const d = Math.hypot(u, v);
+    const angle = Math.atan2(v, u);
+    return (d > 0.42 && d < 0.74 && (angle > -1.2 && angle < 1.8)) ? 0.3 : 1.2;
+  },
+  // 09: Saturation Gauge
+  (u, v) => (v > -0.6 && v < 0.6 && u > -0.7 && u < 0.7 && (u < 0.2 * v)) ? 0.35 : 1.2,
+  // 10: Refusal Stamp (Notched square)
+  (u, v) => (Math.abs(u) < 0.6 && Math.abs(v) < 0.6 && !(Math.abs(u) < 0.45 && Math.abs(v) < 0.45)) ? 0.35 : 1.2,
+  // 11: Final OG Monogram Frame
+  (u, v) => (Math.abs(u) < 0.75 && Math.abs(v) < 0.55 && (Math.abs(u) > 0.62 || Math.abs(v) > 0.45)) ? 0.3 : 1.2
+];
+
+const STEP_TITLES = [
+  "00 // MANIFESTO",
+  "01 // BADGE PASS",
+  "02 // ROUTING",
+  "03 // DESK CONTEXT",
+  "04 // ARCHETYPE",
+  "05 // COLD CAN",
+  "06 // POSTURE",
+  "07 // AVAILABILITY",
+  "08 // ARRIVAL",
+  "09 // SATURATION",
+  "10 // REFUSAL",
+  "11 // CONCLUSION"
+];
+
+let curPos = 0, targetPos = 0, T = 0;
+const smoothStep = x => x * x * (3 - 2 * x);
+
+function resizeCanvas() {
+  const isMobile = window.innerWidth <= 900;
+  const w = isMobile ? window.innerWidth : window.innerWidth * 0.5;
+  const fs = Math.max(7, Math.min(w / (COLS * 0.62), (window.innerHeight * 0.35) / (ROWS * 1.15)));
+  pre.style.fontSize = fs + 'px';
+}
+
+function handleScroll() {
+  const maxScroll = (totalSecs - 1) * window.innerHeight;
+  targetPos = Math.max(0, Math.min(totalSecs - 1, window.scrollY / window.innerHeight));
+}
+
+window.addEventListener('resize', () => { resizeCanvas(); handleScroll(); });
+window.addEventListener('scroll', handleScroll, { passive: true });
+resizeCanvas();
+handleScroll();
+
+const prefersReducedMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
+const RISO_RAMP = '  ·:░▒▓█';
+
+function renderLoop(ms) {
+  T = ms / 1000;
+  curPos += (targetPos - curPos) * (prefersReducedMotion ? 1 : 0.08);
+
+  const idx = Math.min(totalSecs - 2, Math.floor(curPos));
+  const frac = smoothStep(Math.max(0, Math.min(1, curPos - idx)));
+  const shapeA = SHAPES[idx] || SHAPES[0];
+  const shapeB = SHAPES[idx + 1] || SHAPES[0];
+
+  let output = '';
+  for (let r = 0; r < ROWS; r++) {
+    for (let c = 0; c < COLS; c++) {
+      const u = (c - COLS / 2 + 0.5) / (COLS / 3.4);
+      const v = (r - ROWS / 2 + 0.5) / (ROWS / 2.2);
+
+      const distA = shapeA(u, v);
+      const distB = shapeB(u, v);
+      const dist = distA * (1 - frac) + distB * frac;
+
+      if (dist < 0.55) {
+        // 85-LPI Halftone screen simulation with 30° angle
+        const angle = Math.PI / 6;
+        const rotX = c * Math.cos(angle) - r * Math.sin(angle);
+        const rotY = c * Math.sin(angle) + r * Math.cos(angle);
+        const dot = (Math.sin(rotX * 1.8) + Math.cos(rotY * 1.8)) * 0.5;
+        const val = Math.max(0, Math.min(RISO_RAMP.length - 1, Math.floor((1 - dist) * 5 + dot)));
+        output += RISO_RAMP[val];
+      } else {
+        // Subtle analog background register marks
+        const isGridLine = (c % 16 === 0 && r % 8 === 0);
+        output += isGridLine ? '+' : ' ';
+      }
+    }
+    output += '\n';
+  }
+
+  pre.textContent = output;
+
+  const currentStep = Math.round(curPos);
+  stepName.textContent = STEP_TITLES[currentStep] || STEP_TITLES[0];
+  const n = Math.max(0, Math.min(10, currentStep));
+  pr.textContent = `PLATE ${String(n).padStart(2, '0')}/10`;
+
+  requestAnimationFrame(renderLoop);
+}
+requestAnimationFrame(renderLoop);
 </script>
 </body>
 </html>

@@ -3,34 +3,30 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>OFF GRID · ऑफ़ ग्रिड — The Pause is the Product</title>
+<title>OFF GRID · ऑफ़ ग्रिड — Save your spot</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Anek+Devanagari:wght@400;600;700;800&family=Anek+Latin:wght@400;600;700;800&display=swap" rel="stylesheet">
 <style>
 :root{
-  --c:#E63323;         /* OFF GRID Scarlet */
-  --bg:#F3EEE2;        /* OFF GRID Paper cream */
-  --fg:#0E1116;        /* OFF GRID Ink */
-  --dim:#686458;
-  --paper-cool:#E7E3D6;
-  --cobalt:#1D3BE0;
-  --sun:#F6D32B;
+  /* Diet Coke can palette, sampled from the reference image */
+  --c:#E4062A;         /* Coke red */
+  --bg:#D4D5D8;        /* brushed silver */
+  --fg:#0E0E0F;        /* script black */
+  --dim:#5E6165;       /* shadow steel */
+  --on:#fff;           /* text on accent */
+  --silver-lt:#E9EAEC;
+  --white:#fff;
   box-sizing:border-box;
   padding-top:env(safe-area-inset-top,0px);
   padding-bottom:env(safe-area-inset-bottom,0px)
 }
 @media (prefers-color-scheme:dark){
-  :root:not([data-theme="light"]){
-    --bg:#0E1116;
-    --fg:#F3EEE2;
-    --dim:#8d8a7e;
-    --c:#E63323
-  }
+  :root:not([data-theme]){--bg:#0E0E0F;--fg:#E9EAEC;--dim:#92969A;--c:#E4062A;--on:#fff}
 }
-:root[data-theme="dark"]{--bg:#0E1116;--fg:#F3EEE2;--dim:#8d8a7e;--c:#E63323}
-:root[data-theme="golden-hour"]{--bg:#1D3BE0;--fg:#F3EEE2;--dim:#b6bfe0;--c:#F6D32B}
-:root[data-theme="paper"]{--bg:#F3EEE2;--fg:#0E1116;--dim:#686458;--c:#E63323}
+:root[data-theme="dark"]{--bg:#0E0E0F;--fg:#E9EAEC;--dim:#92969A;--c:#E4062A;--on:#fff}
+:root[data-theme="golden-hour"]{--bg:#E4062A;--fg:#fff;--dim:#F8C4CB;--c:#fff;--on:#E4062A}
+:root[data-theme="paper"]{--bg:#D4D5D8;--fg:#0E0E0F;--dim:#5E6165;--c:#E4062A;--on:#fff}
 
 *{box-sizing:border-box}
 html{scroll-behavior:smooth;scroll-padding-top:env(safe-area-inset-top,0px)}
@@ -91,7 +87,7 @@ body{
   border-radius:4px;
   transition:all .2s
 }
-#bar .thm:hover{background:var(--c);color:var(--bg);border-color:var(--c)}
+#bar .thm:hover{background:var(--c);color:var(--on);border-color:var(--c)}
 main{position:relative;z-index:2;margin-left:50vw;width:46vw}
 section{
   min-height:100vh;
@@ -140,7 +136,7 @@ input:focus,textarea:focus{border-color:var(--c)}
   gap:10px
 }
 .chip:hover{border-color:var(--c)}
-.chip.sel{background:var(--c);border-color:var(--c);color:var(--bg);font-weight:600}
+.chip.sel{background:var(--c);border-color:var(--c);color:var(--on);font-weight:600}
 input[type=range]{width:100%;accent-color:var(--c);cursor:pointer}
 .rl{color:var(--c);font-size:20px;margin-top:8px}
 .nx{
@@ -180,7 +176,7 @@ input[type=range]{width:100%;accent-color:var(--c);cursor:pointer}
 <body>
 <pre id="a" aria-hidden="true"></pre>
 <div id="bar">
-  <span>◦ OFF GRID · <b>ऑफ़ ग्रिड</b> <button class="thm" id="thm">Ground: Paper</button></span>
+  <span>◦ OFF GRID · <b>ऑफ़ ग्रिड</b> <button class="thm" id="thm">Ground: Silver</button></span>
   <b id="pr"></b>
 </div>
 <main id="m"></main>
@@ -192,57 +188,57 @@ input[type=range]{width:100%;accent-color:var(--c);cursor:pointer}
 const EVENT = {
   name: "OFF GRID",
   devanagari: "ऑफ़ ग्रिड",
-  meta: "16:00 — 19:00 IST · Bengaluru Coworking Terrace",
+  meta: "4 to 7 PM · Bengaluru coworking terrace",
   prop: "The pause is the product. · अंतराल ही उत्पाद है।"
 };
 const ENDPOINT = ""; // optional: POST URL for submissions
 
 const Q = [
-  { k: 'name', q: 'What name goes on the physical badge card?', t: 'text', ph: 'Your name or handle', req: 1 },
-  { k: 'email', q: 'Where should entry confirmation be routed?', t: 'email', ph: 'you@workplace.com', req: 1 },
-  { k: 'desk', q: 'What desk or screen are you stepping away from?', t: 'text', ph: 'Designer, founder, developer, legal, studio…' },
-  { k: 'archetype', q: 'Choose your Analog Archetype badge (v1).', t: 'choice', o: [
+  { k: 'name', q: 'What should we put on your name card?', t: 'text', ph: 'Your name, or whatever you go by', req: 1 },
+  { k: 'email', q: 'Where do we send your entry pass?', t: 'email', ph: 'you@wherever.com', req: 1 },
+  { k: 'desk', q: 'Which screen are you escaping?', t: 'text', ph: 'Design, code, spreadsheets, one very long email thread…' },
+  { k: 'archetype', q: 'Pick your analog archetype card.', t: 'choice', o: [
     'The Observer',
-    'Screen-Fatigued',
+    'Screen-Tired',
     'Zero-Ping Enforcer',
-    'Silent Attendee',
+    'The Quiet One',
     'Terrace Squatter',
     'Off-Duty Operator'
   ]},
-  { k: 'can', q: 'Pick your cold can allocation for arrival.', t: 'choice', o: [
-    'Diet Coke (iced)',
-    'Classic Cola (iced)',
-    'Sparkling Water (chilled)',
-    'Ginger Tonic (cold)',
+  { k: 'can', q: 'Which cold can is yours?', t: 'choice', o: [
+    'Diet Coke, ice cold',
+    'Classic Cola, ice cold',
+    'Sparkling water, chilled',
+    'Ginger tonic',
     'Bitter Lemon'
   ]},
-  { k: 'posture', q: 'What is your conversational posture?', t: 'choice', o: [
-    'Total silence (do not engage)',
-    'Low-frequency observing',
-    'Terrace ambient listening only',
-    'Open to unhurried one-on-one talk'
+  { k: 'posture', q: 'How chatty are you feeling?', t: 'choice', o: [
+    'Silent mode, please',
+    'Just watching, thanks',
+    'Happy to just listen to the terrace',
+    'Up for a slow chat, one on one'
   ]},
-  { k: 'device', q: 'Device availability protocol (16:00 — 19:00).', t: 'choice', o: [
-    'Airplane mode in bag',
-    'Do Not Disturb (no haptics/pings)',
-    'Screen face-down on table'
+  { k: 'device', q: 'Where is your phone going for three hours?', t: 'choice', o: [
+    'In my bag, airplane mode on',
+    'Do Not Disturb, no buzzing',
+    'Face-down on the table'
   ]},
-  { k: 'arrive', q: 'When will you arrive at the register?', t: 'choice', o: [
-    '16:00 Sharp (Full 3-hour disconnect)',
-    '16:15 — 16:30 (Easing post-standup)',
-    '16:45 — 17:15 (Before golden-hour)'
+  { k: 'arrive', q: 'When are you rolling in?', t: 'choice', o: [
+    '4:00 sharp, all three hours',
+    '4:15 to 4:30, fresh out of standup',
+    '4:45 to 5:15, in time for golden hour'
   ]},
-  { k: 'energy', q: 'Workday saturation index at this moment.', t: 'range' },
-  { k: 'refusal', q: 'Which workplace ritual are you consciously refusing today?', t: 'area', ph: 'The 5 PM sync, urgent DM pings, camera-on calls, performative networking…' }
+  { k: 'energy', q: 'How fried is your brain right now?', t: 'range' },
+  { k: 'refusal', q: 'What are you gleefully skipping today?', t: 'area', ph: 'The 5 PM sync, quick-question DMs, camera-on calls, networking with a script…' }
 ];
 
 const ans = { energy: 3 };
 const EN = [
-  '01 // Moderate sprint fatigue',
-  '02 // Back-to-back sync saturation',
-  '03 // High notification noise',
-  '04 // Screen glare overload',
-  '05 // Full workday exhaustion'
+  '01 // A little crispy',
+  '02 // Meeting soup',
+  '03 // Hearing pings in my sleep',
+  '04 // Squinting at everything',
+  '05 // Fully toasted'
 ];
 
 const $ = s => document.querySelector(s), m = $('#m');
@@ -250,14 +246,14 @@ const $ = s => document.querySelector(s), m = $('#m');
 // build sections
 let h = `
 <section id="s0">
-  <div class="n">00 — MANIFESTO // INTERVAL MARK</div>
+  <div class="n">00 — HELLO, YOU</div>
   <h1>${EVENT.name}<span class="hi">${EVENT.devanagari}</span></h1>
   <p class="s">
     ${EVENT.meta}<br><br>
     <strong>${EVENT.prop}</strong><br><br>
-    A three-hour window to log off in public. With a cold can. Ten questions. One monumental lead shape that keeps mutating. Scroll to start.
+    Three hours. One cold can. Zero pings. Answer ten quick questions and we’ll save you a spot. The shape on the left will keep changing its mind, so don’t get attached. Scroll to start.
   </p>
-  <button class="nx" data-go="0">begin ↓</button>
+  <button class="nx" data-go="0">let’s go ↓</button>
 </section>`;
 
 Q.forEach((x, i) => {
@@ -266,15 +262,15 @@ Q.forEach((x, i) => {
   if (x.t === 'area') f = `<textarea rows="3" data-k="${x.k}" placeholder="${x.ph}"></textarea>`;
   if (x.t === 'choice' || x.t === 'multi') f = `<div class="chips" data-k="${x.k}" data-t="${x.t}">${x.o.map(o => `<button class="chip" data-v="${o}">${o}</button>`).join('')}</div>`;
   if (x.t === 'range') f = `<input type="range" min="1" max="5" value="3" data-k="${x.k}"><div class="rl" id="rl">${EN[2]}</div>`;
-  h += `<section id="s${i + 1}"><div class="n">${String(i + 1).padStart(2, '0')} / 10</div><h2>${x.q}</h2>${f}<div class="h" id="h${i}"></div><button class="nx" data-go="${i + 1}">${i === 9 ? 'review' : 'continue'} ↓</button></section>`;
+  h += `<section id="s${i + 1}"><div class="n">${String(i + 1).padStart(2, '0')} / 10</div><h2>${x.q}</h2>${f}<div class="h" id="h${i}"></div><button class="nx" data-go="${i + 1}">${i === 9 ? 'almost there' : 'next'} ↓</button></section>`;
 });
 
 h += `
 <section id="s11">
-  <div class="n">DONE — ALMOST</div>
-  <h2>Ready to lock it in?</h2>
-  <p class="s">Your answers stay on this page until you confirm them.</p>
-  <button class="chip sel" id="sub" style="align-self:flex-start">Issue Entry Pass</button>
+  <div class="n">ONE LAST THING</div>
+  <h2>Ready to log off?</h2>
+  <p class="s">Nothing leaves this page until you say so.</p>
+  <button class="chip sel" id="sub" style="align-self:flex-start">Get my entry pass</button>
   <div class="h" id="fh"></div>
   <pre id="out" hidden></pre>
 </section>`;
@@ -289,7 +285,7 @@ function ok(i) {
   const x = Q[i], v = ans[x.k], hint = $('#h' + i);
   if (hint) hint.textContent = '';
   if (x.req && !(v && v.trim()) || x.t === 'email' && v && !/^\S+@\S+\.\S+$/.test(v)) {
-    if (hint) hint.textContent = x.t === 'email' ? '→ that email looks off' : '→ we need this one';
+    if (hint) hint.textContent = x.t === 'email' ? '→ hmm, that email looks off' : '→ we do need this one, promise';
     const el = secs[i + 1].querySelector('input');
     if (el) {
       el.classList.remove('sh');
@@ -367,10 +363,10 @@ $('#sub').onclick = async () => {
         body: JSON.stringify(ans)
       });
     }
-    fh.textContent = '✓ You’re on the register' + (ENDPOINT ? '' : ' (offline payload generated below)');
-    $('#sub').textContent = 'Pass Issued ✓';
+    fh.textContent = '✓ You’re in. See you on the terrace' + (ENDPOINT ? '' : ' (no endpoint set, so your pass is below)');
+    $('#sub').textContent = 'You’re in ✓';
   } catch (_) {
-    fh.textContent = '→ couldn’t send, copy your pass below';
+    fh.textContent = '→ that didn’t send, copy your pass below and try again';
   }
 };
 
@@ -381,19 +377,20 @@ secs.forEach(s => io.observe(s));
 // Ground Theme Switcher
 const thmBtn = $('#thm');
 const groundModes = ['paper', 'golden-hour', 'dark'];
-let gIdx = 0;
+let gIdx = matchMedia('(prefers-color-scheme:dark)').matches ? 2 : 0;
+thmBtn.textContent = ['Ground: Silver','Ground: Red (17:15)','Ground: Black'][gIdx];
 thmBtn.onclick = () => {
   gIdx = (gIdx + 1) % groundModes.length;
   const mode = groundModes[gIdx];
   if (mode === 'paper') {
-    delete document.documentElement.dataset.theme;
-    thmBtn.textContent = 'Ground: Paper';
+    document.documentElement.dataset.theme = 'paper';
+    thmBtn.textContent = 'Ground: Silver';
   } else if (mode === 'golden-hour') {
     document.documentElement.dataset.theme = 'golden-hour';
-    thmBtn.textContent = 'Ground: Cobalt (17:15)';
+    thmBtn.textContent = 'Ground: Red (17:15)';
   } else {
     document.documentElement.dataset.theme = 'dark';
-    thmBtn.textContent = 'Ground: Ink';
+    thmBtn.textContent = 'Ground: Black';
   }
 };
 
@@ -407,7 +404,7 @@ function checkGoldenHour() {
     const mins = h * 60 + m;
     if (mins >= 1035 && mins <= 1130) {
       document.documentElement.dataset.theme = 'golden-hour';
-      thmBtn.textContent = 'Ground: Cobalt (17:15)';
+      thmBtn.textContent = 'Ground: Red (17:15)';
       gIdx = 1;
     }
   } catch (e) {}
@@ -426,53 +423,29 @@ const ng = (n, off, R) => t => {
   return R * Math.cos(Math.PI / n) / Math.cos(a);
 };
 
-// 12 Continuous Mutating Shapes for OFF GRID:
-// 00: Lead Form — The Interval Mark (Square with notched corner)
-// 01: Identification Card Badge Pass
-// 02: Signal Wave Antenna / Pulse
-// 03: Corporate Tower Monolith
-// 04: Analog Archetype Hexagon
-// 05: Cold Can
-// 06: Pause Bars (||)
-// 07: Shielded Device Enclosure
-// 08: Time-Block Dial (16:00 — 19:00 Arc)
-// 09: Workday Saturation Gauge
-// 10: Severed Terminal Ring
-// 11: Final Interval Mark Block
+// Shapes are signed-distance functions (y up) so real objects can morph into each other.
+const L = Math.hypot, mx = Math.max, mn = Math.min, ab = Math.abs;
+const box = (x, y, cx, cy, w, h, r = 0) => { const qx = ab(x - cx) - w + r, qy = ab(y - cy) - h + r; return L(mx(qx, 0), mx(qy, 0)) + mn(mx(qx, qy), 0) - r };
+const circ = (x, y, cx, cy, r) => L(x - cx, y - cy) - r;
+const ring = (x, y, r, t) => ab(L(x, y) - r) - t;
+const cap = (x, y, ax, ay, bx, by, r) => { const px = x - ax, py = y - ay, u = bx - ax, v = by - ay, k = mx(0, mn(1, (px * u + py * v) / (u * u + v * v))); return L(px - u * k, py - v * k) - r };
+const sub = (a, b) => mx(a, -b);
+const hexa = (x, y) => { const t = Math.atan2(y, x), w = TAU / 6, a = (((t) % w) + w) % w - w / 2; return L(x, y) - .86 * Math.cos(Math.PI / 6) / Math.cos(a) };
+const mark = (x, y) => sub(box(x, y, 0, 0, .72, .72, .04), box(x, y, .72, .72, .34, .34));
+
 const SH = [
-  // 00: The Interval Mark (Notched square)
-  t => {
-    const sq = ng(4, Math.PI / 4, 1.0)(t);
-    return (t > 0.3 && t < 1.3) ? sq * 0.72 : sq;
-  },
-  // 01: ID Badge Card Pass
-  ng(4, Math.PI / 2, 0.98),
-  // 02: Signal Wave Antenna
-  t => 0.75 + 0.32 * Math.cos(3 * t),
-  // 03: Corporate Tower Monolith
-  ng(4, Math.PI / 4, 0.85),
-  // 04: 6 Archetypes Hexagon
-  ng(6, 0, 0.96),
-  // 05: Cold Can
-  t => 0.68 + 0.28 * Math.cos(4 * t),
-  // 06: Pause Bars (||)
-  t => 0.62 + 0.34 * Math.cos(2 * t) * Math.cos(2 * t),
-  // 07: Shielded Device Enclosure
-  ng(5, Math.PI / 2, 0.92),
-  // 08: Time-Block Chronometer Dial
-  t => (t > -1.1 && t < 1.7) ? 0.98 : 0.48,
-  // 09: Saturation Gauge
-  t => {
-    const s = Math.sin(t), c = Math.cos(t);
-    return (2 - 2 * s + s * Math.sqrt(Math.abs(c)) / (s + 1.4)) * 0.34;
-  },
-  // 10: Severed Terminal
-  t => (t > 0.8 && t < 1.4) ? 0.42 : 0.96,
-  // 11: The Interval Mark / Conclusion
-  t => {
-    const sq = ng(4, Math.PI / 4, 1.0)(t);
-    return (t > 0.3 && t < 1.3) ? sq * 0.72 : sq;
-  }
+  mark,                                                                   // 00 Interval Mark (notched square)
+  (x, y) => sub(sub(sub(box(x, y, 0, 0, .5, .82, .08), box(x, y, 0, .66, .14, .03)), circ(x, y, 0, .2, .22)), box(x, y, 0, -.36, .3, .05)), // 01 badge card
+  (x, y) => mn(circ(x, y, 0, -.45, .1), mn(...[.4, .7, .95].map(r => mx(ring(x, y + .45, r, .06), -(y + .45))))), // 02 signal arcs
+  (x, y) => mn(box(x, y, .12, 0, .26, .92), mn(box(x, y, -.5, -.4, .2, .5), box(x, y, .5, -.55, .14, .35))),    // 03 tower
+  (x, y) => sub(hexa(x, y), circ(x, y, 0, 0, .17)),                       // 04 archetype hexagon
+  (x, y) => sub(sub(sub(box(x, y, 0, 0, .4, .82, .07), box(x, y, 0, .52, .4, .025)), box(x, y, 0, -.52, .4, .025)), box(x, y, 0, .82, .24, .05)), // 05 cold can
+  (x, y) => mn(box(x, y, -.34, 0, .17, .72, .04), box(x, y, .34, 0, .17, .72, .04)), // 06 pause bars
+  (x, y) => mn(sub(box(x, y, 0, 0, .42, .84, .12), box(x, y, 0, -.04, .34, .66, .04)), circ(x, y, 0, 0, .15)),  // 07 device, shielded
+  (x, y) => mn(ring(x, y, .8, .07), mn(cap(x, y, 0, 0, .4, .42, .07), circ(x, y, 0, 0, .1))),                 // 08 time dial
+  (x, y) => mn(mx(ring(x, y + .3, .82, .1), -(y + .3)), mn(cap(x, y, 0, -.3, .42, .12, .06), mn(circ(x, y, 0, -.3, .13), box(x, y, 0, -.55, .88, .035)))), // 09 saturation gauge
+  (x, y) => { const t = Math.atan2(y, x), d = ring(x, y, .78, .1); return mn(mx(d, (.24 - ab(t - .8)) * .8), circ(x, y, 0, 0, .08)) }, // 10 severed ring
+  mark                                                                    // 11 Interval Mark, closed out
 ];
 
 const pre = $('#a'), pr = $('#pr');
@@ -496,8 +469,6 @@ scroll();
 
 const rm = matchMedia('(prefers-reduced-motion:reduce)').matches;
 
-// Shape Scale Multiplier: 1.35x ensures the shape is monumental and commands the left screen
-const SCALE = 1.35;
 
 function frame(ms) {
   T = ms / 1000;
@@ -506,22 +477,20 @@ function frame(ms) {
   const i = Math.min(N - 2, Math.floor(cur));
   const f = sm(Math.max(0, Math.min(1, (cur - i - .2) / .65)));
   const A = SH[i], B = SH[i + 1];
-  const sway = rm ? 0 : Math.sin(T * .5) * .12;
+  const sway = rm ? 0 : Math.sin(T * .5) * .05, ca = Math.cos(sway), sa = Math.sin(sway);
 
   let s = '';
   for (let r = 0; r < ROWS; r++) {
     for (let c = 0; c < COLS; c++) {
       const dx = (c - COLS / 2 + .5) * .5 / (ROWS / 2);
       const dy = (r - ROWS / 2 + .5) / (ROWS / 2);
-      const p = Math.hypot(dx, dy);
-      const th = Math.atan2(-dy, dx) + sway;
+      const p = Math.hypot(dx, dy), x = dx * ca + dy * sa, y = -dy * ca + dx * sa;
+      const d = A(x, y) * (1 - f) + B(x, y) * f;
 
-      const R = (A(th) * (1 - f) + B(th) * f) * SCALE;
-      const d = p / R;
-
-      if (d < 1) {
-        let v = Math.pow(1 - d, .55) + .14 * Math.sin(p * 11 - T * 2.2) + .06 * Math.sin(th * 3 + T);
-        s += d > .9 ? '#' : RAMP[Math.max(1, Math.min(RAMP.length - 1, (v * (RAMP.length - 1)) | 0))];
+      if (d < 0) {
+        const dep = mn(1, -d * 3.2);
+        const v = Math.pow(dep, .6) + .14 * Math.sin(p * 11 - T * 2.2) + .06 * Math.sin(Math.atan2(y, x) * 3 + T);
+        s += -d < .03 ? '#' : RAMP[Math.max(1, Math.min(RAMP.length - 1, (v * (RAMP.length - 1)) | 0))];
       } else {
         const q = Math.sin(c * 12.9898 + r * 78.233 + Math.floor(T * 1.5) * 3.17) * 43758.5453;
         s += (q - Math.floor(q)) < .025 ? '·' : ' ';

@@ -6,10 +6,13 @@
 <title>OFF GRID · ऑफ़ ग्रिड — The Pause is the Product</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Anek+Devanagari:wght@400;500;700;800&family=Anek+Latin:wght@400;500;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Anek+Devanagari:wght@400;500;700;800&family=Anek+Latin:wght@400;500;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
+/* ==========================================================================
+   OFF GRID BRAND SYSTEM V1 (RAP MEDIA · BENGALURU · OCTOBER 2026)
+   Strict Color Palette & Architectural Monospace / Devanagari Typography
+   ========================================================================== */
 :root {
-  /* Brand System V1 Palette */
   --paper: #F3EEE2;
   --paper-cool: #E7E3D6;
   --ink: #0E1116;
@@ -18,50 +21,50 @@
   --sun: #F6D32B;
   --white: #FFFFFF;
 
-  /* Semantic Theme tokens */
   --bg: var(--paper);
-  --bg-secondary: var(--paper-cool);
+  --bg-alt: var(--paper-cool);
   --fg: var(--ink);
   --accent: var(--scarlet);
-  --border: rgba(14, 17, 22, 0.22);
+  --border: rgba(14, 17, 22, 0.2);
+  --border-strong: var(--ink);
   --dim: #5c5950;
   --callout: var(--sun);
 
   box-sizing: border-box;
-  padding-top: env(safe-area-inset-top, 0px);
-  padding-bottom: env(safe-area-inset-bottom, 0px);
 }
 
-/* Golden Hour Rule (17:15 — 18:50 Local) & Cobalt Terrace Ground */
+/* Golden Hour Rule (17:15 — 18:50 Bengaluru Local) */
 [data-theme="golden-hour"], [data-theme="cobalt"] {
   --bg: var(--cobalt);
-  --bg-secondary: #132bb8;
+  --bg-alt: #132bb8;
   --fg: var(--paper);
   --accent: var(--sun);
-  --border: rgba(243, 238, 226, 0.3);
-  --dim: #c5cde8;
+  --border: rgba(243, 238, 226, 0.28);
+  --border-strong: var(--paper);
+  --dim: #b8c4e6;
   --callout: var(--sun);
 }
 
 [data-theme="ink"] {
   --bg: var(--ink);
-  --bg-secondary: #181d24;
+  --bg-alt: #171c24;
   --fg: var(--paper);
   --accent: var(--scarlet);
-  --border: rgba(243, 238, 226, 0.24);
-  --dim: #9b988f;
+  --border: rgba(243, 238, 226, 0.22);
+  --border-strong: var(--paper);
+  --dim: #969389;
   --callout: var(--sun);
 }
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
 html {
   scroll-behavior: smooth;
-  scroll-padding-top: 80px;
+  scroll-padding-top: 60px;
   background-color: var(--bg);
   color: var(--fg);
 }
 body {
-  font-family: 'Anek Latin', 'Anek Devanagari', -apple-system, sans-serif;
+  font-family: 'Anek Latin', 'Anek Devanagari', -apple-system, BlinkMacSystemFont, sans-serif;
   background-color: var(--bg);
   color: var(--fg);
   line-height: 1.45;
@@ -71,10 +74,10 @@ body {
 }
 
 .mono {
-  font-family: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
 }
 
-/* Top System Navigation Bar */
+/* System Top Bar */
 #top-bar {
   position: fixed;
   top: 0;
@@ -83,289 +86,329 @@ body {
   height: 52px;
   background: var(--bg);
   border-bottom: 1.5px solid var(--border);
-  padding: 0 28px;
+  padding: 0 24px;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  z-index: 1000;
   font-size: 11px;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  z-index: 100;
+  font-family: 'JetBrains Mono', monospace;
   transition: background-color .35s, border-color .35s;
 }
-.brand-meta {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-  font-family: 'JetBrains Mono', monospace;
-}
-.brand-meta b {
-  color: var(--accent);
-  font-weight: 700;
-}
-.brand-controls {
+.brand-title {
   display: flex;
   align-items: center;
   gap: 12px;
 }
-.time-badge {
-  background: var(--bg-secondary);
+.brand-title strong {
+  color: var(--accent);
+  font-weight: 700;
+}
+.bar-controls {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+.time-pill {
+  background: var(--bg-alt);
   border: 1px solid var(--border);
   padding: 4px 10px;
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 11px;
+  font-size: 10.5px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
 }
-.theme-toggle-btn {
-  background: none;
+.time-pill .live-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--accent);
+  display: inline-block;
+  animation: pulse 2s infinite ease-in-out;
+}
+@keyframes pulse {
+  0%, 100% { opacity: 0.3; transform: scale(0.85); }
+  50% { opacity: 1; transform: scale(1.15); }
+}
+.btn-toggle {
+  background: transparent;
   border: 1px solid var(--border);
   color: var(--fg);
   font-family: 'JetBrains Mono', monospace;
   font-size: 10px;
-  letter-spacing: 0.06em;
   padding: 5px 10px;
   cursor: pointer;
+  letter-spacing: 0.06em;
   text-transform: uppercase;
   transition: all .2s ease;
 }
-.theme-toggle-btn:hover {
+.btn-toggle:hover {
   background: var(--accent);
   color: var(--bg);
   border-color: var(--accent);
 }
 
-/* Layout Grid */
-#app-wrap {
+/* Master Layout: 50vw Sticky ASCII Stage + 50vw Scrollytelling Narrative */
+#layout {
   display: flex;
   min-height: 100vh;
-  position: relative;
   margin-top: 52px;
+  position: relative;
 }
 
-/* Left Brand & Visualizer Stage */
-#visual-stage {
+/* ==========================================================================
+   THE LEAD FORM ASCII ENGINE STAGE
+   One single geometric form that continuously mutates through 10 questions
+   ========================================================================== */
+#stage {
   position: fixed;
-  left: 0;
   top: 52px;
-  bottom: 0;
-  width: 50vw;
+  left: 0;
+  width: 52vw;
+  height: calc(100vh - 52px);
+  border-right: 1.5px solid var(--border);
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  padding: 48px;
-  border-right: 1.5px solid var(--border);
-  z-index: 10;
+  padding: 36px 40px;
   pointer-events: none;
+  z-index: 100;
+  user-select: none;
+  background: radial-gradient(circle at 45% 45%, transparent 60%, rgba(14, 17, 22, 0.03) 100%);
 }
 
-.brand-lockup {
+.stage-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+.wordmark-group {
   display: flex;
   flex-direction: column;
-  gap: 0px;
-  user-select: none;
 }
 .wordmark-latin {
   font-family: 'Anek Latin', sans-serif;
-  font-size: clamp(48px, 6.2vw, 84px);
+  font-size: clamp(40px, 5.2vw, 68px);
   font-weight: 800;
-  line-height: 0.92;
+  line-height: 0.9;
   letter-spacing: -0.04em;
   color: var(--accent);
-  text-transform: uppercase;
 }
 .wordmark-devanagari {
   font-family: 'Anek Devanagari', sans-serif;
-  font-size: clamp(44px, 5.8vw, 78px);
+  font-size: clamp(36px, 4.6vw, 60px);
   font-weight: 800;
   line-height: 0.95;
   letter-spacing: -0.02em;
   color: var(--fg);
   margin-top: 4px;
 }
-.tagline {
-  margin-top: 20px;
-  font-size: 15px;
+.prop-line {
+  margin-top: 14px;
+  font-size: 13.5px;
   font-weight: 500;
-  letter-spacing: 0.02em;
+  color: var(--dim);
 }
-.tagline .hi {
-  color: var(--accent);
+.prop-line .hi {
   display: block;
   font-family: 'Anek Devanagari', sans-serif;
-  font-size: 18px;
   font-weight: 700;
+  color: var(--fg);
+  font-size: 15px;
   margin-top: 2px;
 }
 
-/* The ASCII & Analog Halftone Frame */
-#ascii-box {
+.stage-badge {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  background: var(--bg-alt);
+  border: 1px solid var(--border);
+  padding: 6px 10px;
+  text-align: right;
+  line-height: 1.4;
+  letter-spacing: 0.06em;
+}
+
+/* ASCII Screen Viewport */
+#ascii-viewport {
   flex: 1;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
   position: relative;
   overflow: hidden;
-  margin: 20px 0;
+  margin: 12px 0;
 }
-#a {
-  font-family: 'JetBrains Mono', monospace;
+#ascii-canvas {
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
   font-size: 11px;
-  line-height: 1.15;
+  line-height: 1.1;
   color: var(--accent);
   white-space: pre;
-  user-select: none;
-  opacity: 0.95;
-  transition: color .4s;
+  text-align: center;
+  transition: color 0.3s;
 }
 
-/* Left Footer / Chapter Info */
-.brand-footer {
+/* ASCII Telemetry Overlay */
+.telemetry-row {
   display: flex;
   justify-content: space-between;
-  align-items: flex-end;
-  border-top: 1px solid var(--border);
-  padding-top: 18px;
+  align-items: center;
+  width: 100%;
   font-family: 'JetBrains Mono', monospace;
-  font-size: 11px;
+  font-size: 10.5px;
   color: var(--dim);
+  border-top: 1px solid var(--border);
+  padding-top: 14px;
+  letter-spacing: 0.05em;
 }
-.brand-footer strong {
+.morph-meter {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.morph-meter b {
   color: var(--fg);
 }
-.analog-badge-pill {
-  display: inline-block;
-  background: var(--fg);
-  color: var(--bg);
-  font-weight: 700;
-  padding: 3px 8px;
-  letter-spacing: 0.08em;
-  font-size: 10px;
+.morph-bar-render {
+  font-family: 'JetBrains Mono', monospace;
+  color: var(--accent);
+  font-size: 11px;
 }
 
-/* Right Content Column */
+/* ==========================================================================
+   SCROLLYTELLING NARRATIVE COLUMN (Right 48vw)
+   ========================================================================== */
 main {
-  margin-left: 50vw;
-  width: 50vw;
-  padding: 60px 8vw 120px 6vw;
+  margin-left: 52vw;
+  width: 48vw;
+  padding: 40px 6vw 140px 5vw;
   position: relative;
-  z-index: 20;
+  z-index: 200;
 }
 
 section {
-  min-height: 92vh;
+  min-height: 94vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
   padding: 60px 0;
-  opacity: 0.16;
-  transform: translateY(22px);
-  transition: opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1), transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  opacity: 0.18;
+  transform: translateY(28px);
+  transition: opacity 0.55s cubic-bezier(0.16, 1, 0.3, 1), transform 0.55s cubic-bezier(0.16, 1, 0.3, 1);
   border-bottom: 1px dashed var(--border);
 }
 section:last-of-type {
   border-bottom: 0;
+  min-height: 85vh;
 }
 section.on {
   opacity: 1;
   transform: translateY(0);
 }
 
-.step-label {
+.plate-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
   font-family: 'JetBrains Mono', monospace;
-  font-size: 12px;
+  font-size: 11.5px;
   color: var(--accent);
   letter-spacing: 0.14em;
   margin-bottom: 16px;
-  display: flex;
-  align-items: center;
-  gap: 8px;
+  text-transform: uppercase;
 }
-.step-label .roman-bars {
-  display: inline-block;
-  font-weight: 700;
-  letter-spacing: 0.05em;
+.plate-header .bars {
+  font-weight: 800;
 }
 
 h1 {
   font-family: 'Anek Latin', sans-serif;
-  font-size: clamp(38px, 4.4vw, 68px);
+  font-size: clamp(36px, 4vw, 62px);
   font-weight: 800;
-  line-height: 1.04;
+  line-height: 1.05;
   letter-spacing: -0.03em;
-  margin-bottom: 24px;
+  margin-bottom: 22px;
 }
 h2 {
   font-family: 'Anek Latin', 'Anek Devanagari', sans-serif;
-  font-size: clamp(28px, 3.2vw, 44px);
+  font-size: clamp(26px, 2.8vw, 42px);
   font-weight: 700;
   line-height: 1.15;
   letter-spacing: -0.02em;
-  margin-bottom: 24px;
-}
-p.manifesto-lead {
-  font-size: 18px;
-  line-height: 1.6;
-  color: var(--fg);
   margin-bottom: 20px;
+}
+p.manifesto {
+  font-size: 17px;
+  line-height: 1.6;
+  margin-bottom: 24px;
   max-width: 44ch;
+}
+p.manifesto strong {
+  color: var(--accent);
 }
 p.s {
   color: var(--dim);
-  font-size: 15px;
+  font-size: 14.5px;
   line-height: 1.55;
-  margin-bottom: 28px;
+  margin-bottom: 26px;
   max-width: 42ch;
 }
 
-/* Inputs & Form Elements */
+/* Form Inputs */
 input[type=text], input[type=email], textarea {
   width: 100%;
-  background: none;
+  max-width: 480px;
+  background: transparent;
   border: 0;
-  border-bottom: 2px solid var(--border);
+  border-bottom: 2px solid var(--border-strong);
   color: var(--fg);
   font-family: 'Anek Latin', 'Anek Devanagari', sans-serif;
-  font-size: clamp(20px, 2.2vw, 30px);
+  font-size: clamp(20px, 2vw, 28px);
   font-weight: 500;
   padding: 12px 0;
-  outline: 0;
+  outline: none;
   border-radius: 0;
-  transition: border-color .25s ease;
-}
-input[type=text]::placeholder, input[type=email]::placeholder, textarea::placeholder {
-  color: var(--dim);
-  opacity: 0.6;
+  transition: border-color .2s;
 }
 input:focus, textarea:focus {
   border-color: var(--accent);
 }
+input::placeholder, textarea::placeholder {
+  color: var(--dim);
+  opacity: 0.55;
+}
 textarea {
   resize: none;
-  font-size: 20px;
-  line-height: 1.5;
+  font-size: 19px;
+  line-height: 1.45;
 }
 
-/* Option Chips - Brutalist & Analog Posture */
+/* Archetype & Option Chips */
 .chips {
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 10px;
   width: 100%;
-  max-width: 520px;
+  max-width: 500px;
 }
 .chip {
-  background: var(--bg-secondary);
+  background: var(--bg-alt);
   border: 1.5px solid var(--border);
   color: var(--fg);
   font-family: 'JetBrains Mono', monospace;
-  font-size: 14px;
+  font-size: 13.5px;
   padding: 14px 18px;
   text-align: left;
   cursor: pointer;
-  border-radius: 0px;
+  border-radius: 0;
   display: flex;
-  align-items: center;
   justify-content: space-between;
-  transition: all 0.2s ease;
+  align-items: center;
+  transition: all 0.18s ease;
 }
 .chip:hover {
   border-color: var(--accent);
@@ -381,16 +424,16 @@ textarea {
   color: var(--cobalt);
   border-color: var(--paper);
 }
-.chip .chip-key {
+.chip .idx {
   font-size: 11px;
   opacity: 0.6;
 }
 
-/* Range Slider */
-.range-wrap {
+/* Workday Saturation Range Slider */
+.slider-unit {
   width: 100%;
   max-width: 480px;
-  margin: 16px 0;
+  margin: 18px 0;
 }
 input[type=range] {
   width: 100%;
@@ -398,70 +441,69 @@ input[type=range] {
   background: var(--border);
   outline: none;
   accent-color: var(--accent);
-  border-radius: 0;
   cursor: pointer;
 }
-.range-meta {
+.slider-data {
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  align-items: baseline;
   margin-top: 14px;
   font-family: 'JetBrains Mono', monospace;
 }
-.rl {
+.slider-val {
   font-size: 18px;
   font-weight: 700;
   color: var(--accent);
 }
-.rl-sub {
-  font-size: 12px;
+.slider-sub {
+  font-size: 11.5px;
   color: var(--dim);
 }
 
-/* Navigation & Action Buttons */
-.nx {
+/* Nav Triggers & Primary Buttons */
+.nx-btn {
   align-self: flex-start;
   margin-top: 36px;
   background: none;
   border: 0;
   color: var(--fg);
   font-family: 'JetBrains Mono', monospace;
-  font-size: 13px;
-  letter-spacing: 0.08em;
+  font-size: 12.5px;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
   cursor: pointer;
-  padding: 8px 0;
+  padding: 6px 0;
   border-bottom: 2px solid var(--accent);
   transition: color .2s, border-color .2s;
   display: inline-flex;
   align-items: center;
   gap: 8px;
 }
-.nx:hover {
+.nx-btn:hover {
   color: var(--accent);
 }
-.btn-primary {
+.primary-btn {
   align-self: flex-start;
   background: var(--accent);
   color: var(--paper);
   border: 0;
   font-family: 'JetBrains Mono', monospace;
-  font-size: 14px;
+  font-size: 13.5px;
   font-weight: 700;
-  letter-spacing: 0.06em;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
-  padding: 16px 32px;
+  padding: 16px 34px;
   cursor: pointer;
-  transition: opacity .2s ease, transform .1s;
+  transition: opacity .2s, transform .1s;
 }
-.btn-primary:hover {
+.primary-btn:hover {
   opacity: 0.92;
 }
-.btn-primary:active {
+.primary-btn:active {
   transform: translateY(1px);
 }
 
-.hint-msg {
+.hint {
   color: var(--accent);
   font-family: 'JetBrains Mono', monospace;
   font-size: 12px;
@@ -469,42 +511,47 @@ input[type=range] {
   margin-top: 12px;
 }
 
-/* Physical Badge Preview Card */
-#badge-pass-card {
+/* Physical Badge Pass Output */
+#badge-container {
   margin-top: 24px;
   background: var(--paper);
   color: var(--ink);
   border: 2px solid var(--ink);
   padding: 24px;
   font-family: 'JetBrains Mono', monospace;
-  max-width: 500px;
-  box-sizing: border-box;
+  max-width: 480px;
 }
-.badge-header {
+.b-top {
   display: flex;
   justify-content: space-between;
+  align-items: flex-start;
   border-bottom: 2px solid var(--ink);
   padding-bottom: 12px;
-  margin-bottom: 16px;
+  margin-bottom: 14px;
 }
-.badge-header .og-logo {
+.b-mark {
   font-family: 'Anek Latin', sans-serif;
-  font-size: 20px;
+  font-size: 22px;
   font-weight: 800;
   color: var(--scarlet);
 }
-.badge-row {
+.b-meta {
+  font-size: 10px;
+  color: #5c5950;
+  margin-top: 2px;
+}
+.b-row {
   display: flex;
   justify-content: space-between;
   font-size: 12px;
   padding: 6px 0;
-  border-bottom: 1px dashed rgba(14,17,22,0.25);
+  border-bottom: 1px dashed rgba(14, 17, 22, 0.22);
 }
-.badge-row strong {
+.b-row strong {
   font-weight: 700;
 }
-.badge-footer {
-  margin-top: 18px;
+.b-foot {
+  margin-top: 16px;
   padding-top: 10px;
   display: flex;
   justify-content: space-between;
@@ -512,8 +559,7 @@ input[type=range] {
   color: #5c5950;
 }
 
-/* Submission Output Preview */
-#out {
+#payload-view {
   white-space: pre-wrap;
   word-break: break-word;
   font-family: 'JetBrains Mono', monospace;
@@ -522,217 +568,241 @@ input[type=range] {
   border: 1px dashed var(--border);
   padding: 16px;
   margin-top: 20px;
-  max-height: 35vh;
+  max-height: 32vh;
   overflow: auto;
-  background: var(--bg-secondary);
+  background: var(--bg-alt);
 }
 
-/* Mobile Responsiveness */
-@media (max-width: 900px) {
-  #top-bar {
-    padding: 0 16px;
-  }
-  .brand-meta span {
-    display: none;
-  }
-  #visual-stage {
+/* Responsive Overrides */
+@media (max-width: 960px) {
+  #stage {
     position: fixed;
     top: 52px;
     left: 0;
     width: 100vw;
-    height: 38vh;
-    padding: 20px 24px;
+    height: 40vh;
+    padding: 16px 20px;
     background: var(--bg);
     border-right: 0;
     border-bottom: 1.5px solid var(--border);
-    z-index: 15;
   }
-  .wordmark-latin { font-size: 34px; }
-  .wordmark-devanagari { font-size: 30px; }
-  .tagline { display: none; }
-  #ascii-box { margin: 4px 0; }
-  #a { font-size: 8px; line-height: 1.05; }
-  .brand-footer { display: none; }
+  .wordmark-latin { font-size: 28px; }
+  .wordmark-devanagari { font-size: 24px; }
+  .prop-line { display: none; }
+  #ascii-viewport { margin: 2px 0; }
+  #ascii-canvas { font-size: 8px; line-height: 1.0; }
+  .telemetry-row { display: none; }
 
   main {
     margin-left: 0;
     width: 100vw;
-    padding: calc(38vh + 30px) 24px 80px 24px;
+    padding: calc(40vh + 30px) 24px 80px 24px;
   }
   section {
     min-height: 80vh;
-    padding: 40px 0;
+    padding: 30px 0;
   }
 }
 
-.sh { animation: shake .3s; }
-@keyframes shake {
-  25% { transform: translateX(-6px); }
-  75% { transform: translateX(6px); }
-}
-@media (prefers-reduced-motion: reduce) {
-  section { transition: none; }
-  html { scroll-behavior: auto; }
+.shake { animation: sk 0.3s; }
+@keyframes sk {
+  25% { transform: translateX(-5px); }
+  75% { transform: translateX(5px); }
 }
 </style>
 </head>
 <body>
 
 <header id="top-bar">
-  <div class="brand-meta">
-    <b>RAP MEDIA</b>
+  <div class="brand-title">
+    <strong>OFF GRID</strong>
+    <span>/</span>
+    <span>ऑफ़ ग्रिड</span>
     <span>·</span>
-    <strong>OFF GRID / ऑफ़ ग्रिड</strong>
-    <span>·</span>
-    <span>BRAND SYSTEM v1</span>
+    <span style="opacity:0.75">BRAND SYSTEM v1</span>
   </div>
-  <div class="brand-controls">
-    <div class="time-badge" id="clock">16:00 — 19:00 IST</div>
-    <button class="theme-toggle-btn" id="golden-toggle" title="Toggle Chapter V Golden-Hour Ground">Ground: Paper</button>
+  <div class="bar-controls">
+    <div class="time-pill">
+      <span class="live-dot"></span>
+      <span id="clock-display">16:00 — 19:00 IST</span>
+    </div>
+    <button class="btn-toggle" id="theme-btn" title="Toggle Golden-Hour Ground (Chapter V)">Ground: Paper</button>
   </div>
 </header>
 
-<div id="app-wrap">
-  <!-- Left Brand Identity and ASCII Halftone Surface -->
-  <aside id="visual-stage">
-    <div class="brand-lockup">
-      <div class="wordmark-latin">OFF GRID</div>
-      <div class="wordmark-devanagari">ऑफ़ ग्रिड</div>
-      <div class="tagline">
-        The pause is the product.
-        <span class="hi">अंतराल ही उत्पाद है।</span>
+<div id="layout">
+  <!-- ====================================================================
+       LEFT STAGE: Continuous Mutating Lead Shape ASCII Visualizer
+       ==================================================================== -->
+  <aside id="stage">
+    <div class="stage-header">
+      <div class="wordmark-group">
+        <div class="wordmark-latin">OFF GRID</div>
+        <div class="wordmark-devanagari">ऑफ़ ग्रिड</div>
+        <div class="prop-line">
+          The pause is the product.
+          <span class="hi">अंतराल ही उत्पाद है।</span>
+        </div>
+      </div>
+      <div class="stage-badge">
+        <div style="font-weight:700; color:var(--accent);">ANALOG CELL</div>
+        <div>16:00 — 19:00</div>
       </div>
     </div>
 
-    <div id="ascii-box">
-      <pre id="a" aria-hidden="true"></pre>
+    <!-- The 3D Raymarched / SDF ASCII Stage -->
+    <div id="ascii-viewport">
+      <pre id="ascii-canvas" aria-hidden="true"></pre>
     </div>
 
-    <div class="brand-footer">
-      <div>
-        <span>REGISTER: </span>
-        <strong id="step-name">00 // MANIFESTO</strong>
+    <!-- Scrollytelling Telemetry -->
+    <div class="telemetry-row">
+      <div class="morph-meter">
+        <span>PLATE:</span>
+        <b id="telemetry-plate">00 // MANIFESTO</b>
       </div>
-      <div>
-        <span id="pr" class="analog-badge-pill">STEP 00/10</span>
+      <div class="morph-meter">
+        <span>MUTATION:</span>
+        <span class="morph-bar-render" id="telemetry-bar">[░░░░░░░░░░] 0%</span>
       </div>
     </div>
   </aside>
 
-  <!-- Right Interactive Scrollytelling Sections -->
-  <main id="m"></main>
+  <!-- ====================================================================
+       RIGHT MAIN: 10 Purposeful Scrollytelling Narrative Plates
+       ==================================================================== -->
+  <main id="main-narrative"></main>
 </div>
 
 <script>
-// ==========================================
-// OFF GRID BRAND CONFIGURATION (October 2026)
-// ==========================================
-const BRAND = {
+// ==========================================================================
+// OFF GRID DATA MODEL & 10 QUESTIONS
+// ==========================================================================
+const BRAND_DATA = {
   name: "OFF GRID",
   devanagari: "ऑफ़ ग्रिड",
   window: "16:00 — 19:00 IST",
   location: "Bengaluru Coworking Terrace",
-  endpoint: "" // Optional POST URL
+  endpoint: ""
 };
 
-// 10 Brand-Aligned Questions (No festival/wellness clichés; authentic unhurried register)
 const QUESTIONS = [
   {
-    k: 'name',
-    q: 'What name goes on the physical badge card?',
-    s: 'Issued at the door on paper cardstock. No lanyard app required.',
-    t: 'text',
-    ph: 'Your name or handle',
-    req: true
+    key: 'name',
+    plate: '01 / 10',
+    shapeName: 'BADGE PASS',
+    title: 'What name goes on the physical badge card?',
+    subtitle: 'Printed on 300gsm cardstock at check-in. No digital lanyard required.',
+    type: 'text',
+    placeholder: 'Your name or handle',
+    required: true
   },
   {
-    k: 'email',
-    q: 'Where should the entry confirmation be routed?',
-    s: 'We send a single time-stamped confirmation. No follow-ups, no newsletters.',
-    t: 'email',
-    ph: 'you@workplace.com',
-    req: true
+    key: 'email',
+    plate: '02 / 10',
+    shapeName: 'SIGNAL WAVE',
+    title: 'Where should entry confirmation be routed?',
+    subtitle: 'A single timestamped pass delivery. No post-event pings or newsletters.',
+    type: 'email',
+    placeholder: 'you@workplace.com',
+    required: true
   },
   {
-    k: 'desk',
-    q: 'What desk or screen are you stepping away from?',
-    s: 'The context left behind during the three-hour cell.',
-    t: 'text',
-    ph: 'Product design, backend, founder desk, legal, architecture…'
+    key: 'desk',
+    plate: '03 / 10',
+    shapeName: 'TOWER GRID',
+    title: 'What workspace or screen are you stepping away from?',
+    subtitle: 'The corporate context left untouched during the 16:00 — 19:00 cell.',
+    type: 'text',
+    placeholder: 'Design systems, engineering, legal, product, studio…'
   },
   {
-    k: 'archetype',
-    q: 'Select your Analog Archetype badge (v1).',
-    s: 'Six archetypes on the registration sheet. Tradeable or kept quiet.',
-    t: 'choice',
-    o: [
+    key: 'archetype',
+    plate: '04 / 10',
+    shapeName: 'ANALOG ARCHETYPE',
+    title: 'Choose your Analog Archetype badge (v1).',
+    subtitle: 'Six designated postures on the physical register. Wear it or pocket it.',
+    type: 'choice',
+    options: [
       '[01] The Observer — Logged off, visible',
-      '[02] Screen-Fatigued — Strictly no display light',
-      '[03] Zero-Ping Enforcer — Slack & Teams dead',
+      '[02] Screen-Fatigued — Strictly no display glare',
+      '[03] Zero-Ping Enforcer — Slack & Teams dark',
       '[04] Silent Attendee — Presence without performance',
-      '[05] Terrace Squatter — Cold can & fresh air',
+      '[05] Terrace Squatter — Cold can & ambient air',
       '[06] Off-Duty Operator — Sanctioned unavailability'
     ]
   },
   {
-    k: 'can',
-    q: 'Cold-can allocation for your arrival.',
-    s: 'Only cold-can activation honest about a three-hour disconnect.',
-    t: 'choice',
-    o: [
+    key: 'can',
+    plate: '05 / 10',
+    shapeName: 'COLD CAN',
+    title: 'Cold-can allocation for your arrival.',
+    subtitle: 'The only cold-can activation honest about a three-hour disconnect.',
+    type: 'choice',
+    options: [
       'Diet Coke (iced can)',
       'Classic Cola (iced can)',
-      'Sparkling Water (chilled)',
-      'Ginger Brew (cold)',
-      'Tonic & Citrus Peel'
+      'Sparkling Mineral Water (chilled)',
+      'Ginger Tonic Brew (cold)',
+      'Bitter Lemon & Citrus'
     ]
   },
   {
-    k: 'posture',
-    q: 'What is your conversational posture during the window?',
-    s: 'The right to attend without performing or networking.',
-    t: 'choice',
-    o: [
-      'Total silence (do not engage)',
-      'Low-frequency observing',
-      'Terrace ambient listening only',
+    key: 'posture',
+    plate: '06 / 10',
+    shapeName: 'PAUSE BARS (||)',
+    title: 'Conversational posture during the three-hour window.',
+    subtitle: 'The right to attend without networking, conversing, or performing.',
+    type: 'choice',
+    options: [
+      'Absolute silence (do not engage)',
+      'Low-frequency observation only',
+      'Terrace ambient listening',
       'Open to unhurried one-on-one talk'
     ]
   },
   {
-    k: 'device_lock',
-    q: 'Device availability protocol for 16:00 — 19:00.',
-    s: 'A sanctioned refusal to be reachable.',
-    t: 'choice',
-    o: [
+    key: 'device_lock',
+    plate: '07 / 10',
+    shapeName: 'SHIELDED ENCLOSURE',
+    title: 'Device lockdown commitment between 16:00 and 19:00.',
+    subtitle: 'A sanctioned refusal to be reachable.',
+    type: 'choice',
+    options: [
       'Phone in bag on Airplane mode',
-      'Do Not Disturb (no haptics or pings)',
-      'Face-down on table (emergency calls only)'
+      'Do Not Disturb (all pings and haptics blocked)',
+      'Face-down on table (emergency ringtone only)'
     ]
   },
   {
-    k: 'arrival',
-    q: 'Estimated arrival time at the check-in register.',
-    s: 'Doors open at 16:00. Golden-hour begins at 17:15.',
-    t: 'choice',
-    o: [
+    key: 'arrival',
+    plate: '08 / 10',
+    shapeName: 'TIME-BLOCK DIAL',
+    title: 'Check-in time at the entry register.',
+    subtitle: 'Doors open at 16:00. Golden-hour begins at 17:15.',
+    type: 'choice',
+    options: [
       '16:00 Sharp (Full three-hour disconnect)',
       '16:20 — 16:35 (Decompressing post-standup)',
       '17:00 — 17:15 (Before golden-hour onset)'
     ]
   },
   {
-    k: 'burnout_index',
-    q: 'Workday saturation index at this moment.',
-    s: 'From easing out of sprints to total screen exhaustion.',
-    t: 'range'
+    key: 'saturation',
+    plate: '09 / 10',
+    shapeName: 'SATURATION GAUGE',
+    title: 'Workday saturation index at this moment.',
+    subtitle: 'From easing out of sprints to total screen exhaustion.',
+    type: 'range'
   },
   {
-    k: 'refusal',
-    q: 'Which workplace ritual are you consciously refusing today?',
-    s: 'A decision in the open, not a slogan.',
-    t: 'area',
-    ph: 'E.g., The 5 PM sync, urgent DM pings, performative availability, calendar blocking…'
+    key: 'refusal',
+    plate: '10 / 10',
+    shapeName: 'SEVERED TERMINAL',
+    title: 'Which workplace ritual are you consciously refusing today?',
+    subtitle: 'A decision in the open, not a slogan.',
+    type: 'area',
+    placeholder: 'E.g., The 5 PM sync, urgent DM pings, performative networking, camera-on calls…'
   }
 ];
 
@@ -744,133 +814,141 @@ const SATURATION_LABELS = [
   '05 // Full workday exhaustion'
 ];
 
-const answers = { burnout_index: 3 };
-const $ = s => document.querySelector(s);
-const main = $('#m');
+const state = { saturation: 3 };
+const $ = sel => document.querySelector(sel);
+const narrative = $('#main-narrative');
 
-// Render Sections
-let html = `
+// ==========================================================================
+// BUILD SCROLLYTELLING SECTIONS
+// ==========================================================================
+let htmlContent = `
 <section id="s0" class="on">
-  <div class="step-label"><span class="roman-bars">||</span> CHAPTER II // MANIFESTO</div>
+  <div class="plate-header">
+    <span class="bars">||</span>
+    <span>CHAPTER II // MANIFESTO</span>
+  </div>
   <h1>The pause is the product.</h1>
-  <p class="manifesto-lead">
+  <p class="manifesto">
     <strong>OFF GRID</strong> is a three-hour window inside a Bengaluru corporate & coworking terrace. 
     Between 16:00 and 19:00, you log off. In public. With a cold can.
   </p>
   <p class="s">
     No stage. No line-up. No main-character moment. No DJ, no ambient trance, no founder fireside, no networking theater.
-    Ten questions to print your entry badge. Scroll to begin.
+    Watch the <strong>Interval Mark</strong> mutate as you progress through ten registration plates.
   </p>
-  <button class="nx" data-go="0">Open Register ↓</button>
+  <button class="nx-btn" data-target="0">Open Register ↓</button>
 </section>`;
 
 QUESTIONS.forEach((q, i) => {
   let field = '';
-  if (q.t === 'text' || q.t === 'email') {
-    field = `<input type="${q.t}" data-k="${q.k}" placeholder="${q.ph}" autocomplete="off">`;
-  } else if (q.t === 'area') {
-    field = `<textarea rows="3" data-k="${q.k}" placeholder="${q.ph}"></textarea>`;
-  } else if (q.t === 'choice') {
-    field = `<div class="chips" data-k="${q.k}">
-      ${q.o.map((opt, idx) => `
-        <button class="chip" data-v="${opt}">
+  if (q.type === 'text' || q.type === 'email') {
+    field = `<input type="${q.type}" data-key="${q.key}" placeholder="${q.placeholder}" autocomplete="off">`;
+  } else if (q.type === 'area') {
+    field = `<textarea rows="3" data-key="${q.key}" placeholder="${q.placeholder}"></textarea>`;
+  } else if (q.type === 'choice') {
+    field = `<div class="chips" data-key="${q.key}">
+      ${q.options.map((opt, idx) => `
+        <button class="chip" data-val="${opt}">
           <span>${opt}</span>
-          <span class="chip-key">0${idx+1}</span>
+          <span class="idx">0${idx+1}</span>
         </button>
       `).join('')}
     </div>`;
-  } else if (q.t === 'range') {
+  } else if (q.type === 'range') {
     field = `
-      <div class="range-wrap">
-        <input type="range" min="1" max="5" value="3" data-k="${q.k}">
-        <div class="range-meta">
-          <div class="rl" id="rl">${SATURATION_LABELS[2]}</div>
-          <div class="rl-sub">16:00 Disconnect Level</div>
+      <div class="slider-unit">
+        <input type="range" min="1" max="5" value="3" data-key="${q.key}">
+        <div class="slider-data">
+          <div class="slider-val" id="sat-label">${SATURATION_LABELS[2]}</div>
+          <div class="slider-sub">16:00 Disconnect Level</div>
         </div>
       </div>
     `;
   }
 
-  html += `
+  htmlContent += `
   <section id="s${i+1}">
-    <div class="step-label">
-      <span class="roman-bars">||</span>
-      <span>PLATE ${String(i+1).padStart(2,'0')} / 10</span>
+    <div class="plate-header">
+      <span class="bars">||</span>
+      <span>PLATE ${q.plate} · ${q.shapeName}</span>
     </div>
-    <h2>${q.q}</h2>
-    ${q.s ? `<p class="s">${q.s}</p>` : ''}
+    <h2>${q.title}</h2>
+    ${q.subtitle ? `<p class="s">${q.subtitle}</p>` : ''}
     ${field}
-    <div class="hint-msg" id="h${i}"></div>
-    <button class="nx" data-go="${i+1}">${i === 9 ? 'Review Entry Badge' : 'Next Plate'} ↓</button>
+    <div class="hint" id="hint-${i}"></div>
+    <button class="nx-btn" data-target="${i+1}">${i === 9 ? 'Review Entry Badge' : 'Next Plate'} ↓</button>
   </section>`;
 });
 
-html += `
+htmlContent += `
 <section id="s11">
-  <div class="step-label"><span class="roman-bars">||</span> CONCLUSION // ENTRY BADGE</div>
-  <h2>Confirm Registration.</h2>
-  <p class="s">Your answers sit in memory until confirmed. Review your physical badge below.</p>
+  <div class="plate-header">
+    <span class="bars">||</span>
+    <span>CONCLUSION // PHYSICAL PASS</span>
+  </div>
+  <h2>Issue Entry Badge.</h2>
+  <p class="s">Your answers sit verified in memory. Review your physical register pass below.</p>
   
-  <div id="badge-pass-card">
-    <div class="badge-header">
+  <div id="badge-container">
+    <div class="b-top">
       <div>
-        <div class="og-logo">OFF GRID · ऑफ़ ग्रिड</div>
-        <div style="font-size:10px; color:#5c5950; margin-top:2px;">BENGALURU TERRACE · 16:00 — 19:00</div>
+        <div class="b-mark">OFF GRID · ऑफ़ ग्रिड</div>
+        <div class="b-meta">BENGALURU TERRACE · 16:00 — 19:00</div>
       </div>
-      <div style="text-align:right;">
-        <span class="analog-badge-pill">VALID PASS</span>
+      <div>
+        <span style="background:var(--ink); color:var(--paper); padding:3px 8px; font-size:10px; font-weight:700;">PASS ISSUED</span>
       </div>
     </div>
-    <div class="badge-row"><span>NAME</span><strong id="b-name">—</strong></div>
-    <div class="badge-row"><span>EMAIL</span><strong id="b-email">—</strong></div>
-    <div class="badge-row"><span>CONTEXT</span><strong id="b-desk">—</strong></div>
-    <div class="badge-row"><span>ARCHETYPE</span><strong id="b-arch">—</strong></div>
-    <div class="badge-row"><span>COLD CAN</span><strong id="b-can">—</strong></div>
-    <div class="badge-row"><span>POSTURE</span><strong id="b-posture">—</strong></div>
-    <div class="badge-footer">
+    <div class="b-row"><span>NAME</span><strong id="badge-name">—</strong></div>
+    <div class="b-row"><span>EMAIL</span><strong id="badge-email">—</strong></div>
+    <div class="b-row"><span>DESK</span><strong id="badge-desk">—</strong></div>
+    <div class="b-row"><span>ARCHETYPE</span><strong id="badge-archetype">—</strong></div>
+    <div class="b-row"><span>COLD CAN</span><strong id="badge-can">—</strong></div>
+    <div class="b-row"><span>POSTURE</span><strong id="badge-posture">—</strong></div>
+    <div class="b-foot">
       <span>NO PINGS. COLD CAN.</span>
       <span>OCTOBER 2026</span>
     </div>
   </div>
 
-  <div style="margin-top:24px;">
-    <button class="btn-primary" id="sub">Issue Badge Pass</button>
-    <div class="hint-msg" id="fh"></div>
-    <pre id="out" hidden></pre>
+  <div style="margin-top:28px;">
+    <button class="primary-btn" id="submit-btn">Confirm & Print Badge</button>
+    <div class="hint" id="final-hint"></div>
+    <pre id="payload-view" hidden></pre>
   </div>
 </section>`;
 
-main.innerHTML = html;
-const sections = [...main.children];
-const totalSecs = sections.length;
+narrative.innerHTML = htmlContent;
+const sectionElements = [...narrative.children];
+const totalPlates = sectionElements.length;
 
 // Navigation & Validation
-const scrollToSec = idx => sections[Math.min(idx + 1, totalSecs - 1)].scrollIntoView({ behavior: 'smooth' });
+const navigateTo = idx => sectionElements[Math.min(idx + 1, totalPlates - 1)].scrollIntoView({ behavior: 'smooth' });
 
-function validateQuestion(idx) {
+function validatePlate(idx) {
   const q = QUESTIONS[idx];
-  const val = answers[q.k];
-  const hint = $('#h' + idx);
+  const val = state[q.key];
+  const hint = $('#hint-' + idx);
   if (hint) hint.textContent = '';
 
-  if (q.req && (!val || !val.trim())) {
+  if (q.required && (!val || !val.trim())) {
     if (hint) hint.textContent = '→ This plate is required for the door register.';
-    const input = sections[idx + 1].querySelector('input');
+    const input = sectionElements[idx + 1].querySelector('input');
     if (input) {
-      input.classList.remove('sh');
+      input.classList.remove('shake');
       void input.offsetWidth;
-      input.classList.add('sh');
+      input.classList.add('shake');
       input.focus();
     }
     return false;
   }
-  if (q.t === 'email' && val && !/^\S+@\S+\.\S+$/.test(val)) {
+  if (q.type === 'email' && val && !/^\S+@\S+\.\S+$/.test(val)) {
     if (hint) hint.textContent = '→ Enter a valid email format for door pass delivery.';
-    const input = sections[idx + 1].querySelector('input');
+    const input = sectionElements[idx + 1].querySelector('input');
     if (input) {
-      input.classList.remove('sh');
+      input.classList.remove('shake');
       void input.offsetWidth;
-      input.classList.add('sh');
+      input.classList.add('shake');
       input.focus();
     }
     return false;
@@ -878,111 +956,122 @@ function validateQuestion(idx) {
   return true;
 }
 
-function updateBadgePreview() {
-  $('#b-name').textContent = answers.name || '—';
-  $('#b-email').textContent = answers.email || '—';
-  $('#b-desk').textContent = answers.desk || '—';
-  $('#b-arch').textContent = answers.archetype ? answers.archetype.split('—')[0].trim() : '—';
-  $('#b-can').textContent = answers.can || '—';
-  $('#b-posture').textContent = answers.posture ? answers.posture.slice(0, 24) + '…' : '—';
+function refreshBadgeDisplay() {
+  $('#badge-name').textContent = state.name || '—';
+  $('#badge-email').textContent = state.email || '—';
+  $('#badge-desk').textContent = state.desk || '—';
+  $('#badge-archetype').textContent = state.archetype ? state.archetype.split('—')[0].trim() : '—';
+  $('#badge-can').textContent = state.can || '—';
+  $('#badge-posture').textContent = state.posture ? state.posture.slice(0, 24) + '…' : '—';
 }
 
-main.addEventListener('click', e => {
+narrative.addEventListener('click', e => {
   const btn = e.target.closest('button');
   if (!btn) return;
 
-  if (btn.dataset.go !== undefined) {
-    const idx = +btn.dataset.go;
-    if (idx > 0 && !validateQuestion(idx - 1)) return;
-    updateBadgePreview();
-    scrollToSec(idx);
+  if (btn.dataset.target !== undefined) {
+    const idx = +btn.dataset.target;
+    if (idx > 0 && !validatePlate(idx - 1)) return;
+    refreshBadgeDisplay();
+    navigateTo(idx);
     return;
   }
 
   if (btn.classList.contains('chip')) {
     const container = btn.parentNode;
-    const key = container.dataset.k;
+    const key = container.dataset.key;
     container.querySelectorAll('.chip').forEach(c => c.classList.remove('sel'));
     btn.classList.add('sel');
-    answers[key] = btn.dataset.v;
-    updateBadgePreview();
-    const secId = +btn.closest('section').id.slice(1);
-    setTimeout(() => scrollToSec(secId), 350);
+    state[key] = btn.dataset.val;
+    refreshBadgeDisplay();
+    const plateId = +btn.closest('section').id.slice(1);
+    setTimeout(() => navigateTo(plateId), 360);
   }
 });
 
-main.addEventListener('input', e => {
-  const key = e.target.dataset.k;
+narrative.addEventListener('input', e => {
+  const key = e.target.dataset.key;
   if (!key) return;
-  answers[key] = e.target.value;
+  state[key] = e.target.value;
   if (e.target.type === 'range') {
     const val = +e.target.value;
-    $('#rl').textContent = SATURATION_LABELS[val - 1] || '';
+    $('#sat-label').textContent = SATURATION_LABELS[val - 1] || '';
   }
-  updateBadgePreview();
+  refreshBadgeDisplay();
 });
 
-main.addEventListener('keydown', e => {
+narrative.addEventListener('keydown', e => {
   if (e.key === 'Enter' && e.target.matches('input[type=text], input[type=email]')) {
     e.preventDefault();
-    const secId = +e.target.closest('section').id.slice(1);
-    if (validateQuestion(secId - 1)) {
-      updateBadgePreview();
-      scrollToSec(secId);
+    const plateId = +e.target.closest('section').id.slice(1);
+    if (validatePlate(plateId - 1)) {
+      refreshBadgeDisplay();
+      navigateTo(plateId);
     }
   }
 });
 
-$('#sub').onclick = async () => {
+// Arrow Navigation (Up / Down / J / K)
+window.addEventListener('keydown', e => {
+  if (['INPUT', 'TEXTAREA'].includes(document.activeElement.tagName)) return;
+  const currentPlate = Math.round(currentScroll);
+  if (e.key === 'ArrowDown' || e.key === 'j') {
+    e.preventDefault();
+    navigateTo(currentPlate);
+  } else if (e.key === 'ArrowUp' || e.key === 'k') {
+    e.preventDefault();
+    navigateTo(Math.max(-1, currentPlate - 2));
+  }
+});
+
+$('#submit-btn').onclick = async () => {
   for (let i = 0; i < QUESTIONS.length; i++) {
-    if (QUESTIONS[i].req && !validateQuestion(i)) {
-      sections[i + 1].scrollIntoView({ behavior: 'smooth' });
+    if (QUESTIONS[i].required && !validatePlate(i)) {
+      sectionElements[i + 1].scrollIntoView({ behavior: 'smooth' });
       return;
     }
   }
-  const out = $('#out');
-  const fh = $('#fh');
-  out.hidden = false;
-  out.textContent = JSON.stringify({
+  const payloadBox = $('#payload-view');
+  const finalHint = $('#final-hint');
+  payloadBox.hidden = false;
+  payloadBox.textContent = JSON.stringify({
     event: "OFF GRID / ऑफ़ ग्रिड",
     window: "16:00 — 19:00 IST",
     ground: document.documentElement.dataset.theme || "paper",
-    registration: answers
+    pass: state
   }, null, 2);
 
   try {
-    if (BRAND.endpoint) {
-      await fetch(BRAND.endpoint, {
+    if (BRAND_DATA.endpoint) {
+      await fetch(BRAND_DATA.endpoint, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(answers)
+        body: JSON.stringify(state)
       });
     }
-    fh.textContent = '✓ Physical pass queued for registration. Take a screenshot or copy payload below.';
-    $('#sub').textContent = 'Badge Confirmed ✓';
+    finalHint.textContent = '✓ Badge pass registered on paper cardstock. Copy registration payload below.';
+    $('#submit-btn').textContent = 'Pass Issued ✓';
   } catch (_) {
-    fh.textContent = '→ Network unavailable. Your badge payload is printed below.';
+    finalHint.textContent = '→ Disconnected from network. Offline registration payload generated below.';
   }
 };
 
-// Intersection Observer for Active Section Reveal
-const observer = new IntersectionObserver(entries => {
-  entries.forEach(entry => {
-    entry.target.classList.toggle('on', entry.isIntersecting);
-  });
+// Section Reveal Observer
+const revealObserver = new IntersectionObserver(entries => {
+  entries.forEach(entry => entry.target.classList.toggle('on', entry.isIntersecting));
 }, { threshold: 0.45 });
-sections.forEach(s => observer.observe(s));
+sectionElements.forEach(s => revealObserver.observe(s));
 
-// Golden-Hour Rule & Theme Toggle
-const themeBtn = $('#golden-toggle');
-const themes = ['paper', 'golden-hour', 'ink'];
-let currentThemeIdx = 0;
+// Ground Theme Management
+const themeBtn = $('#theme-btn');
+const themeModes = ['paper', 'golden-hour', 'ink'];
+let activeThemeIdx = 0;
 
-function setTheme(theme) {
-  if (theme === 'paper') {
+function applyTheme(name) {
+  if (name === 'paper') {
     delete document.documentElement.dataset.theme;
     themeBtn.textContent = 'Ground: Paper';
-  } else if (theme === 'golden-hour') {
+  } else if (name === 'golden-hour') {
     document.documentElement.dataset.theme = 'golden-hour';
     themeBtn.textContent = 'Ground: Cobalt (17:15)';
   } else {
@@ -992,153 +1081,309 @@ function setTheme(theme) {
 }
 
 themeBtn.onclick = () => {
-  currentThemeIdx = (currentThemeIdx + 1) % themes.length;
-  setTheme(themes[currentThemeIdx]);
+  activeThemeIdx = (activeThemeIdx + 1) % themeModes.length;
+  applyTheme(themeModes[activeThemeIdx]);
 };
 
-// Check if currently within Bengaluru Golden-Hour (17:15 — 18:50)
-function checkBengaluruGoldenHour() {
-  const now = new Date();
-  // Get time in Asia/Kolkata
-  const options = { timeZone: 'Asia/Kolkata', hour12: false, hour: 'numeric', minute: 'numeric' };
-  try {
-    const parts = new Intl.DateTimeFormat([], options).formatToParts(now);
-    const h = +parts.find(p => p.type === 'hour').value;
-    const m = +parts.find(p => p.type === 'minute').value;
-    const minutes = h * 60 + m;
-    // 17:15 is 1035 min, 18:50 is 1130 min
-    if (minutes >= 1035 && minutes <= 1130) {
-      setTheme('golden-hour');
-      currentThemeIdx = 1;
-    }
-  } catch (e) {}
+// ==========================================================================
+// ADVANCED MATHEMATICAL 3D / SDF ASCII RAYMARCHING ENGINE
+// One lead shape (The Interval Mark) that continuously deforms & mutates
+// ==========================================================================
+const asciiCanvas = $('#ascii-canvas');
+const telemetryPlate = $('#telemetry-plate');
+const telemetryBar = $('#telemetry-bar');
+
+const COLS = 68;
+const ROWS = 30;
+let currentScroll = 0, targetScroll = 0;
+let mouseX = 0, mouseY = 0;
+
+// Mouse reaction
+window.addEventListener('mousemove', e => {
+  mouseX = (e.clientX / window.innerWidth - 0.5) * 2;
+  mouseY = (e.clientY / window.innerHeight - 0.5) * 2;
+});
+
+function updateScrollTarget() {
+  targetScroll = Math.max(0, Math.min(totalPlates - 1, window.scrollY / window.innerHeight));
 }
-checkBengaluruGoldenHour();
+window.addEventListener('scroll', updateScrollTarget, { passive: true });
+window.addEventListener('resize', () => {
+  updateScrollTarget();
+  fitAscii();
+});
 
-// ==========================================
-// OFF GRID ASCII MORPHING & INTERVAL MARK
-// Riso Halftone (85-LPI Fixed Angle), Grid Cells & Monograms
-// ==========================================
-const COLS = 64, ROWS = 28;
-const pre = $('#a');
-const pr = $('#pr');
-const stepName = $('#step-name');
+function fitAscii() {
+  const isMobile = window.innerWidth <= 960;
+  const stageWidth = isMobile ? window.innerWidth : window.innerWidth * 0.52;
+  const stageHeight = isMobile ? window.innerHeight * 0.4 : window.innerHeight * 0.55;
+  const fs = Math.max(7.5, Math.min(stageWidth / (COLS * 0.62), stageHeight / (ROWS * 1.15)));
+  asciiCanvas.style.fontSize = fs + 'px';
+}
+fitAscii();
+updateScrollTarget();
 
-const SHAPES = [
-  // 00: Manifesto Interval Mark (Grid cell with cut corner)
-  (u, v) => (Math.abs(u) < 0.65 && Math.abs(v) < 0.65 && !(u > 0.15 && v < -0.15)) ? 0.35 : 1.2,
-  // 01: Identification Card badge
-  (u, v) => (Math.abs(u) < 0.72 && Math.abs(v) < 0.48) ? 0.4 : 1.2,
-  // 02: Electronic Signal / Wave block
-  (u, v) => Math.abs(v - 0.28 * Math.sin(u * 5)) < 0.22 && Math.abs(u) < 0.85 ? 0.3 : 1.2,
-  // 03: Corporate Tower / Desk matrix
-  (u, v) => (Math.abs(u) < 0.5 && Math.abs(v) < 0.8) && (Math.floor((v+0.8)*5) % 2 === 0) ? 0.35 : 1.2,
-  // 04: Analog Archetype Hexagon
-  (u, v) => (Math.abs(u)*0.866 + Math.abs(v)*0.5 < 0.65 && Math.abs(v) < 0.65) ? 0.4 : 1.2,
-  // 05: Can Silhouette
-  (u, v) => (Math.abs(u) < 0.4 && Math.abs(v) < 0.75) ? 0.35 : 1.2,
-  // 06: Interval Pause Bars (||)
-  (u, v) => (Math.abs(v) < 0.68 && ((Math.abs(u - 0.3) < 0.14) || (Math.abs(u + 0.3) < 0.14))) ? 0.3 : 1.2,
-  // 07: Device Box with locked screen
-  (u, v) => (Math.abs(u) < 0.42 && Math.abs(v) < 0.78 && !(Math.abs(u) < 0.34 && Math.abs(v) < 0.65)) ? 0.35 : 1.2,
-  // 08: Clock / Time-Block Ring (16:00 - 19:00 segment)
-  (u, v) => {
-    const d = Math.hypot(u, v);
-    const angle = Math.atan2(v, u);
-    return (d > 0.42 && d < 0.74 && (angle > -1.2 && angle < 1.8)) ? 0.3 : 1.2;
-  },
-  // 09: Saturation Gauge
-  (u, v) => (v > -0.6 && v < 0.6 && u > -0.7 && u < 0.7 && (u < 0.2 * v)) ? 0.35 : 1.2,
-  // 10: Refusal Stamp (Notched square)
-  (u, v) => (Math.abs(u) < 0.6 && Math.abs(v) < 0.6 && !(Math.abs(u) < 0.45 && Math.abs(v) < 0.45)) ? 0.35 : 1.2,
-  // 11: Final OG Monogram Frame
-  (u, v) => (Math.abs(u) < 0.75 && Math.abs(v) < 0.55 && (Math.abs(u) > 0.62 || Math.abs(v) > 0.45)) ? 0.3 : 1.2
-];
+// Signed Distance Field (SDF) Primitives
+const sdBox = (p, b) => {
+  const qx = Math.abs(p.x) - b.x;
+  const qy = Math.abs(p.y) - b.y;
+  const qz = Math.abs(p.z) - b.z;
+  const ox = Math.max(qx, 0), oy = Math.max(qy, 0), oz = Math.max(qz, 0);
+  return Math.hypot(ox, oy, oz) + Math.min(Math.max(qx, Math.max(qy, qz)), 0);
+};
 
-const STEP_TITLES = [
-  "00 // MANIFESTO",
+const sdCylinder = (p, h, r) => {
+  const d = Math.hypot(p.x, p.z) - r;
+  const y = Math.abs(p.y) - h;
+  return Math.min(Math.max(d, y), 0) + Math.hypot(Math.max(d, 0), Math.max(y, 0));
+};
+
+const sdTorus = (p, R, r) => {
+  const q = Math.hypot(p.x, p.z) - R;
+  return Math.hypot(q, p.y) - r;
+};
+
+// 12 Continuous Morphing Shapes:
+// 00: Lead Form - The Interval Mark (Grid cell with cut corner notch)
+// 01: Identification Badge Card
+// 02: Transceiver Radio Loop / Signal Antenna
+// 03: Corporate Tower Block
+// 04: 6-Sided Analog Archetype Hexagonal Seal
+// 05: Chilled Cold Can with beveled rim
+// 06: Pause Bars (||)
+// 07: Shielded Device Enclosure
+// 08: Time-Block Sector Dial (16:00 - 19:00)
+// 09: Saturation Barometer Gauge
+// 10: Severed Terminal / Broken Circuit
+// 11: Final OG Architectural Monogram Block
+
+const SHAPE_NAMES = [
+  "00 // INTERVAL MARK",
   "01 // BADGE PASS",
-  "02 // ROUTING",
-  "03 // DESK CONTEXT",
-  "04 // ARCHETYPE",
+  "02 // SIGNAL WAVE",
+  "03 // TOWER MONOLITH",
+  "04 // ARCHETYPE SEAL",
   "05 // COLD CAN",
-  "06 // POSTURE",
-  "07 // AVAILABILITY",
-  "08 // ARRIVAL",
-  "09 // SATURATION",
-  "10 // REFUSAL",
-  "11 // CONCLUSION"
+  "06 // PAUSE BARS (||)",
+  "07 // SHIELDED ENCLOSURE",
+  "08 // TIME-BLOCK DIAL",
+  "09 // SATURATION GAUGE",
+  "10 // SEVERED TERMINAL",
+  "11 // CONCLUSION (OG)"
 ];
 
-let curPos = 0, targetPos = 0, T = 0;
-const smoothStep = x => x * x * (3 - 2 * x);
+const SDF_SHAPES = [
+  // 00: The Interval Mark (Thick block with corner notch cut out)
+  p => {
+    const box = sdBox(p, { x: 0.85, y: 0.85, z: 0.25 }) - 0.04;
+    // Notch cut out in upper right corner
+    const notch = sdBox({ x: p.x - 0.55, y: p.y - 0.55, z: p.z }, { x: 0.45, y: 0.45, z: 0.35 });
+    return Math.max(box, -notch);
+  },
 
-function resizeCanvas() {
-  const isMobile = window.innerWidth <= 900;
-  const w = isMobile ? window.innerWidth : window.innerWidth * 0.5;
-  const fs = Math.max(7, Math.min(w / (COLS * 0.62), (window.innerHeight * 0.35) / (ROWS * 1.15)));
-  pre.style.fontSize = fs + 'px';
-}
+  // 01: Identification Card Badge (Portrait card with punch slot)
+  p => {
+    const card = sdBox(p, { x: 0.65, y: 0.95, z: 0.12 }) - 0.04;
+    const hole = sdBox({ x: p.x, y: p.y - 0.78, z: p.z }, { x: 0.22, y: 0.05, z: 0.2 });
+    return Math.max(card, -hole);
+  },
 
-function handleScroll() {
-  const maxScroll = (totalSecs - 1) * window.innerHeight;
-  targetPos = Math.max(0, Math.min(totalSecs - 1, window.scrollY / window.innerHeight));
-}
+  // 02: Signal Wave / Helical Transceiver
+  p => {
+    const ring = sdTorus(p, 0.75, 0.14);
+    const wave = Math.sin(p.x * 6 + p.y * 3) * 0.06;
+    return ring + wave;
+  },
 
-window.addEventListener('resize', () => { resizeCanvas(); handleScroll(); });
-window.addEventListener('scroll', handleScroll, { passive: true });
-resizeCanvas();
-handleScroll();
+  // 03: Corporate Tower Grid Monolith
+  p => {
+    const tower = sdBox(p, { x: 0.45, y: 1.05, z: 0.45 }) - 0.02;
+    const gridRibs = Math.abs(Math.sin(p.y * 14)) * 0.05;
+    return tower + gridRibs;
+  },
 
-const prefersReducedMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
-const RISO_RAMP = '  ·:░▒▓█';
+  // 04: Analog Archetype Hexagonal Seal
+  p => {
+    const qx = Math.abs(p.x), qy = Math.abs(p.y), qz = Math.abs(p.z);
+    const hex = Math.max(qx * 0.866 + qy * 0.5, qy) - 0.85;
+    const slab = Math.max(hex, qz - 0.2);
+    return slab - 0.04;
+  },
 
-function renderLoop(ms) {
-  T = ms / 1000;
-  curPos += (targetPos - curPos) * (prefersReducedMotion ? 1 : 0.08);
+  // 05: Chilled Cold Can (Cylinder with beveled rim)
+  p => {
+    const can = sdCylinder(p, 0.85, 0.46) - 0.03;
+    const rim = Math.abs(p.y) > 0.82 ? 0.04 : 0;
+    return can + rim;
+  },
 
-  const idx = Math.min(totalSecs - 2, Math.floor(curPos));
-  const frac = smoothStep(Math.max(0, Math.min(1, curPos - idx)));
-  const shapeA = SHAPES[idx] || SHAPES[0];
-  const shapeB = SHAPES[idx + 1] || SHAPES[0];
+  // 06: Pause Bars (|| Roman Numeral II)
+  p => {
+    const barL = sdBox({ x: p.x + 0.38, y: p.y, z: p.z }, { x: 0.14, y: 0.95, z: 0.25 }) - 0.03;
+    const barR = sdBox({ x: p.x - 0.38, y: p.y, z: p.z }, { x: 0.14, y: 0.95, z: 0.25 }) - 0.03;
+    return Math.min(barL, barR);
+  },
 
-  let output = '';
+  // 07: Shielded Device Enclosure
+  p => {
+    const body = sdBox(p, { x: 0.52, y: 0.98, z: 0.14 }) - 0.06;
+    const screenCut = sdBox({ x: p.x, y: p.y, z: p.z - 0.1 }, { x: 0.42, y: 0.82, z: 0.06 });
+    return Math.max(body, -screenCut);
+  },
+
+  // 08: Time-Block Dial (Chronometer arc)
+  p => {
+    const d = Math.hypot(p.x, p.y);
+    const ring = Math.max(Math.abs(d - 0.78) - 0.14, Math.abs(p.z) - 0.16);
+    const angle = Math.atan2(p.y, p.x);
+    const cut = (angle > -0.8 && angle < 1.6) ? -0.2 : 0.4;
+    return Math.max(ring, cut) - 0.03;
+  },
+
+  // 09: Saturation Gauge Dial
+  p => {
+    const arc = Math.max(Math.abs(Math.hypot(p.x, p.y + 0.3) - 0.82) - 0.12, Math.abs(p.z) - 0.15);
+    const needle = sdBox({ x: p.x + p.y * 0.4, y: p.y + 0.1, z: p.z }, { x: 0.06, y: 0.65, z: 0.2 });
+    return Math.min(arc, needle);
+  },
+
+  // 10: Severed Terminal / Broken Circuit
+  p => {
+    const ring = sdTorus(p, 0.8, 0.18);
+    const sever = sdBox({ x: p.x - 0.5, y: p.y, z: p.z }, { x: 0.3, y: 0.4, z: 0.5 });
+    return Math.max(ring, -sever);
+  },
+
+  // 11: Conclusion Monogram Stamp Block
+  p => {
+    const outer = sdBox(p, { x: 0.88, y: 0.88, z: 0.22 }) - 0.05;
+    const inner = sdBox(p, { x: 0.55, y: 0.55, z: 0.3 });
+    return Math.max(outer, -inner);
+  }
+];
+
+// ASCII Shading Ramp (Strictly authentic high-definition riso character ramp)
+const ASCII_RAMP = "  ·:-=+*#%@█";
+const prefersReduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+let time = 0;
+
+function raymarchFrame(timestamp) {
+  time = timestamp / 1000;
+  currentScroll += (targetScroll - currentScroll) * (prefersReduced ? 1 : 0.08);
+
+  const baseIdx = Math.min(totalPlates - 2, Math.floor(currentScroll));
+  const frac = currentScroll - baseIdx;
+  // Smooth hermite interpolation for fluid liquid-metallic morphing
+  const morphFrac = frac * frac * (3 - 2 * frac);
+
+  const shapeA = SDF_SHAPES[baseIdx] || SDF_SHAPES[0];
+  const shapeB = SDF_SHAPES[baseIdx + 1] || SDF_SHAPES[0];
+
+  // 3D Rotation angles: gentle continuous spin + mouse reaction + scroll rotation
+  const rotY = (prefersReduced ? 0 : time * 0.4) + currentScroll * 0.65 + mouseX * 0.5;
+  const rotX = 0.28 + (prefersReduced ? 0 : Math.sin(time * 0.5) * 0.15) + mouseY * 0.4;
+
+  const cosY = Math.cos(rotY), sinY = Math.sin(rotY);
+  const cosX = Math.cos(rotX), sinX = Math.sin(rotX);
+
+  // Light vector (upper left key light)
+  const lx = 0.577, ly = 0.577, lz = -0.577;
+
+  let buffer = '';
+
   for (let r = 0; r < ROWS; r++) {
     for (let c = 0; c < COLS; c++) {
-      const u = (c - COLS / 2 + 0.5) / (COLS / 3.4);
-      const v = (r - ROWS / 2 + 0.5) / (ROWS / 2.2);
+      // Screen space coords (-1 to 1) with aspect ratio correction
+      const u = (c - COLS / 2 + 0.5) / (COLS / 2.3);
+      const v = (r - ROWS / 2 + 0.5) / (ROWS / 1.6);
 
-      const distA = shapeA(u, v);
-      const distB = shapeB(u, v);
-      const dist = distA * (1 - frac) + distB * frac;
+      // Ray origin & direction
+      let roX = 0, roY = 0, roZ = -2.6;
+      let rdX = u, rdY = v, rdZ = 1.8;
+      const invLen = 1 / Math.hypot(rdX, rdY, rdZ);
+      rdX *= invLen; rdY *= invLen; rdZ *= invLen;
 
-      if (dist < 0.55) {
-        // 85-LPI Halftone screen simulation with 30° angle
-        const angle = Math.PI / 6;
-        const rotX = c * Math.cos(angle) - r * Math.sin(angle);
-        const rotY = c * Math.sin(angle) + r * Math.cos(angle);
-        const dot = (Math.sin(rotX * 1.8) + Math.cos(rotY * 1.8)) * 0.5;
-        const val = Math.max(0, Math.min(RISO_RAMP.length - 1, Math.floor((1 - dist) * 5 + dot)));
-        output += RISO_RAMP[val];
+      // Raymarching loop (16 steps)
+      let t = 0;
+      let hit = false;
+      let d = 0;
+
+      for (let s = 0; s < 16; s++) {
+        const px = roX + rdX * t;
+        const py = roY + rdY * t;
+        const pz = roZ + rdZ * t;
+
+        // Apply inverse 3D rotation to point
+        // Rotate around Y
+        const yx = px * cosY + pz * sinY;
+        const yz = -px * sinY + pz * cosY;
+        // Rotate around X
+        const xy = py * cosX - yz * sinX;
+        const xz = py * sinX + yz * cosX;
+
+        const rotatedPoint = { x: yx, y: xy, z: xz };
+
+        // Morph between shape A and shape B
+        const distA = shapeA(rotatedPoint);
+        const distB = shapeB(rotatedPoint);
+        d = distA * (1 - morphFrac) + distB * morphFrac;
+
+        if (d < 0.015) {
+          hit = true;
+          break;
+        }
+        t += Math.max(d, 0.05);
+        if (t > 4.5) break;
+      }
+
+      if (hit) {
+        // Calculate surface normal via gradient approximation
+        const eps = 0.02;
+        const sampleDist = pt => {
+          const yx = pt.x * cosY + pt.z * sinY;
+          const yz = -pt.x * sinY + pt.z * cosY;
+          const xy = pt.y * cosX - yz * sinX;
+          const xz = pt.y * sinX + yz * cosX;
+          const p = { x: yx, y: xy, z: xz };
+          return shapeA(p) * (1 - morphFrac) + shapeB(p) * morphFrac;
+        };
+
+        const pt = { x: roX + rdX * t, y: roY + rdY * t, z: roZ + rdZ * t };
+        const nx = sampleDist({ x: pt.x + eps, y: pt.y, z: pt.z }) - sampleDist({ x: pt.x - eps, y: pt.y, z: pt.z });
+        const ny = sampleDist({ x: pt.x, y: pt.y + eps, z: pt.z }) - sampleDist({ x: pt.x, y: pt.y - eps, z: pt.z });
+        const nz = sampleDist({ x: pt.x, y: pt.y, z: pt.z + eps }) - sampleDist({ x: pt.x, y: pt.y, z: pt.z - eps });
+        const nLen = 1 / (Math.hypot(nx, ny, nz) || 1);
+
+        // Diffuse Lambertian reflection + specular bounce
+        const diff = Math.max(0, (nx * nLen * lx + ny * nLen * ly + nz * nLen * lz));
+        const spec = Math.pow(Math.max(0, -(rdX * lx + rdY * ly + rdZ * lz)), 8) * 0.35;
+        const light = diff * 0.8 + spec + 0.15;
+
+        const charIdx = Math.max(1, Math.min(ASCII_RAMP.length - 1, Math.floor(light * (ASCII_RAMP.length - 1))));
+        buffer += ASCII_RAMP[charIdx];
       } else {
-        // Subtle analog background register marks
-        const isGridLine = (c % 16 === 0 && r % 8 === 0);
-        output += isGridLine ? '+' : ' ';
+        // Subtle ambient riso coordinate grid in background
+        const isTick = (c % 16 === 0 && r % 8 === 0);
+        buffer += isTick ? '+' : ' ';
       }
     }
-    output += '\n';
+    buffer += '\n';
   }
 
-  pre.textContent = output;
+  asciiCanvas.textContent = buffer;
 
-  const currentStep = Math.round(curPos);
-  stepName.textContent = STEP_TITLES[currentStep] || STEP_TITLES[0];
-  const n = Math.max(0, Math.min(10, currentStep));
-  pr.textContent = `PLATE ${String(n).padStart(2, '0')}/10`;
+  // Telemetry updates
+  const activeIndex = Math.min(totalPlates - 1, Math.round(currentScroll));
+  telemetryPlate.textContent = SHAPE_NAMES[activeIndex] || SHAPE_NAMES[0];
 
-  requestAnimationFrame(renderLoop);
+  const pct = Math.round((currentScroll / (totalPlates - 1)) * 100);
+  const filledBars = Math.floor(pct / 10);
+  telemetryBar.textContent = `[${'█'.repeat(filledBars)}${'░'.repeat(10 - filledBars)}] ${pct}%`;
+
+  requestAnimationFrame(raymarchFrame);
 }
-requestAnimationFrame(renderLoop);
+requestAnimationFrame(raymarchFrame);
 </script>
 </body>
 </html>
